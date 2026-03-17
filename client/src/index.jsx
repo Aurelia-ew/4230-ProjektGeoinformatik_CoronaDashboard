@@ -1,24 +1,30 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import OpenlayersPage from "./pages/openlayers/OpenlayersPage.jsx";
-import { HashRouter, Navigate, Route, Routes } from "react-router";
-import Header from "./Header.jsx";
-import MaplibrePage from "./pages/maplibre/MaplibrePage.jsx";
-import SpatialAnalysisPage from "./pages/spatialanalysis/SpatialAnalysisPage.jsx";
-import GeoTIFFPage from "./pages/geotiff/GeoTIFFPage.jsx";
+
+import Header from "./components/Header/Header_display.jsx";
+import Footer from "./components/Footer/Footer_display.jsx";
+import Map from "./components/Map/Map_display.jsx";
+import Sidebar from "./components/Sidebar/Sidebar_display.jsx";
+
+function CoronaDashboard(){
+  return (
+    <> 
+      <Header /> 
+      <main className="main"> 
+        <div className="map">
+          <Map/> 
+        </div>
+        <div className="sidebar">
+          <Sidebar/>
+        </div>
+      </main>
+      <Footer/>
+  </>
+  );
+}
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <HashRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Navigate to="/openlayers" replace />} />
-        <Route path="openlayers" element={<OpenlayersPage />} />
-        <Route path="maplibre" element={<MaplibrePage />} />
-        <Route path="spatialanalysis" element={<SpatialAnalysisPage />} />
-        <Route path="geotiff" element={<GeoTIFFPage />} />
-      </Routes>
-    </HashRouter>
-  </StrictMode>
-);
+  <StrictMode> 
+    <CoronaDashboard/>
+  </StrictMode>);
