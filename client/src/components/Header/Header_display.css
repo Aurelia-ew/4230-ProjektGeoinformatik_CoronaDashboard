@@ -1,0 +1,17 @@
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: lightcyan;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1900px;
+  border: 1px solid grey;
+}
+
+#Buttons {
+  margin-left:auto;
+  display: flex;
+  gap: 10px;
+}

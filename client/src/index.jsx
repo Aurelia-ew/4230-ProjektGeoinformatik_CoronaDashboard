@@ -8,6 +8,7 @@ import Map from "./components/Map/Map_display.jsx";
 import Sidebar from "./components/Sidebar/Sidebar_display.jsx";
 
 function CoronaDashboard(){
+
   return (
     <> 
       <Header /> 
