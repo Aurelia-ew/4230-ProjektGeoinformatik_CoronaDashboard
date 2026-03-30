@@ -3,10 +3,15 @@ import InfoIcon from "@mui/icons-material/Info";
 import HomeIcon from "@mui/icons-material/Home";
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Stack from '@mui/material/Stack';
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+
 
 import "./Header_display.css";
 
-function Header() {
+function Header({thema, setThema}) { 
 
   return (
     <header>
@@ -16,6 +21,16 @@ function Header() {
         <IconButton aria-label='home'>
           <HomeIcon fontSize='large'/>
         </IconButton>
+
+        <FormControl size="small" sx={{minWidth: 250}}>
+          <InputLabel id="thema-label">Thema</InputLabel>
+          <Select label="Thema" value={thema} onChange={(e) => setThema(e.target.value)}>
+            <MenuItem value="Ansteckungen"> Ansteckungen </MenuItem>
+            <MenuItem value="Taegliche_Neuansteckungen"> Tägliche Neuansteckungen </MenuItem>
+            <MenuItem value="Todesfaelle"> Todesfälle </MenuItem>
+            <MenuItem value="Hospitalisierungen"> Hospitalisierungen </MenuItem>
+          </Select>
+        </FormControl>
         
         <IconButton aria-label="filter">
           <FilterListIcon fontSize="large"/>

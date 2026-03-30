@@ -3,11 +3,18 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
+import { VegaEmbed } from "react-vega";
+import Faelle_Be from "../Diagramm/Faelle_BE.json";
+import Hosp_Be from "../Diagramm/Hosp_BE.json"
+
 import "./Sidebar_display.css";
 
-function Sidebar() {
+function Sidebar({thema}) {
+  const specs = {Ansteckungen: Faelle_Be, Hospitalisierungen: Hosp_Be}
+  const aktuelleSpec = specs[thema] || Faelle_Be;
+
   return (
-    <sidebar>
+    <aside>
       <Card sx={{ minWidth: 300 }}>
         <CardContent>
           <Typography
@@ -37,8 +44,10 @@ function Sidebar() {
           </Typography>
         </CardContent>
       </Card>
-      <Box />
-    </sidebar>
+      <div className="chart">
+        <VegaEmbed spec={aktuelleSpec} options={{actions:false}} style={{ width: "100%"}}/>
+      </div>
+    </aside>
   );
 }
 

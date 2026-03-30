@@ -10,7 +10,7 @@ body {
   max-width: 1900px;
   min-height: 100vh;
   margin: 0 auto;
-  min-height: 100hv;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -22,17 +22,21 @@ code {
 .main {
   display: flex;
   width: 100%;
+  flex: 1;
+  min-height: 0;
   /* background-color: grey; */
 }
 
 .map {
+  display: flex;
   flex: 3;
+  flex-direction: column;
+  height: 100%;
   background-color: lightblue;
   border: 1px solid grey;
 }
-
 .sidebar {
-  flex: 1;
+  flex: 2;
   background-color: lightgray;
   border: 1px solid grey;
 }

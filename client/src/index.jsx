@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 
@@ -8,16 +8,21 @@ import Map from "./components/Map/Map_display.jsx";
 import Sidebar from "./components/Sidebar/Sidebar_display.jsx";
 
 function CoronaDashboard(){
+  const[thema, setThema] = useState("Ansteckungen")
+  const[kanton, setKanton] = useState("")
 
   return (
     <> 
-      <Header /> 
+      <Header 
+      thema={thema}
+      setThema={setThema}/> 
       <main className="main"> 
         <div className="map">
           <Map/> 
         </div>
         <div className="sidebar">
-          <Sidebar/>
+          <Sidebar
+          thema={thema}/>
         </div>
       </main>
       <Footer/>
