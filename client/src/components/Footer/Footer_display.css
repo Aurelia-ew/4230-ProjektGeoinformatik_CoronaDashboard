@@ -12,13 +12,31 @@ footer {
 
 .footer-content {
   width: 100%;
+  display: flex;
+  flex-direction: column;
   text-align: left;
 }
 
-.slider-box{
-    display: flex;
-    align-items: center;
-    gap: 20px;
+h3 {
+  margin:0;
 }
 
+h4 {
+  margin-bottom: 5px;
+}
+
+.info-box{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.info-text{
+  width: 300px;
+}
+.slider-box{
+  margin-top: 10px;  
+  display: flex;
+  align-items: center;
+}
 .slider {width: 99%;}
