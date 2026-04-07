@@ -14,6 +14,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import Tooltip from '@mui/material/Tooltip';
 
 
 import "./Header_display.css";
@@ -28,31 +29,41 @@ function Header({thema, setThema, info, setInfo}) {
       </div>
 
       <Stack className="Buttons" direction="row" spacing={1}>
-        <IconButton aria-label='home' onClick={() => window.location.reload()}>
-          <HomeIcon fontSize='large'/>
-        </IconButton>
+        <Tooltip title="Zurück zum Statbildschirm" arrow>
+          <IconButton aria-label='home' onClick={() => window.location.reload()}>
+            <HomeIcon fontSize='large'/>
+          </IconButton>
+        </Tooltip>
 
-        <FormControl size="small" sx={{minWidth: 250}}>
-          <InputLabel id="thema-label">Thema</InputLabel>
-          <Select label="Thema" value={thema} onChange={(e) => setThema(e.target.value)}>
-            <MenuItem value="Ansteckungen"> Ansteckungen </MenuItem>
-            <MenuItem value="Taegliche_Neuansteckungen"> Tägliche Neuansteckungen </MenuItem>
-            <MenuItem value="Todesfaelle"> Todesfälle </MenuItem>
-            <MenuItem value="Hospitalisierungen"> Hospitalisierungen </MenuItem>
-          </Select>
-        </FormControl>
+        <Tooltip title="Thema auswählen" arrow>
+          <FormControl size="small" sx={{minWidth: 250}}>
+            <InputLabel id="thema-label">Thema</InputLabel>
+            <Select label="Thema" value={thema} onChange={(e) => setThema(e.target.value)}>
+              <MenuItem value="Ansteckungen"> Ansteckungen </MenuItem>
+              <MenuItem value="Taegliche_Neuansteckungen"> Tägliche Neuansteckungen </MenuItem>
+              <MenuItem value="Todesfaelle"> Todesfälle </MenuItem>
+              <MenuItem value="Hospitalisierungen"> Hospitalisierungen </MenuItem>
+            </Select>
+          </FormControl>
+        </Tooltip>
         
-        <IconButton aria-label="filter">
-          <FilterAltOutlinedIcon fontSize="large"/>
-        </IconButton>
+        <Tooltip title="Kanton auswählen" arrow>
+          <IconButton aria-label="filter">
+            <FilterAltOutlinedIcon fontSize="large"/>
+          </IconButton>
+        </Tooltip>
 
-        <IconButton aria-label="calendar">
-          <CalendarMonthIcon fontSize="large"/>
-        </IconButton>
+        <Tooltip title="Datum auswählen" arrow>
+          <IconButton aria-label="calendar">
+            <CalendarMonthIcon fontSize="large"/>
+          </IconButton>
+        </Tooltip>
         
-        <IconButton aria-label="info" onClick={() => setInfo(true)}>
-          <InfoIcon fontSize="large"/>
-        </IconButton>
+        <Tooltip title="Infos zur Webseite" arrow>
+          <IconButton aria-label="info" onClick={() => setInfo(true)}>
+            <InfoIcon fontSize="large"/>
+          </IconButton>
+        </Tooltip>
 
         <Dialog open={info} onClose={() => setInfo(false)}>
           <DialogTitle>
