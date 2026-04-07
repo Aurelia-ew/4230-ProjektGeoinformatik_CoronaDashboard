@@ -9,6 +9,11 @@ import Fill from 'ol/style/Fill.js';
 import Stroke from 'ol/style/Stroke.js';
 import Style from 'ol/style/Style.js';
 
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+
 import "./Map_display.css";
 
 function MapDisplay() {
@@ -58,7 +63,52 @@ function MapDisplay() {
     };
   }, []);
 
-  return <div ref={mapRef} className="map-container"></div>;
+  // Infos Schweiz Box
+    const cards = [
+      {
+        id: 1,
+        title: 'Totale Anschteckungen:',
+        description: 'Wert',
+      },
+      {
+        id: 2,
+        title: 'Tägliche Neuansteckungen:',
+        description: 'Wert',
+      },
+      {
+        id: 3,
+        title: 'Totale Todesfälle:',
+        description: 'Wert',
+      },
+      {
+        id: 4,
+        title: 'Totale Hospitalisierungen:',
+        description: 'Wert',
+      },
+    ];
+
+  return (
+    <div>
+      <div className="info">
+        <h4>Informationen zur Schweiz:</h4>
+        <Box className="info-box">
+          {cards.map((card) => (
+            <Card key={card.id}>
+              <CardContent className="info-text">
+                <Typography variant="inherit" fontSize={16}>
+                  {card.title}
+                </Typography>
+                <Typography variant="Subtitle1" color="black" fontSize={16}>
+                  {card.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Box>
+      </div>
+      <div ref={mapRef} className="map-container"></div>
+    </div>
+    );
 }
 
 export default MapDisplay;

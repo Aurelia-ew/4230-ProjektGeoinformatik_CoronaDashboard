@@ -7,35 +7,10 @@ import PauseIcon from "@mui/icons-material/Pause";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import CardActionArea from '@mui/material/CardActionArea';
 
 import "./Footer_display.css";
 
 function Footer() {
-  // Infos Schweiz Box
-  const cards = [
-    {
-      id: 1,
-      title: 'Totale Anschteckungen:',
-      description: 'Wert',
-    },
-    {
-      id: 2,
-      title: 'Tägliche Neuansteckungen:',
-      description: 'Wert',
-    },
-    {
-      id: 3,
-      title: 'Totale Todesfälle:',
-      description: 'Wert',
-    },
-    {
-      id: 4,
-      title: 'Totale Hospitalisierungen:',
-      description: 'Wert',
-    },
-  ];
-
   // Slider
   const [value, setValue] = React.useState(0);
   const [playing, setPlaying] = React.useState(false);
@@ -64,25 +39,7 @@ function Footer() {
     <footer >
       <div className="footer-content">
         <h3>Datum: </h3>
-        
-        <div className="info">
-          <h4>Infos zur Schweiz:</h4>
-          <Box className="info-box">
-            {cards.map((card) => (
-              <Card key={card.id}>
-                <CardContent className="info-text">
-                  <Typography variant="inherit">
-                    {card.title}
-                  </Typography>
-                  <Typography variant="Subtitle1" color="black">
-                    {card.description}
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
-        </div>
-        
+  
         <div className="slider-box">
           <IconButton onClick={() => setPlaying(!playing)}>
             {playing ? <PauseIcon fontSize="medium"/> : <PlayArrowIcon fontSize="medium"/>}

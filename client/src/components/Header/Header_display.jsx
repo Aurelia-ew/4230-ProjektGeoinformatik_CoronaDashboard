@@ -1,24 +1,34 @@
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from "@mui/icons-material/Info";
 import HomeIcon from "@mui/icons-material/Home";
-import FilterListIcon from '@mui/icons-material/FilterList';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import Stack from '@mui/material/Stack';
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 
 import "./Header_display.css";
 
-function Header({thema, setThema}) { 
+function Header({thema, setThema, info, setInfo}) { 
 
   return (
     <header>
-      <h1>Corona Dashboard</h1>
+      <div className='Titel'>
+        <h1>Corona Dashboard</h1>
+        <h2> Thema:</h2>
+      </div>
 
       <Stack className="Buttons" direction="row" spacing={1}>
-        <IconButton aria-label='home'>
+        <IconButton aria-label='home' onClick={() => window.location.reload()}>
           <HomeIcon fontSize='large'/>
         </IconButton>
 
@@ -33,12 +43,42 @@ function Header({thema, setThema}) {
         </FormControl>
         
         <IconButton aria-label="filter">
-          <FilterListIcon fontSize="large"/>
+          <FilterAltOutlinedIcon fontSize="large"/>
+        </IconButton>
+
+        <IconButton aria-label="calendar">
+          <CalendarMonthIcon fontSize="large"/>
         </IconButton>
         
-        <IconButton aria-label="info">
+        <IconButton aria-label="info" onClick={() => setInfo(true)}>
           <InfoIcon fontSize="large"/>
         </IconButton>
+
+        <Dialog open={info} onClose={() => setInfo(false)}>
+          <DialogTitle>
+            <h3>Informationen zur Webseite</h3>
+          </DialogTitle>
+          <DialogContent>
+            <Typography>
+              Autorinnen: Aurelia Weickgenannt und Pascal Schmid
+              <br />
+              <br />
+              Fokusfrage: 
+              <br />
+              <br />
+              Weitere Informationen siehe README.md file.
+              <br />
+              <br />
+              Datenquelle Gesamtdatensatz: 
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained" onClick={() => setInfo(false)}>
+              Schliessen
+            </Button>
+          </DialogActions>
+        </Dialog>
+        
       </Stack>
     </header>
   );

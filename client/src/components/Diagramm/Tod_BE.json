@@ -6129,21 +6129,20 @@
       "type": "temporal"
     },
     "y": {
-      "field": "ncumul_conf",
+      "field": "ncumul_deceased",
       "scale": {
         "domain": [
           0,
-          400000
+          2000
         ]
       },
-      "title": "Ansteckungen",
+      "title": "Todesf\u00e4lle",
       "type": "quantitative"
     }
   },
   "height": 400,
   "mark": {
-    "color": "red",
-    "strokeWidth": 2,
+    "color": "blue",
     "type": "line"
   },
   "width": "container"

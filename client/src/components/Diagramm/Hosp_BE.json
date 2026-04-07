@@ -6140,8 +6140,9 @@
       "type": "quantitative"
     }
   },
-  "height": 300,
+  "height": 400,
   "mark": {
+    "color": "green",
     "type": "line"
   },
   "width": "container"

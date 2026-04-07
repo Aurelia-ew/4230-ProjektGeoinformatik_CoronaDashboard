@@ -10,12 +10,15 @@ import Sidebar from "./components/Sidebar/Sidebar_display.jsx";
 function CoronaDashboard(){
   const[thema, setThema] = useState("Ansteckungen")
   const[kanton, setKanton] = useState("")
+  const [info, setInfo] = useState(false);
 
   return (
     <> 
       <Header 
       thema={thema}
-      setThema={setThema}/> 
+      setThema={setThema}
+      info = {info}
+      setInfo={setInfo}/> 
       <main className="main"> 
         <div className="map">
           <Map/> 
