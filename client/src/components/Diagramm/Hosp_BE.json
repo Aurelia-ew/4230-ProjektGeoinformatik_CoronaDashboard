@@ -6104,10 +6104,7 @@
   "encoding": {
     "x": {
       "axis": {
-        "format": "%d.%m.%y",
-        "labelAngle": -50,
-        "labelFontSize": 10,
-        "labelOverlap": false,
+        "labels": false,
         "title": "Datum",
         "values": [
           "2020-02-25",
@@ -6143,6 +6140,7 @@
   "height": 400,
   "mark": {
     "color": "green",
+    "strokeWidth": 2,
     "type": "line"
   },
   "width": "container"

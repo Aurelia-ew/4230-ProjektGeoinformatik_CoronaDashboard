@@ -9,6 +9,7 @@ import Hosp_Be from "../Diagramm/Hosp_BE.json"
 import Tod_Be from "../Diagramm/Tod_BE.json"
 
 import "./Sidebar_display.css";
+import { None } from "vega";
 
 function Sidebar({thema}) {
   const specs = {Ansteckungen: Faelle_Be, Hospitalisierungen: Hosp_Be, Todesfaelle: Tod_Be};
@@ -16,7 +17,7 @@ function Sidebar({thema}) {
 
   return (
     <aside>
-      <Card sx={{ minWidth: 300 }} className="card">
+      <Card sx={{ minWidth: 300, boxShadow: None}} className="card">
         <CardContent>
           <Typography
             sx={{ color: "text.primary", fontSize: 18, fontWeight: "bold" }}>
@@ -46,11 +47,13 @@ function Sidebar({thema}) {
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
             Massnahmen die der Kanton getroffen hat:
           </Typography>
+
         </CardContent>
-        <div className="chart">
-        <VegaEmbed spec={aktuelleSpec} options={{actions:false}} style={{ width: "100%"}}/>
-      </div>
       </Card>
+        <div className="chart">
+          <VegaEmbed spec={aktuelleSpec} options={{actions:false}} style={{ width: "100%"}}/>
+        </div>
+      
     </aside>
   );
 }

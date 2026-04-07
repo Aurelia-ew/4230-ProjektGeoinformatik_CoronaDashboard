@@ -6106,7 +6106,7 @@
       "axis": {
         "format": "%d.%m.%y",
         "labelAngle": -50,
-        "labelFontSize": 10,
+        "labelFontSize": 0,
         "labelOverlap": false,
         "title": "Datum",
         "values": [
@@ -6143,6 +6143,7 @@
   "height": 400,
   "mark": {
     "color": "blue",
+    "strokeWidth": 2,
     "type": "line"
   },
   "width": "container"
