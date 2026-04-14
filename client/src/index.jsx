@@ -1,4 +1,4 @@
-import { StrictMode, useState } from "react";
+import React, {StrictMode, useState, useEffect} from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 
@@ -10,10 +10,23 @@ import Sidebar from "./components/Sidebar/Sidebar_display.jsx";
 function CoronaDashboard(){
   const[thema, setThema] = useState("Ansteckungen")
   const[kanton, setKanton] = useState("")
-  const [info, setInfo] = useState(false);
+  const[info, setInfo] = useState(false);
 
+  const[value, setValue] = useState(0);
+  const[playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    if (!playing) return;
+    const interval = setInterval(() => {
+        setValue((prev) => {
+          if (prev >= 1556) return 0; 
+          return prev + 1;
+        });
+      }, 200);
+      return() => clearInterval(interval);}, [playing])
+  
   return (
-    <> 
+    <div className="app-container"> 
       <Header 
       thema={thema}
       setThema={setThema}
@@ -25,11 +38,16 @@ function CoronaDashboard(){
         </div>
         <div className="sidebar">
           <Sidebar
-          thema={thema}/>
+          thema={thema}
+          value={value}/>
         </div>
       </main>
-      <Footer/>
-  </>
+      <Footer
+      value={value}
+      setValue={setValue}
+      playing={playing}
+      setPlaying={setPlaying}/>  
+  </div>
   );
 }
 
