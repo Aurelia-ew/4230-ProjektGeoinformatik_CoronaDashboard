@@ -11,7 +11,7 @@ import Tod_Be from "../Diagramm/Tod_BE.json"
 import "./Sidebar_display.css";
 import { None } from "vega";
 
-function Sidebar({thema}) {
+function Sidebar({thema, value}) {
   const specs = {Ansteckungen: Faelle_Be, Hospitalisierungen: Hosp_Be, Todesfaelle: Tod_Be};
   const aktuelleSpec = specs[thema] || Faelle_Be;
 
@@ -50,6 +50,7 @@ function Sidebar({thema}) {
 
         </CardContent>
       </Card>
+        
         <div className="chart">
           <VegaEmbed spec={aktuelleSpec} options={{actions:false}} style={{ width: "100%"}}/>
         </div>
