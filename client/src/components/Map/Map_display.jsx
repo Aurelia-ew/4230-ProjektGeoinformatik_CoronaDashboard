@@ -1,21 +1,23 @@
-import {useEffect, useRef} from "react";
+import { useEffect, useRef, useState } from "react";
 import "ol/ol.css";
-import Map from 'ol/Map.js';
-import View from 'ol/View.js';
-import GeoJSON from 'ol/format/GeoJSON.js';
-import VectorLayer from 'ol/layer/Vector.js';
-import VectorSource from 'ol/source/Vector.js';
-import Fill from 'ol/style/Fill.js';
-import Stroke from 'ol/style/Stroke.js';
-import Style from 'ol/style/Style.js';
+import Map from "ol/Map.js";
+import View from "ol/View.js";
+import TileLayer from "ol/layer/Tile.js";
+import TileWMS from "ol/source/TileWMS.js";
+import GeoJSON from "ol/format/GeoJSON.js";
+import VectorLayer from "ol/layer/Vector.js";
+import VectorSource from "ol/source/Vector.js";
+import Fill from "ol/style/Fill.js";
+import Stroke from "ol/style/Stroke.js";
+import Style from "ol/style/Style.js";
+import Select from "ol/interaction/Select.js";
+import { click } from "ol/events/condition.js";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-import TileLayer from "ol/layer/Tile.js";
-import TileWMS from "ol/source/TileWMS.js"
 import proj4 from "proj4";
 import { register } from "ol/proj/proj4.js";
 
@@ -23,8 +25,13 @@ import "./Map_display.css";
 
 function MapDisplay() {
   const mapRef = useRef(null);
+  const olMapRef = useRef(null);
+  const [featureLayer, setFeatureLayer] = useState(null);
+  const [selectInteraction, setSelectInteraction] = useState(null);
+  const [selectedFeatureId, setSelectedFeatureId] = useState();
 
   useEffect(() => {
+    if (olMapRef.current) return;
 
     proj4.defs(
       "EPSG:2056",
@@ -32,45 +39,117 @@ function MapDisplay() {
     );
     register(proj4);
 
-    const wmsLayer = new TileLayer({
-      source: new TileWMS({
-        url: "http://localhost:8080/geoserver/CoronaDashboard/wms",
-        params: {
-          LAYERS: "CoronaDashboard:kantonsflaechen",
-          TILED: true,
-        },
-        serverType: "geoserver",
-        crossOrigin: "anonymous"
-      }),
-    })
+    const wmsSource = new TileWMS({
+      url: "http://localhost:8080/geoserver/CoronaDashboard/wms",
+      params: {
+        LAYERS: "CoronaDashboard:kantonsflaechen",
+        TILED: true,
+      },
+      serverType: "geoserver",
+      crossOrigin: "anonymous",
+    });
 
-    const map = new Map({
-      target: mapRef.current,
-      layers: [wmsLayer],
-      view: new View({
-        projection: "EPSG:2056",
-        center:[2659632, 1191208], 
-        zoom: 1
+    const wmsLayer = new TileLayer({
+      source: wmsSource,
+    });
+
+    const kantonSource = new VectorSource({
+      format: new GeoJSON(),
+      url:
+        "http://localhost:8080/geoserver/CoronaDashboard/ows?" +
+        "service=WFS&version=1.0.0&request=GetFeature&typeName=CoronaDashboard:kantonsflaechen" +
+        "&outputFormat=application/json&srsname=EPSG:2056",
+    });
+
+    const kantonLayer = new VectorLayer({
+      source: kantonSource,
+      style: new Style({
+        fill: new Fill({
+          color: "rgba(255, 255, 255, 0.01)",
+        }),
+        stroke: new Stroke({
+          color: "rgba(0, 0, 0, 0)",
+          width: 1,
+        }),
       }),
     });
 
-    map.getView().fit(
-      [2485410.0, 1075268.125, 2833857.75, 1295933.75],
-      {padding: [20, 20, 20, 20],}
-    );
+    const map = new Map({
+      target: mapRef.current,
+      layers: [wmsLayer, kantonLayer],
+      view: new View({
+        projection: "EPSG:2056",
+        center: [2659632, 1191208],
+        zoom: 8.8,
+      }),
+    });
+
+    olMapRef.current = map;
+    setFeatureLayer(kantonLayer);
+
+    const kantonSelectInteraction = new Select({
+      condition: click,
+      layers: [kantonLayer],
+      style: () =>
+        new Style({
+          fill: new Fill({
+            color: "rgba(255, 102, 0, 0.2)",
+          }),
+          stroke: new Stroke({
+            color: "#ff6600",
+            width: 3,
+          }),
+        }),
+    });
+
+    kantonSelectInteraction.on("select", (event) => {
+      if (event.selected.length) {
+        const selectedFeature = event.selected[0];
+        setSelectedFeatureId(selectedFeature.getId());
+      } else {
+        setSelectedFeatureId(undefined);
+      }
+    });
+
+    map.addInteraction(kantonSelectInteraction);
+    setSelectInteraction(kantonSelectInteraction);
 
     return () => {
+      map.removeInteraction(kantonSelectInteraction);
       map.setTarget(null);
+      olMapRef.current = null;
     };
   }, []);
 
+  useEffect(() => {
+    if (!selectInteraction || !featureLayer || !olMapRef.current) {
+      return;
+    }
+
+    selectInteraction.getFeatures().clear();
+
+    const selectedFeature = featureLayer
+      .getSource()
+      .getFeatures()
+      .find((feature) => feature.getId() === selectedFeatureId);
+
+    if (selectedFeature) {
+      selectInteraction.getFeatures().push(selectedFeature);
+      olMapRef.current.getView().fit(selectedFeature.getGeometry(), {
+        padding: [60, 60, 60, 60],
+        duration: 600,
+        maxZoom: 10,
+      });
+    }
+  }, [featureLayer, selectInteraction, selectedFeatureId]);
+
   // Infos Schweiz Box
-    const cards = [
-      {id: 1, title: 'Totale Anschteckungen:', description: 'Wert',},
-      {id: 2, title: 'Tägliche Neuansteckungen:', description: 'Wert',},
-      {id: 3, title: 'Totale Todesfälle:', description: 'Wert',},
-      {id: 4, title: 'Totale Hospitalisierungen:', description: 'Wert',},
-    ];
+  const cards = [
+    { id: 1, title: "Totale Anschteckungen:", description: "Wert" },
+    { id: 2, title: "Tägliche Neuansteckungen:", description: "Wert" },
+    { id: 3, title: "Totale Todesfälle:", description: "Wert" },
+    { id: 4, title: "Totale Hospitalisierungen:", description: "Wert" },
+  ];
 
   return (
     <div>
@@ -93,7 +172,7 @@ function MapDisplay() {
       </div>
       <div ref={mapRef} className="map-container"></div>
     </div>
-    );
+  );
 }
 
 export default MapDisplay;
