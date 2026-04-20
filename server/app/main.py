@@ -1,8 +1,6 @@
 from fastapi import FastAPI, HTTPException, status
-from fastapi.responses import HTMLResponse, ORJSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from psycopg2 import pool
-from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -24,49 +22,11 @@ app.add_middleware(
 )
 
 # -----------------------------
-# Root Endpoint
+# Root
 # -----------------------------
 @app.get("/")
 async def root():
-    return {"message": "Hello GDI Project"}
-
-# -----------------------------
-# About Seite
-# -----------------------------
-@app.get("/about/")
-def about():
-    return HTMLResponse(
-    """
-    <html>
-      <head>
-        <title>FAST API Service</title>
-      </head>
-      <body>
-        <div align="center">
-          <h1>Simple FastAPI Server</h1>
-          <p>API Docs: <a href="http://localhost:8000/docs">/docs</a></p> 
-        </div>
-      </body>
-    </html>
-    """
-    )
-
-# -----------------------------
-# Beispiel GeoJSON Endpoint
-# -----------------------------
-@app.get("/points/", response_class=ORJSONResponse)
-async def read_points():
-    return ORJSONResponse({
-        "type": "FeatureCollection",
-        "features": []
-    })
-
-# -----------------------------
-# Test Endpoint
-# -----------------------------
-@app.post("/square")
-def square(some_number: int) -> dict:
-    return {"result": some_number**2}
+    return {"message": "Backend läuft!"}
 
 # -----------------------------
 # Datenbank Verbindung
@@ -76,12 +36,10 @@ DB_PORT = 5432
 DB_NAME = "Corona_DB"
 DB_USER = "postgres"
 DB_PASSWORD = "2307"
-DB_POOL_MIN_CONN = 1
-DB_POOL_MAX_CONN = 10
 
 db_pool = pool.SimpleConnectionPool(
-    DB_POOL_MIN_CONN,
-    DB_POOL_MAX_CONN,
+    1,
+    10,
     host=DB_HOST,
     port=DB_PORT,
     database=DB_NAME,
@@ -90,29 +48,47 @@ db_pool = pool.SimpleConnectionPool(
 )
 
 # -----------------------------
-# Corona Endpoint (WICHTIG)
+# Mapping Funktion
+# -----------------------------
+def get_column(thema: str, is_ch: bool = False):
+
+    if is_ch:
+        # 🔥 SCHWEIZ (mit _CH und Anführungszeichen!)
+        if thema == "Tägliche Neuansteckungen CH":
+            return '"Tägliche Neuansteckungen CH"'
+        elif thema == "Ansteckungen CH":
+            return '"Ansteckungen CH"'
+        elif thema == "Todesfälle CH":
+            return '"Todesfälle CH"'
+        elif thema == "Hospitalisierungen CH":
+            return '"Hospitalisierungen CH"'
+    else:
+        if thema == "Tägliche Neuansteckungen":
+            return '"Tägliche Neuansteckungen"'
+        elif thema == "Ansteckungen":
+            return '"Ansteckungen"'
+        elif thema == "Todesfälle":
+            return '"Todesfälle"'
+        elif thema == "Hospitalisierungen":
+            return '"Hospitalisierungen"'
+
+    raise HTTPException(status_code=400, detail="Ungültiges Thema")
+
+# -----------------------------
+# KANTON ENDPOINT
 # -----------------------------
 @app.get("/corona")
-async def get_corona_data(kanton: str, datum: str, thema: str):
+async def get_corona(kanton: str, datum: str, thema: str):
     conn = None
     try:
         conn = db_pool.getconn()
         cur = conn.cursor()
 
-        # Thema → Spalte mapping
-        if thema == "faelle":
-            column = "neue_faelle"
-        elif thema == "todesfaelle":
-            column = "total_tod"
-        elif thema == "hospitalisiert":
-            column = "aktuelle_hosp"
-        else:
-            raise HTTPException(status_code=400, detail="Ungültiges Thema")
+        column = get_column(thema)
 
-        # SQL Query
         query = f"""
             SELECT date, kantonskuerzel, {column}
-            FROM corona_data
+            FROM public.corona_data
             WHERE kantonskuerzel = %s AND date = %s
         """
 
@@ -125,7 +101,7 @@ async def get_corona_data(kanton: str, datum: str, thema: str):
         return {
             "datum": result[0],
             "kanton": result[1],
-            "wert": result[2]
+            thema: result[2]
         }
 
     except Exception as e:
@@ -133,6 +109,107 @@ async def get_corona_data(kanton: str, datum: str, thema: str):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(e)
         )
+
+    finally:
+        if conn:
+            db_pool.putconn(conn)
+
+# -----------------------------
+# SCHWEIZ ENDPOINT (_CH)
+# -----------------------------
+@app.get("/schweiz")
+async def get_schweiz(datum: str, thema: str):
+    conn = None
+    try:
+        conn = db_pool.getconn()
+        cur = conn.cursor()
+
+        column = get_column(thema, is_ch=True)
+
+        query = f"""
+            SELECT date, {column}
+            FROM public.schweiz
+            WHERE date = %s
+        """
+
+        cur.execute(query, (datum,))
+        result = cur.fetchone()
+
+        if not result:
+            return {"message": "Keine Daten gefunden"}
+
+        return {
+            "datum": result[0],
+            f"{thema}_CH": result[1]
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+    finally:
+        if conn:
+            db_pool.putconn(conn)
+
+# -----------------------------
+# EINWOHNER
+# -----------------------------
+@app.get("/einwohner")
+async def get_einwohner(kanton: str):
+    conn = None
+    try:
+        conn = db_pool.getconn()
+        cur = conn.cursor()
+
+        query = """
+            SELECT kantonskuerzel, einwohner
+            FROM public.kantone_einwohner
+            WHERE kantonskuerzel = %s
+        """
+
+        cur.execute(query, (kanton,))
+        result = cur.fetchone()
+
+        if not result:
+            return {"message": "Keine Daten gefunden"}
+
+        return {
+            "kanton": result[0],
+            "einwohner": result[1]
+        }
+
+    finally:
+        if conn:
+            db_pool.putconn(conn)
+
+# -----------------------------
+# DURCHSCHNITT
+# -----------------------------
+@app.get("/durchschnitt")
+async def get_durchschnitt(kanton: str):
+    conn = None
+    try:
+        conn = db_pool.getconn()
+        cur = conn.cursor()
+
+        query = """
+            SELECT kantonskuerzel, durchschnitt_faelle_pro_tag
+            FROM public.durchschnitt_faelle_kanton
+            WHERE kantonskuerzel = %s
+        """
+
+        cur.execute(query, (kanton,))
+        result = cur.fetchone()
+
+        if not result:
+            return {"message": "Keine Daten gefunden"}
+
+        return {
+            "kanton": result[0],
+            "durchschnitt": result[1]
+        }
 
     finally:
         if conn:
