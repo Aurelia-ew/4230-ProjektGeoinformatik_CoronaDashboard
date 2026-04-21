@@ -80,7 +80,7 @@ function MapDisplay() {
       view: new View({
         projection: "EPSG:2056",
         center: [2659632, 1191208],
-        zoom: 8.8,
+        zoom: 8.5,
       }),
     });
 

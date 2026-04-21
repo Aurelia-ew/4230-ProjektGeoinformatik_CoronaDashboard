@@ -32,23 +32,30 @@ code {
   flex: 3;
   flex-direction: column;
   height: 100%;
+  min-width: 0;
+  min-height: 0;
   background-color: lightblue;
   border: 1px solid grey;
 }
 .sidebar {
+  display: flex;
+  flex-direction: column;
   flex: 2;
+  min-width: 0;
+  min-height: 0;
   background-color: lightgray;
   border: 1px solid grey;
 }
 
 /* für kleinere Bildschirme */
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
   .main {
     flex-direction: column;
   }
 
   .sidebar {
     width: 100%;
+    min-height: 500px;
     border-left: none;
   }
 

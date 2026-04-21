@@ -15,14 +15,29 @@ h4 {
 .info-box{
   width: 100%;
   display: flex;
-  align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
+
 .info-text{
-  width: 250px;
+  flex: 1 1 220px;
+  min-width: 220px;
 }
+
 .slider-box{
   margin-top: 10px;  
   display: flex;
   align-items: center;
+}
+
+@media (max-width: 1100px) {
+  .info-text{
+    flex: 1 1 calc(50% - 10px)
+  }
+}
+
+@media (max-width: 700px) {
+  .info-text{
+    flex: 1 1 100%
+  }
 }
