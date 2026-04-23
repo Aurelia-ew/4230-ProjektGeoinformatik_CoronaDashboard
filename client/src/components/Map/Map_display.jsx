@@ -68,7 +68,7 @@ function MapDisplay() {
           color: "rgba(255, 255, 255, 0.01)",
         }),
         stroke: new Stroke({
-          color: "rgba(0, 0, 0, 0)",
+          color: "black",
           width: 1,
         }),
       }),
@@ -93,10 +93,10 @@ function MapDisplay() {
       style: () =>
         new Style({
           fill: new Fill({
-            color: "rgba(255, 102, 0, 0.2)",
+            color: "rgba(255, 255, 255, 0.01)",
           }),
           stroke: new Stroke({
-            color: "#ff6600",
+            color: "#00f7ff",
             width: 3,
           }),
         }),

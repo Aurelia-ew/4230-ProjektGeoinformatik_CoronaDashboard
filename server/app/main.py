@@ -35,7 +35,7 @@ DB_HOST = "localhost"
 DB_PORT = 5432
 DB_NAME = "Corona_DB"
 DB_USER = "postgres"
-DB_PASSWORD = "2307"
+DB_PASSWORD = "Postgres2026"
 
 db_pool = pool.SimpleConnectionPool(
     1,
