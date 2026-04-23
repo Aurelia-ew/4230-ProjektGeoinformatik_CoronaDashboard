@@ -1,3 +1,4 @@
+import {useState} from "react";
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from "@mui/icons-material/Info";
 import HomeIcon from "@mui/icons-material/Home";
@@ -20,9 +21,13 @@ import Tooltip from '@mui/material/Tooltip';
 import "./Header_display.css";
 
 function Header({thema, setThema, info, setInfo}) { 
+  const [virusOpen, setVirusOpen] = useState(false);
 
   return (
     <header>
+      <img src="public/virus.png" alt="Virus" width="70" height="70"
+      /*style={{cursor: "pointer"}}*/
+      onClick={() => setVirusOpen(true)}/>
       <div className='Titel'>
         <h1>Corona Dashboard</h1>
         <h2> Thema:</h2>
@@ -89,7 +94,18 @@ function Header({thema, setThema, info, setInfo}) {
             </Button>
           </DialogActions>
         </Dialog>
-        
+
+        <Dialog open={virusOpen} onClose={() => setVirusOpen(false)} maxWidth="md">
+          <DialogTitle> Easter Egg</DialogTitle>
+          <DialogContent>
+            <img src="public/Scrat_Flasche.png" alt="Scrat mit Flasche" style={{ width:"100%", height: "auto"}}/>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="contained" onClick={() => setVirusOpen(false)}>
+              Schliessen
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Stack>
     </header>
   );
