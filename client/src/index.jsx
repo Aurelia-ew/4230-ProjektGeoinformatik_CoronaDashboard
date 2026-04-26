@@ -31,15 +31,18 @@ function CoronaDashboard(){
       thema={thema}
       setThema={setThema}
       info = {info}
-      setInfo={setInfo}/> 
+      setInfo={setInfo}
+      kanton={kanton}
+      setKanton={setKanton}/> 
       <main className="main"> 
         <div className="map">
-          <Map/> 
+          <Map kanton={kanton}/> 
         </div>
         <div className="sidebar">
           <Sidebar
           thema={thema}
-          value={value}/>
+          value={value}
+          kanton={kanton}/>
         </div>
       </main>
       <Footer

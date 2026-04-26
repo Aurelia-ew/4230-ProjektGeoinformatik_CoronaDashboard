@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -12,9 +14,24 @@ import Hosp from "../Diagramm/Hosp.json"
 import "./Sidebar_display.css";
 import { None } from "vega";
 
-function Sidebar({thema, value}) {
+function Sidebar({thema, value, kanton}) {
   const specs = {Ansteckungen: Faelle, Taegliche_Neuansteckungen: tagFaelle, Hospitalisierungen: Hosp, Todesfaelle: Tod};
   const aktuelleSpec = specs[thema] || Faelle;
+  
+  const [data, setData] = useState([]);
+
+  useEffect(()=> {
+    fetch(`hppt://localhost:8000/api/kanton/${kanton}`)
+    .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! Status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then((res) => setData(res))
+      .catch((err) => console.error("Fetch failed:", err));
+  }, [kanton]);
+
 
   return (
     <aside>
@@ -53,7 +70,11 @@ function Sidebar({thema, value}) {
       </Card>
         
         <div className="chart">
-          <VegaEmbed spec={aktuelleSpec} options={{actions:false}} style={{ width: "100%"}}/>
+          <VegaEmbed 
+            spec={aktuelleSpec} 
+            data={{table: data}}
+            options={{actions:false}} 
+            style={{ width: "100%"}}/>
         </div>
       
     </aside>

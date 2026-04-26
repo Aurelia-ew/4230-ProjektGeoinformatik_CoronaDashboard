@@ -63,8 +63,8 @@ def get_column(thema: str, is_ch: bool = False):
         elif thema == "Hospitalisierungen CH":
             return '"Hospitalisierungen CH"'
     else:
-        if thema == "Tägliche Neuansteckungen":
-            return '"Tägliche Neuansteckungen"'
+        if thema == "Tägliche_Neuansteckungen":
+            return '"Tägliche_Neuansteckungen"'
         elif thema == "Ansteckungen":
             return '"Ansteckungen"'
         elif thema == "Todesfälle":

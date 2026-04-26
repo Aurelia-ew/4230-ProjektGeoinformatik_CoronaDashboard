@@ -23,12 +23,12 @@ import { register } from "ol/proj/proj4.js";
 
 import "./Map_display.css";
 
-function MapDisplay() {
+function MapDisplay({kanton}) {
   const mapRef = useRef(null);
   const olMapRef = useRef(null);
   const [featureLayer, setFeatureLayer] = useState(null);
   const [selectInteraction, setSelectInteraction] = useState(null);
-  const [selectedFeatureId, setSelectedFeatureId] = useState();
+  const [selectedFeatureId, setSelectedFeatureId] = useState(null);
 
   useEffect(() => {
     if (olMapRef.current) return;
@@ -142,6 +142,33 @@ function MapDisplay() {
       });
     }
   }, [featureLayer, selectInteraction, selectedFeatureId]);
+
+  useEffect(()=> {
+    if (!kanton || !featureLayer || !olMapRef.current) {
+      return;
+    }
+    const source = featureLayer.getSource();
+    const zoomToKanton = () => {
+      const features = source.getFeatures();
+
+      const selectedFeature = features.find((feature) => {
+        return (
+          feature.get("name") === kanton
+        );
+      });
+
+      if (selectedFeature) {
+        setSelectedFeatureId(selectedFeature.getId());
+      }
+    };
+
+    if (source.getFeatures().length > 0) {
+      zoomToKanton();
+    } else {
+      source.once("featuresloadend", zoomToKanton);
+    }
+  }, [kanton, featureLayer]);
+  
 
   // Infos Schweiz Box
   const cards = [

@@ -5,6 +5,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import Stack from '@mui/material/Stack';
 import Select from "@mui/material/Select";
+import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -20,8 +21,45 @@ import Tooltip from '@mui/material/Tooltip';
 
 import "./Header_display.css";
 
-function Header({thema, setThema, info, setInfo}) { 
+function Header({thema, setThema, info, setInfo, kanton, setKanton}) { 
+
+  const kantone = [
+  { code: "Aargau", name: "Aargau" },
+  { code: "Appenzell Innerrhoden", name: "Appenzell Innerrhoden" },
+  { code: "Appenzell Ausserrhoden", name: "Appenzell Ausserrhoden" },
+  { code: "Bern", name: "Bern" },
+  { code: "Basel-Landschaft", name: "Basel-Landschaft" },
+  { code: "Basel-Stadt", name: "Basel-Stadt" },
+  { code: "Fribourg", name: "Freiburg" },
+  { code: "Genève", name: "Genf" },
+  { code: "Glarus", name: "Glarus" },
+  { code: "Graubünden", name: "Graubünden" },
+  { code: "Jura", name: "Jura" },
+  { code: "Luzern", name: "Luzern" },
+  { code: "Neuchâtel", name: "Neuenburg" },
+  { code: "Nidwalden", name: "Nidwalden" },
+  { code: "Obwalden", name: "Obwalden" },
+  { code: "St. Gallen", name: "St. Gallen" },
+  { code: "Schaffhausen", name: "Schaffhausen" },
+  { code: "Solothurn", name: "Solothurn" },
+  { code: "Schwyz", name: "Schwyz" },
+  { code: "Thurgau", name: "Thurgau" },
+  { code: "Ticino", name: "Tessin" },
+  { code: "Uri", name: "Uri" },
+  { code: "Vaud", name: "Waadt" },
+  { code: "Valais", name: "Wallis" },
+  { code: "Zug", name: "Zug" },
+  { code: "Zürich", name: "Zürich" },
+  { code: "Liechtenstein", name: "Liechtenstein" }
+];
   const [virusOpen, setVirusOpen] = useState(false);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handelClick = (event) => {setAnchorEl(event.currentTarget);};
+  const handleClose=() => {setAnchorEl(null);};
+  const handleSelect = (value) => {setKanton(value); handleClose();};
+  const selectedKantonName = kantone.find((item) => item.code === kanton)?.name || "Alle Kantone";
 
   return (
     <header>
@@ -53,9 +91,17 @@ function Header({thema, setThema, info, setInfo}) {
         </Tooltip>
         
         <Tooltip title="Kanton auswählen" arrow>
-          <IconButton aria-label="filter">
+          <IconButton aria-label="filter" onClick={handelClick}>
             <FilterAltOutlinedIcon fontSize="large"/>
           </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}>
+            {kantone.map((item) => (<MenuItem key={item.code} onClick={() => handleSelect(item.code)}>
+            {item.name}
+            </MenuItem>))}
+          </Menu>
         </Tooltip>
 
         <Tooltip title="Datum auswählen" arrow>
