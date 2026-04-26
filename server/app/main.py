@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from psycopg2 import pool
+from datetime import date, datetime
 
 app = FastAPI()
 
@@ -11,6 +12,7 @@ origins = [
     "http://localhost",
     "http://localhost:8080",
     "http://localhost:3000",
+    "http://localhost:5173",
 ]
 
 app.add_middleware(
@@ -67,7 +69,7 @@ def get_column(thema: str, is_ch: bool = False):
             return '"Tägliche_Neuansteckungen"'
         elif thema == "Ansteckungen":
             return '"Ansteckungen"'
-        elif thema == "Todesfälle":
+        elif thema == "Todesfaelle":
             return '"Todesfälle"'
         elif thema == "Hospitalisierungen":
             return '"Hospitalisierungen"'
@@ -78,31 +80,39 @@ def get_column(thema: str, is_ch: bool = False):
 # KANTON ENDPOINT
 # -----------------------------
 @app.get("/corona")
-async def get_corona(kanton: str, datum: str, thema: str):
+async def get_corona(kanton: str):
     conn = None
     try:
         conn = db_pool.getconn()
         cur = conn.cursor()
 
-        column = get_column(thema)
-
-        query = f"""
-            SELECT date, kantonskuerzel, {column}
+        query = """
+            SELECT
+                date,
+                "Ansteckungen",
+                "Hospitalisierungen",
+                "Todesfälle",
+                "Tägliche Neuansteckungen"
             FROM public.corona_data
-            WHERE kantonskuerzel = %s AND date = %s
-        """
+            WHERE kantonskuerzel = %s
+            ORDER BY date """
 
-        cur.execute(query, (kanton, datum))
-        result = cur.fetchone()
+        cur.execute(query, (kanton,))
+        rows = cur.fetchall()
 
-        if not result:
-            return {"message": "Keine Daten gefunden"}
+        if not rows:
+            return []
 
-        return {
-            "datum": result[0],
-            "kanton": result[1],
-            thema: result[2]
-        }
+        return [
+            {
+                "date": row[0].replace("\n", "").strip() if row[0] else None,
+                "Ansteckungen": row[1],
+                "Hospitalisierungen": row[2],
+                "Todesfaelle": row[3],
+                "Taegliche_Neuansteckungen": row[4],
+            }
+            for row in rows
+        ]
 
     except Exception as e:
         raise HTTPException(

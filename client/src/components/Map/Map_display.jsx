@@ -30,6 +30,36 @@ function MapDisplay({kanton}) {
   const [selectInteraction, setSelectInteraction] = useState(null);
   const [selectedFeatureId, setSelectedFeatureId] = useState(null);
 
+  const kantonNameMapping = {
+  AG: "Aargau",
+  AI: "Appenzell Innerrhoden",
+  AR: "Appenzell Ausserrhoden",
+  BE: "Bern",
+  BL: "Basel-Landschaft",
+  BS: "Basel-Stadt",
+  FR: "Fribourg",
+  GE: "Geneva",
+  GL: "Glarus",
+  GR: "Graubünden",
+  JU: "Jura",
+  LU: "Lucerne",
+  NE: "Neuchâtel",
+  NW: "Nidwalden",
+  OW: "Obwalden",
+  SG: "St. Gallen",
+  SH: "Schaffhausen",
+  SO: "Solothurn",
+  SZ: "Schwyz",
+  TG: "Thurgau",
+  TI: "Ticino",
+  UR: "Uri",
+  VD: "Vaud",
+  VS: "Valais",
+  ZG: "Zug",
+  ZH: "Zurich",
+  FL: "Liechtenstein"
+};
+
   useEffect(() => {
     if (olMapRef.current) return;
 
@@ -143,31 +173,34 @@ function MapDisplay({kanton}) {
     }
   }, [featureLayer, selectInteraction, selectedFeatureId]);
 
-  useEffect(()=> {
-    if (!kanton || !featureLayer || !olMapRef.current) {
-      return;
-    }
-    const source = featureLayer.getSource();
-    const zoomToKanton = () => {
-      const features = source.getFeatures();
+  useEffect(() => {
+  if (!kanton || !featureLayer || !olMapRef.current) {
+    return;
+  }
 
-      const selectedFeature = features.find((feature) => {
-        return (
-          feature.get("name") === kanton
-        );
-      });
+  const source = featureLayer.getSource();
 
-      if (selectedFeature) {
-        setSelectedFeatureId(selectedFeature.getId());
-      }
-    };
+  const zoomToKanton = () => {
+    const features = source.getFeatures();
+    const geoserverName = kantonNameMapping[kanton];
 
-    if (source.getFeatures().length > 0) {
-      zoomToKanton();
+    const selectedFeature = features.find((feature) => {
+      return feature.get("name") === geoserverName;
+    });
+
+    if (selectedFeature) {
+      setSelectedFeatureId(selectedFeature.getId());
     } else {
-      source.once("featuresloadend", zoomToKanton);
+      console.log("Kein Kanton gefunden für:", kanton, geoserverName);
     }
-  }, [kanton, featureLayer]);
+  };
+
+  if (source.getFeatures().length > 0) {
+    zoomToKanton();
+  } else {
+    source.once("featuresloadend", zoomToKanton);
+  }
+}, [kanton, featureLayer]);
   
 
   // Infos Schweiz Box

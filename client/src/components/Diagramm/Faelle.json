@@ -44,12 +44,6 @@
         },
         "y": {
           "field": "Ansteckungen",
-          "scale": {
-            "domain": [
-              0,
-              400000
-            ]
-          },
           "title": "Ansteckungen",
           "type": "quantitative"
         }

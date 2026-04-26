@@ -6,6 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 import { VegaEmbed } from "react-vega";
+// import { VegaLite } from "react-vega";
 import Faelle from "../Diagramm/Faelle.json";
 import tagFaelle from "../Diagramm/tagFaelle.json"
 import Tod from "../Diagramm/Tod.json"
@@ -19,19 +20,28 @@ function Sidebar({thema, value, kanton}) {
   const aktuelleSpec = specs[thema] || Faelle;
   
   const [data, setData] = useState([]);
+  const [info, setInfo] = useState(null);
 
   useEffect(()=> {
-    fetch(`hppt://localhost:8000/api/kanton/${kanton}`)
+    if (!kanton) return;
+    fetch(`http://localhost:8000/corona?kanton=${kanton}`)
     .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
         }
         return res.json();
       })
-      .then((res) => setData(res))
-      .catch((err) => console.error("Fetch failed:", err));
-  }, [kanton]);
+      .then((data) => {console.log("API Daten:", data);setData(data)})
+      .catch((err) => {console.error("Fehler Beim Laden der Daten:", err);
+      setData([]);});
+  }, [kanton, thema]);
 
+  const specMitDaten = {
+    ...aktuelleSpec,
+    data: {
+      values: data,
+    },
+  };
 
   return (
     <aside>
@@ -71,8 +81,7 @@ function Sidebar({thema, value, kanton}) {
         
         <div className="chart">
           <VegaEmbed 
-            spec={aktuelleSpec} 
-            data={{table: data}}
+            spec={specMitDaten} 
             options={{actions:false}} 
             style={{ width: "100%"}}/>
         </div>
