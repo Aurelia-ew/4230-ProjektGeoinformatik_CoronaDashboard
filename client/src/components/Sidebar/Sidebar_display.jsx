@@ -4,16 +4,17 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 import { VegaEmbed } from "react-vega";
-import Faelle_Be from "../Diagramm/Faelle_BE.json";
-import Hosp_Be from "../Diagramm/Hosp_BE.json"
-import Tod_Be from "../Diagramm/Tod_BE.json"
+import Faelle from "../Diagramm/Faelle.json";
+import tagFaelle from "../Diagramm/tagFaelle.json"
+import Tod from "../Diagramm/Tod.json"
+import Hosp from "../Diagramm/Hosp.json"
 
 import "./Sidebar_display.css";
 import { None } from "vega";
 
 function Sidebar({thema, value}) {
-  const specs = {Ansteckungen: Faelle_Be, Hospitalisierungen: Hosp_Be, Todesfaelle: Tod_Be};
-  const aktuelleSpec = specs[thema] || Faelle_Be;
+  const specs = {Ansteckungen: Faelle, Taegliche_Neuansteckungen: tagFaelle, Hospitalisierungen: Hosp, Todesfaelle: Tod};
+  const aktuelleSpec = specs[thema] || Faelle;
 
   return (
     <aside>
