@@ -157,7 +157,7 @@ function MapDisplay() {
         <h4>Informationen zur Schweiz:</h4>
         <Box className="info-box">
           {cards.map((card) => (
-            <Card key={card.id}>
+            <Card key={card.id} className="info-card">
               <CardContent className="info-text">
                 <Typography variant="inherit" fontSize={16}>
                   {card.title}
