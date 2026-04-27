@@ -9,6 +9,7 @@
   "data": {
     "name": "table"
   },
+  
   "height": 400,
   "layer": [
     {
@@ -49,9 +50,9 @@
         }
       },
       "mark": {
-        "color": "green",
+        "color": "darkorange",
         "strokeWidth": 2,
-        "type": "line"
+        "type": "bar"
       }
     },
     {
@@ -65,7 +66,7 @@
         "opacity": 0,
         "type": "point"
       },
-      "name": "view_3"
+      "name": "view_6"
     },
     {
       "encoding": {
@@ -73,7 +74,7 @@
           "condition": [
             {
               "empty": false,
-              "param": "param_3",
+              "param": "param_6",
               "value": 1
             }
           ],
@@ -89,7 +90,7 @@
         }
       },
       "mark": {
-        "color": "green",
+        "color": "orange",
         "filled": true,
         "size": 80,
         "type": "point"
@@ -101,7 +102,7 @@
           "condition": [
             {
               "empty": false,
-              "param": "param_3",
+              "param": "param_6",
               "value": 0.5
             }
           ],
@@ -120,7 +121,7 @@
   ],
   "params": [
     {
-      "name": "param_3",
+      "name": "param_6",
       "select": {
         "fields": [
           "date"
@@ -130,7 +131,7 @@
         "type": "point"
       },
       "views": [
-        "view_3"
+        "view_6"
       ]
     }
   ],

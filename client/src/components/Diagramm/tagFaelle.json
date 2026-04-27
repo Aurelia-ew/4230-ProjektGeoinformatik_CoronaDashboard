@@ -49,7 +49,7 @@
         }
       },
       "mark": {
-        "color": "orange",
+        "color": "yellow",
         "strokeWidth": 2,
         "type": "line"
       }
@@ -89,7 +89,7 @@
         }
       },
       "mark": {
-        "color": "orange",
+        "color": "yellow",
         "filled": true,
         "size": 80,
         "type": "point"
