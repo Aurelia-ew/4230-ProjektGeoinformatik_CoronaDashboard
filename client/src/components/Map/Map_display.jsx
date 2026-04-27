@@ -23,7 +23,7 @@ import { register } from "ol/proj/proj4.js";
 
 import "./Map_display.css";
 
-function MapDisplay({kanton, thema, mapData}) {
+function MapDisplay({kanton, setKanton, thema, mapData}) {
   const mapRef = useRef(null);
   const olMapRef = useRef(null);
   const [featureLayer, setFeatureLayer] = useState(null);
@@ -56,7 +56,7 @@ function MapDisplay({kanton, thema, mapData}) {
   BL: "Basel-Landschaft",
   BS: "Basel-Stadt",
   FR: "Fribourg",
-  GE: "Geneva",
+  GE: "Genève",
   GL: "Glarus",
   GR: "Graubünden",
   JU: "Jura",
@@ -77,6 +77,9 @@ function MapDisplay({kanton, thema, mapData}) {
   ZH: "Zurich",
   FL: "Liechtenstein"
 };
+const kantonCodeMapping = Object.fromEntries(
+  Object.entries(kantonNameMapping).map(([code, name]) => [name, code])
+);
 
   useEffect(() => {
     if (olMapRef.current) return;
@@ -150,14 +153,22 @@ function MapDisplay({kanton, thema, mapData}) {
         }),
     });
 
-    kantonSelectInteraction.on("select", (event) => {
-      if (event.selected.length) {
-        const selectedFeature = event.selected[0];
-        setSelectedFeatureId(selectedFeature.getId());
-      } else {
-        setSelectedFeatureId(undefined);
+  kantonSelectInteraction.on("select", (event) => {
+    if (event.selected.length) {
+      const selectedFeature = event.selected[0];
+      
+      setSelectedFeatureId(selectedFeature.getId());
+
+      const geoName = selectedFeature.get("name");
+      const kantonCode = kantonCodeMapping[geoName];
+
+      if (kantonCode) {
+        setKanton(kantonCode);
       }
-    });
+    } else {
+      setSelectedFeatureId(undefined);
+      setKanton("");
+    }});
 
     map.addInteraction(kantonSelectInteraction);
     setSelectInteraction(kantonSelectInteraction);

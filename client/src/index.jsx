@@ -58,6 +58,7 @@ function CoronaDashboard(){
         <div className="map">
           <Map 
           kanton={kanton}
+          setKanton={setKanton}
           thema={thema}
           mapData={mapData}/> 
         </div>
