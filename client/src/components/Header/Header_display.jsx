@@ -59,7 +59,7 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
   const handelClick = (event) => {setAnchorEl(event.currentTarget);};
   const handleClose=() => {setAnchorEl(null);};
   const handleSelect = (value) => {setKanton(value); handleClose();};
-  const selectedKantonName = kantone.find((item) => item.code === kanton)?.name || "Alle Kantone";
+  // const selectedKantonName = kantone.find((item) => item.code === kanton)?.name || "Alle Kantone";
 
   return (
     <header>
@@ -68,7 +68,7 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
       onClick={() => setVirusOpen(true)}/>
       <div className='Titel'>
         <h1>Corona Dashboard</h1>
-        <h2> Thema:</h2>
+        <h2> Thema: {thema}</h2>
       </div>
 
       <Stack className="Buttons" direction="row" spacing={1}>

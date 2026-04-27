@@ -21,22 +21,19 @@ h3 {
   margin:0;
 }
 
-h4 {
-  margin-bottom: 5px;
+.slider-box{
+  margin-top: 30px; 
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
 }
 
-.info-box{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.slider-box button {
+  margin-top: -6px;
+  margin-right: 10px;
 }
-.info-text{
-  width: 300px;
+
+.slider {
+  width: 99%;
+  position: relative;
 }
-.slider-box{
-  margin-top: 10px;  
-  display: flex;
-  align-items: center;
-}
-.slider {width: 99%;}

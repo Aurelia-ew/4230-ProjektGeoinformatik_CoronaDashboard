@@ -6,7 +6,7 @@ import PauseIcon from "@mui/icons-material/Pause";
 
 import "./Footer_display.css";
 
-function Footer( {value, setValue, playing, setPlaying}) {
+function Footer( {value, setValue, playing, setPlaying, datum}) {
   // Slider
   const marks = [
   {value: 1, label: 'Start der Datenaufzeichnungen',},
@@ -22,13 +22,13 @@ function Footer( {value, setValue, playing, setPlaying}) {
   {value: 353, label: '18.01.2021',},
   {value: 591, label: '13.09.2021',},
   {value: 689, label: '20.12.2021',},
-  {value: 1556, label: 'Ende der letzten Datenaufzeichnungen',},
+  {value: 1556, label: 'Ende',},
 ];
   
   return (
     <footer >
       <div className="footer-content">
-        <h3>Datum: </h3>
+        <h3>Datum: {datum} </h3>
   
         <div className="slider-box">
           <IconButton onClick={() => setPlaying(!playing)}>
@@ -44,8 +44,9 @@ function Footer( {value, setValue, playing, setPlaying}) {
               onChange={(e, newValue) => setValue(newValue)}
               defaultValue={0}
               step={1}
-              valueLabelDisplay="auto"
-              marks={marks}/>
+              valueLabelDisplay="off"
+              marks={marks}
+              color="balck"/>
           </Box>
         </div>
       </div>
