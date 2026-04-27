@@ -6,7 +6,6 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
 import { VegaEmbed } from "react-vega";
-// import { VegaLite } from "react-vega";
 import Faelle from "../Diagramm/Faelle.json";
 import tagFaelle from "../Diagramm/tagFaelle.json"
 import Tod from "../Diagramm/Tod.json"
@@ -18,28 +17,28 @@ import { None } from "vega";
 function Sidebar({thema, value, kanton}) {
   const specs = {Ansteckungen: Faelle, Taegliche_Neuansteckungen: tagFaelle, Hospitalisierungen: Hosp, Todesfaelle: Tod};
   const aktuelleSpec = specs[thema] || Faelle;
-  
-  const [data, setData] = useState([]);
-  const [info, setInfo] = useState(null);
 
-  useEffect(()=> {
+  const [info, setInfo] = useState(null)
+  const[coronadata, setCoronadata] = useState([]);
+
+    useEffect(()=> {
     if (!kanton) return;
     fetch(`http://localhost:8000/corona?kanton=${kanton}`)
     .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! Status: ${res.status}`);
-        }
+}
         return res.json();
       })
-      .then((data) => {console.log("API Daten:", data);setData(data)})
+      .then((coronadata) => {console.log("API Daten:", coronadata);setCoronadata(coronadata)})
       .catch((err) => {console.error("Fehler Beim Laden der Daten:", err);
-      setData([]);});
+      setCoronadata([]);});
   }, [kanton, thema]);
 
   const specMitDaten = {
     ...aktuelleSpec,
     data: {
-      values: data,
+      values: coronadata,
     },
   };
 
@@ -52,7 +51,7 @@ function Sidebar({thema, value, kanton}) {
             Informationen zum Kanton
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Kanton: 
+            Kanton: {kanton}
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
             Kantonsfläche: 

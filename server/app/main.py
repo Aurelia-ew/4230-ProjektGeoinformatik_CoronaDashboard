@@ -76,9 +76,9 @@ def get_column(thema: str, is_ch: bool = False):
 
     raise HTTPException(status_code=400, detail="Ungültiges Thema")
 
-# -----------------------------
-# KANTON ENDPOINT
-# -----------------------------
+# --------------------------------
+# ENDPOINT Diagramme (corona_data)
+# --------------------------------
 @app.get("/corona")
 async def get_corona(kanton: str):
     conn = None
@@ -120,6 +120,43 @@ async def get_corona(kanton: str):
             detail=str(e)
         )
 
+    finally:
+        if conn:
+            db_pool.putconn(conn)
+
+# -----------------------------
+# ENDPOINT Karten (corona_data)
+# -----------------------------
+@app.get("/corona-map")
+async def get_corona_map(datum: str):
+    conn = None
+    try:
+        conn= db_pool.getconn()
+        cur = conn.cursor()
+        query = """
+            SELECT
+                kantonskuerzel,
+                date,
+                "Ansteckungen",
+                "Hospitalisierungen",
+                "Todesfälle",
+                "Tägliche Neuansteckungen"
+            FROM public.corona_data
+            WHERE date = %s
+            ORDER BY kantonskuerzel"""
+        
+        cur.execute(query, (datum, ))
+        rows = cur.fetchall()
+
+        return [{
+                "kanton": row[0],
+                "date": row[1],
+                "Ansteckungen": row[2],
+                "Hospitalisierungen": row[3],
+                "Todesfaelle": row[4],
+                "Taegliche_Neuansteckungen": row[5],
+        } for row in rows]
+    
     finally:
         if conn:
             db_pool.putconn(conn)

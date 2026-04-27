@@ -23,12 +23,30 @@ import { register } from "ol/proj/proj4.js";
 
 import "./Map_display.css";
 
-function MapDisplay({kanton}) {
+function MapDisplay({kanton, thema, mapData}) {
   const mapRef = useRef(null);
   const olMapRef = useRef(null);
   const [featureLayer, setFeatureLayer] = useState(null);
   const [selectInteraction, setSelectInteraction] = useState(null);
   const [selectedFeatureId, setSelectedFeatureId] = useState(null);
+  
+  const themaAttribut = {
+    Ansteckungen: "Ansteckungen", 
+    Taegliche_Neuansteckungen: "Taegliche_Neuansteckungen", 
+    Hospitalisierungen: "Hospitalisierungen", 
+    Todesfaelle: "Todesfaelle",};
+  
+  const Color = (value, min, max) => {
+    if (value == null || isNaN(value)) {
+      return "rgba(220, 220, 220, 0.6)";
+    }
+    const ratio = (value - min) / (max - min);
+    if (ratio > 0.8) return "rgba(128, 0, 38, 0.75)";
+    if (ratio > 0.6) return "rgba(189, 0, 38, 0.75)";
+    if (ratio > 0.4) return "rgba(240, 59, 32, 0.75)";
+    if (ratio > 0.2) return "rgba(253, 141, 60, 0.75)";
+  return "rgba(254, 224, 139, 0.75)";
+  };
 
   const kantonNameMapping = {
   AG: "Aargau",
@@ -201,8 +219,44 @@ function MapDisplay({kanton}) {
     source.once("featuresloadend", zoomToKanton);
   }
 }, [kanton, featureLayer]);
-  
 
+useEffect(() => {
+  if (!featureLayer || !mapData || mapData.length === 0) return;
+
+  const attribut = themaAttribut[thema];
+
+  const values = mapData
+    .map((d) => Number(d[attribut]))
+    .filter((v) => !isNaN(v));
+
+  if (values.length === 0) return;
+
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+
+  featureLayer.setStyle((feature) => {
+    const geoName = feature.get("name");
+
+    const daten = mapData.find((d) => {
+      const name = kantonNameMapping[d.kanton] || d.kanton;
+      return name === geoName;
+    });
+
+    const wert = daten ? Number(daten[attribut]) : null;
+    const fillColor = Color(wert, min, max);
+
+    return new Style({
+      fill: new Fill({ color: fillColor }),
+      stroke: new Stroke({
+        color: "black",
+        width: 1,
+      }),
+    });
+  });
+
+  featureLayer.changed();
+}, [featureLayer, mapData, thema]);
+  
   // Infos Schweiz Box
   const cards = [
     { id: 1, title: "Totale Anschteckungen:", description: "Wert" },

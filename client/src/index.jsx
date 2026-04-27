@@ -11,9 +11,18 @@ function CoronaDashboard(){
   const[thema, setThema] = useState("Ansteckungen")
   const[kanton, setKanton] = useState("")
   const[info, setInfo] = useState(false);
+  const[datum, setDatum] = useState("2021-01-01")
+  const[mapData, setMapData] = useState([]);
 
   const[value, setValue] = useState(0);
   const[playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+  fetch(`http://localhost:8000/corona-map?datum=${datum}`)
+    .then((res) => res.json())
+    .then((data) => setMapData(data))
+    .catch(() => setMapData([]));
+}, [datum]);
 
   useEffect(() => {
     if (!playing) return;
@@ -36,7 +45,10 @@ function CoronaDashboard(){
       setKanton={setKanton}/> 
       <main className="main"> 
         <div className="map">
-          <Map kanton={kanton}/> 
+          <Map 
+          kanton={kanton}
+          thema={thema}
+          mapData={mapData}/> 
         </div>
         <div className="sidebar">
           <Sidebar
