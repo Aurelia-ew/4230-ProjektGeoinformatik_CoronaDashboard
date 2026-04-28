@@ -89,7 +89,7 @@
         }
       },
       "mark": {
-        "color": "red",
+        "color": "grey",
         "filled": true,
         "size": 80,
         "type": "point"

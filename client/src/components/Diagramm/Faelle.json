@@ -49,7 +49,7 @@
         }
       },
       "mark": {
-        "color": "blue",
+        "color": "purple",
         "strokeWidth": 2,
         "type": "line"
       }
@@ -89,7 +89,7 @@
         }
       },
       "mark": {
-        "color": "blue",
+        "color": "grey",
         "filled": true,
         "size": 80,
         "type": "point"
