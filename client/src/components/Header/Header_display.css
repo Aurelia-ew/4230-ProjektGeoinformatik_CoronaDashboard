@@ -28,3 +28,28 @@ h2 {
   display: flex;
   gap: 10px;
 }
+
+.thema{
+  display: flex;
+  align-items: center;
+}
+
+.button-thema{
+  display: flex;
+  margin-left: 10px;
+  gap: 5px;
+}
+
+.button-thema .MuiButton-root {
+  color: black;
+  border: none;
+  font-family: Arial;
+  font-size: 18px;
+  /*font-weight: bold;*/
+  text-transform: none;
+}
+
+.button-thema .MuiButton-root.active {
+  background-color: rgb(128, 195, 65); /* Dunkel: rgb(99. 158, 49) , Mittel: rgb(128, 195, 65), hell: rgb(184, 237, 124)*/
+  color:black;
+}

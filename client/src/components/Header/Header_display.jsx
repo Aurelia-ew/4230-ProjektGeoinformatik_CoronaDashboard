@@ -16,6 +16,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Tooltip from '@mui/material/Tooltip';
 
 
@@ -30,8 +31,8 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
   { code: "BE", name: "Bern" },
   { code: "BL", name: "Basel-Landschaft" },
   { code: "BS", name: "Basel-Stadt" },
-  { code: "FR", name: "Freiburg" },
-  { code: "GE", name: "Genf" },
+  { code: "FR", name: "Fribourg" },
+  { code: "GE", name: "Genève" },
   { code: "GL", name: "Glarus" },
   { code: "GR", name: "Graubünden" },
   { code: "JU", name: "Jura" },
@@ -59,7 +60,15 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
   const handelClick = (event) => {setAnchorEl(event.currentTarget);};
   const handleClose=() => {setAnchorEl(null);};
   const handleSelect = (value) => {setKanton(value); handleClose();};
-  // const selectedKantonName = kantone.find((item) => item.code === kanton)?.name || "Alle Kantone";
+
+  const buttons = [
+    {id: "Ansteckungen", label:"Ansteckungen"},
+    {id: "Taegliche_Neuansteckungen", label:"Tägliche Neuansteckungen"},
+    {id: "Todesfaelle", label:"Todesfälle"},
+    {id: "Hospitalisierungen", label:"Hospitalisierungen"}
+  ]
+
+  const [activeButton, setActiveButton] = useState("Ansteckungen");
 
   return (
     <header>
@@ -68,7 +77,20 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
       onClick={() => setVirusOpen(true)}/>
       <div className='Titel'>
         <h1>Corona Dashboard</h1>
-        <h2> Thema: {thema}</h2>
+        
+        <div className="thema">
+          <h2> Thema:</h2>
+          <div className="button-thema">
+              {buttons.map((btn) => (
+                <Button
+                  key={btn.id}
+                  onClick={() => {setActiveButton(btn.id); setThema(btn.id);}}
+                  className={activeButton === btn.id ? "active" : ""}>
+                  {btn.label}
+                </Button>
+              ))}
+            </div>
+        </div>
       </div>
 
       <Stack className="Buttons" direction="row" spacing={1}>
@@ -76,18 +98,6 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
           <IconButton aria-label='home' onClick={() => window.location.reload()}>
             <HomeIcon fontSize='large'/>
           </IconButton>
-        </Tooltip>
-
-        <Tooltip title="Thema auswählen" arrow>
-          <FormControl size="small" sx={{minWidth: 250}}>
-            <InputLabel id="thema-label">Thema</InputLabel>
-            <Select label="Thema" value={thema} onChange={(e) => setThema(e.target.value)}>
-              <MenuItem value="Ansteckungen"> Ansteckungen </MenuItem>
-              <MenuItem value="Taegliche_Neuansteckungen"> Tägliche Neuansteckungen </MenuItem>
-              <MenuItem value="Todesfaelle"> Todesfälle </MenuItem>
-              <MenuItem value="Hospitalisierungen"> Hospitalisierungen </MenuItem>
-            </Select>
-          </FormControl>
         </Tooltip>
         
         <Tooltip title="Kanton auswählen" arrow>

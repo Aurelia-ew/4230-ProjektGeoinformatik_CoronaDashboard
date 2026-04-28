@@ -60,7 +60,7 @@ function MapDisplay({kanton, setKanton, thema, mapData}) {
   GL: "Glarus",
   GR: "Graubünden",
   JU: "Jura",
-  LU: "Lucerne",
+  LU: "Luzern",
   NE: "Neuchâtel",
   NW: "Nidwalden",
   OW: "Obwalden",
@@ -74,7 +74,7 @@ function MapDisplay({kanton, setKanton, thema, mapData}) {
   VD: "Vaud",
   VS: "Valais",
   ZG: "Zug",
-  ZH: "Zurich",
+  ZH: "Zürich",
   FL: "Liechtenstein"
 };
 const kantonCodeMapping = Object.fromEntries(
@@ -270,7 +270,7 @@ useEffect(() => {
   
   // Infos Schweiz Box
   const cards = [
-    { id: 1, title: "Totale Anschteckungen:", description: "Wert" },
+    { id: 1, title: "Totale Ansteckungen:", description: "Wert" },
     { id: 2, title: "Tägliche Neuansteckungen:", description: "Wert" },
     { id: 3, title: "Totale Todesfälle:", description: "Wert" },
     { id: 4, title: "Totale Hospitalisierungen:", description: "Wert" },
