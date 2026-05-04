@@ -3,6 +3,8 @@ import Slider from '@mui/material/Slider';
 import IconButton from "@mui/material/IconButton";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
+import Tooltip from '@mui/material/Tooltip';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 import "./Footer_display.css";
 
@@ -28,7 +30,14 @@ function Footer( {value, setValue, playing, setPlaying, datum}) {
   return (
     <footer >
       <div className="footer-content">
-        <h3>Datum: {datum} </h3>
+        <div className="datum">
+          <h3>Datum: {datum} </h3>
+          <Tooltip title="Datum auswählen" arrow>
+            <IconButton aria-label="calendar">
+              <CalendarMonthIcon fontSize="large"/>
+            </IconButton>
+          </Tooltip>
+        </div>
   
         <div className="slider-box">
           <IconButton onClick={() => setPlaying(!playing)}>

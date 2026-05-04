@@ -2,14 +2,12 @@ import {useState} from "react";
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from "@mui/icons-material/Info";
 import HomeIcon from "@mui/icons-material/Home";
-import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
 import Stack from '@mui/material/Stack';
 import Select from "@mui/material/Select";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -18,7 +16,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Tooltip from '@mui/material/Tooltip';
-
 
 import "./Header_display.css";
 
@@ -54,12 +51,6 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
   { code: "FL", name: "Liechtenstein" }
 ];
   const [virusOpen, setVirusOpen] = useState(false);
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handelClick = (event) => {setAnchorEl(event.currentTarget);};
-  const handleClose=() => {setAnchorEl(null);};
-  const handleSelect = (value) => {setKanton(value); handleClose();};
 
   const buttons = [
     {id: "Ansteckungen", label:"Ansteckungen"},
@@ -97,26 +88,6 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
         <Tooltip title="Zurück zum Statbildschirm" arrow>
           <IconButton aria-label='home' onClick={() => window.location.reload()}>
             <HomeIcon fontSize='large'/>
-          </IconButton>
-        </Tooltip>
-        
-        <Tooltip title="Kanton auswählen" arrow>
-          <IconButton aria-label="filter" onClick={handelClick}>
-            <FilterAltOutlinedIcon fontSize="large"/>
-          </IconButton>
-          <Menu
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}>
-            {kantone.map((item) => (<MenuItem key={item.code} onClick={() => handleSelect(item.code)}>
-            {item.name}
-            </MenuItem>))}
-          </Menu>
-        </Tooltip>
-
-        <Tooltip title="Datum auswählen" arrow>
-          <IconButton aria-label="calendar">
-            <CalendarMonthIcon fontSize="large"/>
           </IconButton>
         </Tooltip>
         

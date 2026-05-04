@@ -11,3 +11,10 @@ aside {
     flex: 1;
     overflow: hidden;
 }
+
+.titel{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
