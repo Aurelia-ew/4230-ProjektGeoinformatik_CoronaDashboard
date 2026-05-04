@@ -265,12 +265,12 @@ async def get_einwohner(kanton: str):
         """
 
         cur.execute(query, (kanton,))
-        result = cur.fetchone()
+        result = cur.fetchall()
 
-        return {
-            "kanton": result[0],
-            "einwohner": result[1]
-        }
+        return [{
+            "kanton": res[0],
+            "einwohner": res[1]
+        }for res in result]
 
     finally:
         if conn:
