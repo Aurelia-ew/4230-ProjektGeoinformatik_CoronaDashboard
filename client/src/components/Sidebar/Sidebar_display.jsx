@@ -14,27 +14,14 @@ import Hosp from "../Diagramm/Hosp.json"
 import "./Sidebar_display.css";
 import { None } from "vega";
 
-function Sidebar({thema, value, kanton}) {
+function Sidebar({thema, value, kanton, chData, coronadata, durchschnitt}) {
   const specs = {Ansteckungen: Faelle, Taegliche_Neuansteckungen: tagFaelle, Hospitalisierungen: Hosp, Todesfaelle: Tod};
   const aktuelleSpec = specs[thema] || Faelle;
-
+  
   const [info, setInfo] = useState(null)
-  const[coronadata, setCoronadata] = useState([]);
-
-    useEffect(()=> {
-    if (!kanton) return;
-    fetch(`http://localhost:8000/corona?kanton=${kanton}`)
-    .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
-}
-        return res.json();
-      })
-      .then((coronadata) => {console.log("API Daten:", coronadata);setCoronadata(coronadata)})
-      .catch((err) => {console.error("Fehler Beim Laden der Daten:", err);
-      setCoronadata([]);});
-  }, [kanton, thema]);
-
+  const durchschnittData = durchschnitt?.[0];
+  const format = (num) => num ? num.toLocaleString('de-CH') : '-';
+  
   const specMitDaten = {
     ...aktuelleSpec,
     data: {
@@ -48,22 +35,22 @@ function Sidebar({thema, value, kanton}) {
         <CardContent>
           <Typography
             sx={{ color: "text.primary", fontSize: 18, fontWeight: "bold" }}>
-            Informationen zum Kanton
-          </Typography>
-          <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Kanton: {kanton}
+            Informationen zum Kanton {kanton}
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
             Kantonsfläche: 
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Einwohner: 
+            Datenaufnahmetage: {format(durchschnittData?.aufzeichnungstage)}
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Totale Ansteckungen: 
+            Einwohner: {format(durchschnittData?.einwohner)} Personen
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            druchschnittliche Ansteckungen pro Tag:
+            Totale Ansteckungen: {format(durchschnittData?.total_faelle)} Personen
+          </Typography>
+          <Typography sx={{ color: "text.primary", fontSize: 16 }}>
+            druchschnittliche Ansteckungen pro Tag: {format(durchschnittData?.durchschnitt)} Personen
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
             Totale Todesfälle: 

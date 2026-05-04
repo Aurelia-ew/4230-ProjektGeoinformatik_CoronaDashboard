@@ -11,26 +11,67 @@ function CoronaDashboard(){
   const[thema, setThema] = useState("Ansteckungen")
   const[kanton, setKanton] = useState("")
   const[info, setInfo] = useState(false);
-  const[datum, setDatum] = useState("2020-01-25")
-  const[mapData, setMapData] = useState([]);
+  const[datum, setDatum] = useState("2021-01-25")
 
   const[value, setValue] = useState(0);
   const[playing, setPlaying] = useState(false);
-  const startDate = new Date("2020-01-25");
+  const startDate = new Date("2021-01-25");
 
+  // Corondaten für die Karte nach Datum 
+  const[mapData, setMapData] = useState([]);
   useEffect(() => {
   fetch(`http://localhost:8000/corona-map?datum=${datum}`)
     .then((res) => res.json())
     .then((data) => setMapData(data))
     .catch(() => setMapData([]));
-}, [datum]);
+  }, [datum]);
  
+  // Coronadaten der Schweiz nach Datum
+  const[chData, setChData] = useState([]);
+  useEffect(() => {
+  fetch (`http://localhost:8000/schweiz?datum=${datum}`)
+    .then((res) => res.json())
+    .then((data) => setChData(data))
+    .catch(() => setChData([]));
+  }, [datum]);
+
+  // Coronadaten Kanton und Schweiz einlesen für die Diagramme
+  // je nach dem ob ein Kanton ausgewählt wird, wird die eine oder die andere Api aufgerufen
+  const[coronadata, setCoronadata] = useState([]);
+  useEffect(()=> {
+    const url = kanton
+    ? `http://localhost:8000/corona?kanton=${kanton}`
+    : `http://localhost:8000/schweiz-verlauf`;
+    fetch(url)
+    .then((res) =>res.json())
+    .then((data) => setCoronadata(data))
+    .catch(() => setCoronadata([]));
+  }, [kanton])
+
+  // Einwohnerzahlen der Kantone für Sidebar
+  const[einwohner, setEinwohner] = useState([]);
+  useEffect(() => {
+  fetch (`http://localhost:8000/einwohner?kanton=${kanton}`)
+    .then((res) => res.json())
+    .then((data) => setEinwohner(data))
+    .catch(() => setEinwohner([]));
+  }, [kanton]);
+
+  // Durchschnittliche Fälle pro Kanton für Sidebar
+  const [durchschnitt, setDurchschnitt] = useState([]);
+  useEffect(() => {
+  fetch (`http://localhost:8000/durchschnitt?kanton=${kanton}`)
+    .then((res) => res.json())
+    .then((data) => setDurchschnitt(data))
+    .catch(() => setDurchschnitt([]));
+  }, [kanton]);
+
   const valueToDate = (value) => {
     const date = new Date(startDate);
     date.setDate(startDate.getDate() + value - 1);
     return date.toISOString().split("T")[0];
     };
-  
+
   useEffect(() => {
   const neuesDatum = valueToDate(value);
   setDatum(neuesDatum);}, [value]);
@@ -60,13 +101,18 @@ function CoronaDashboard(){
           kanton={kanton}
           setKanton={setKanton}
           thema={thema}
-          mapData={mapData}/> 
+          mapData={mapData}
+          chData={chData}/> 
         </div>
         <div className="sidebar">
           <Sidebar
           thema={thema}
           value={value}
-          kanton={kanton}/>
+          kanton={kanton}
+          chData={chData}
+          coronadata={coronadata}
+          einwohner={einwohner}
+          durchschnitt={durchschnitt}/>
         </div>
       </main>
       <Footer

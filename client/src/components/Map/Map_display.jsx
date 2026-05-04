@@ -23,12 +23,13 @@ import { register } from "ol/proj/proj4.js";
 
 import "./Map_display.css";
 
-function MapDisplay({kanton, setKanton, thema, mapData}) {
+function MapDisplay({kanton, setKanton, thema, mapData, chData}) {
   const mapRef = useRef(null);
   const olMapRef = useRef(null);
   const [featureLayer, setFeatureLayer] = useState(null);
   const [selectInteraction, setSelectInteraction] = useState(null);
   const [selectedFeatureId, setSelectedFeatureId] = useState(null);
+  const dataCh = chData?.[0]
   
   const themaAttribut = {
     Ansteckungen: "Ansteckungen", 
@@ -269,11 +270,12 @@ useEffect(() => {
 }, [featureLayer, mapData, thema]);
   
   // Infos Schweiz Box
+  const format = (num) => num ? num.toLocaleString('de-CH') : '-';
   const cards = [
-    { id: 1, title: "Totale Ansteckungen:", description: "Wert" },
-    { id: 2, title: "Tägliche Neuansteckungen:", description: "Wert" },
-    { id: 3, title: "Totale Todesfälle:", description: "Wert" },
-    { id: 4, title: "Totale Hospitalisierungen:", description: "Wert" },
+    { id: 1, title: "Totale Ansteckungen:", description: `${format(dataCh?.Ansteckungen)} Personen`},
+    { id: 2, title: "Tägliche Neuansteckungen:", description: `${format(dataCh?.Taegliche_Neuansteckungen)} Personen`},
+    { id: 3, title: "Totale Todesfälle:", description: `${format(dataCh?.Todesfaelle)} Personen`},
+    { id: 4, title: "Totale Hospitalisierungen:", description: `${format(dataCh?.Hospitalisierungen)} Personen`},
   ];
 
   return (

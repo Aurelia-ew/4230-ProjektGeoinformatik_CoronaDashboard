@@ -77,7 +77,8 @@ def get_column(thema: str, is_ch: bool = False):
     raise HTTPException(status_code=400, detail="Ungültiges Thema")
 
 # --------------------------------
-# ENDPOINT Diagramme (corona_data)
+# ENDPOINT Coronadaten für Diagramme pro Kanton 
+# Datenbank: corona_data
 # --------------------------------
 @app.get("/corona")
 async def get_corona(kanton: str):
@@ -125,7 +126,8 @@ async def get_corona(kanton: str):
             db_pool.putconn(conn)
 
 # -----------------------------
-# ENDPOINT Karten (corona_data)
+# ENDPOINT Corondaten für die Karte nach Datum 
+# Datenbank: corona_data
 # -----------------------------
 @app.get("/corona-map")
 async def get_corona_map(datum: str):
@@ -146,49 +148,52 @@ async def get_corona_map(datum: str):
             ORDER BY kantonskuerzel"""
         
         cur.execute(query, (datum, ))
-        rows = cur.fetchall()
+        result = cur.fetchall()
 
         return [{
-                "kanton": row[0],
-                "date": row[1],
-                "Ansteckungen": row[2],
-                "Hospitalisierungen": row[3],
-                "Todesfaelle": row[4],
-                "Taegliche_Neuansteckungen": row[5],
-        } for row in rows]
+                "kanton": res[0],
+                "date": res[1],
+                "Ansteckungen": res[2],
+                "Hospitalisierungen": res[3],
+                "Todesfaelle": res[4],
+                "Taegliche_Neuansteckungen": res[5],
+        } for res in result]
     
     finally:
         if conn:
             db_pool.putconn(conn)
 
 # -----------------------------
-# SCHWEIZ ENDPOINT (_CH)
+# ENDPOINT Coronadaten der Schweiz nach Datum
+# Datenbank: schweiz
 # -----------------------------
 @app.get("/schweiz")
-async def get_schweiz(datum: str, thema: str):
+async def get_schweiz(datum: str):
     conn = None
     try:
         conn = db_pool.getconn()
         cur = conn.cursor()
-
-        column = get_column(thema, is_ch=True)
-
-        query = f"""
-            SELECT date, {column}
+        query = """
+            SELECT 
+            date,
+            "Tägliche Neuansteckungen CH",
+            "Ansteckungen CH",
+            "Hospitalisierungen CH",
+            "Todesfälle CH"
             FROM public.schweiz
             WHERE date = %s
         """
 
         cur.execute(query, (datum,))
-        result = cur.fetchone()
+        result = cur.fetchall()
 
-        if not result:
-            return {"message": "Keine Daten gefunden"}
-
-        return {
-            "datum": result[0],
-            f"{thema}_CH": result[1]
-        }
+        return [{
+            "datum": res[0],
+            "Ansteckungen":res[2],
+            "Taegliche_Neuansteckungen":res[1],
+            "Todesfaelle": res[4],
+            "Hospitalisierungen": res[3],
+        } for res in result]
 
     except Exception as e:
         raise HTTPException(
@@ -201,7 +206,50 @@ async def get_schweiz(datum: str, thema: str):
             db_pool.putconn(conn)
 
 # -----------------------------
-# EINWOHNER
+# ENDPOINT Corondadaten Schweiz für Diagramm
+# Datenbank: schweiz
+# -----------------------------
+@app.get("/schweiz-verlauf")
+async def get_schweiz_verlauf():
+    conn = None
+    try:
+        conn = db_pool.getconn()
+        cur = conn.cursor()
+        query = """
+            SELECT 
+            date,
+            "Tägliche Neuansteckungen CH",
+            "Ansteckungen CH",
+            "Hospitalisierungen CH",
+            "Todesfälle CH"
+            FROM public.schweiz
+            ORDER BY date
+        """
+
+        cur.execute(query, ())
+        result = cur.fetchall()
+
+        return [{
+            "date": res[0].replace("\n", "").strip() if res[0] else None,
+            "Ansteckungen":res[2],
+            "Taegliche_Neuansteckungen":res[1],
+            "Todesfaelle": res[4],
+            "Hospitalisierungen": res[3],
+        } for res in result]
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(e)
+        )
+
+    finally:
+        if conn:
+            db_pool.putconn(conn)
+
+# -----------------------------
+# ENDPOINT Einwohnerzahlen der Kantone für Sidebar
+# Datenbank: kantone_einwohner
 # -----------------------------
 @app.get("/einwohner")
 async def get_einwohner(kanton: str):
@@ -219,9 +267,6 @@ async def get_einwohner(kanton: str):
         cur.execute(query, (kanton,))
         result = cur.fetchone()
 
-        if not result:
-            return {"message": "Keine Daten gefunden"}
-
         return {
             "kanton": result[0],
             "einwohner": result[1]
@@ -232,7 +277,8 @@ async def get_einwohner(kanton: str):
             db_pool.putconn(conn)
 
 # -----------------------------
-# DURCHSCHNITT
+# ENDPOINT Durchschnittscoronazaheln der Kantone für Sidebar
+# Datenbank: durchschnitt_faelle_kanton
 # -----------------------------
 @app.get("/durchschnitt")
 async def get_durchschnitt(kanton: str):
@@ -242,21 +288,26 @@ async def get_durchschnitt(kanton: str):
         cur = conn.cursor()
 
         query = """
-            SELECT kantonskuerzel, durchschnitt_faelle_pro_tag
+            SELECT 
+            kantonskuerzel, 
+            einwohner,
+            total_faelle,
+            anzahl_tage,
+            durchschnitt_faelle_pro_tag
             FROM public.durchschnitt_faelle_kanton
             WHERE kantonskuerzel = %s
         """
 
         cur.execute(query, (kanton,))
-        result = cur.fetchone()
+        result = cur.fetchall()
 
-        if not result:
-            return {"message": "Keine Daten gefunden"}
-
-        return {
-            "kanton": result[0],
-            "durchschnitt": result[1]
-        }
+        return [{
+            "kanton": res[0],
+            "einwohner": res[1],
+            "total_faelle": res[2],
+            "aufzeichnungstage": res[3],
+            "durchschnitt": res[4]
+        } for res in result]
 
     finally:
         if conn:
