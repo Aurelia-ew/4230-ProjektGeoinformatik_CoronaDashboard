@@ -11,11 +11,11 @@ function CoronaDashboard(){
   const[thema, setThema] = useState("Ansteckungen")
   const[kanton, setKanton] = useState("")
   const[info, setInfo] = useState(false);
-  const[datum, setDatum] = useState("2021-01-25")
+  const[datum, setDatum] = useState("2020-02-25")
 
   const[value, setValue] = useState(0);
   const[playing, setPlaying] = useState(false);
-  const startDate = new Date("2021-01-25");
+  const startDate = new Date("2020-02-25");
 
   // Corondaten für die Karte nach Datum 
   const[mapData, setMapData] = useState([]);

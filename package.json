@@ -4,6 +4,8 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^7.3.9",
     "@mui/material": "^7.3.9",
+    "@mui/x-date-pickers": "^9.0.4",
+    "dayjs": "^1.11.20",
     "proj4": "^2.20.8",
     "react-vega": "^8.0.0",
     "vega": "^6.2.0",

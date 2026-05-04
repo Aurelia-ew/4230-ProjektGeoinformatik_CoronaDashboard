@@ -24,8 +24,22 @@ function Footer( {value, setValue, playing, setPlaying, datum}) {
   {value: 353, label: '18.01.2021',},
   {value: 591, label: '13.09.2021',},
   {value: 689, label: '20.12.2021',},
-  {value: 1556, label: 'Ende',},
-];
+  {value: 1556, label: 'Ende',}, ];
+
+const startDate = new Date("2020-02-25");
+
+const dateToValue = (dateString) => {
+  const selectedDate = new Date(dateString);
+  const diffTime = selectedDate - startDate;
+  const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays + 1;
+};
+
+const handleDateChange = (e) => {
+  const selectedDate = e.target.value;
+  setValue(dateToValue(selectedDate));
+  setPlaying(false);
+};
   
   return (
     <footer >
@@ -33,9 +47,25 @@ function Footer( {value, setValue, playing, setPlaying, datum}) {
         <div className="datum">
           <h3>Datum: {datum} </h3>
           <Tooltip title="Datum auswählen" arrow>
-            <IconButton aria-label="calendar">
-              <CalendarMonthIcon fontSize="large"/>
-            </IconButton>
+            <Box className="kalender">
+              <IconButton aria-label="calendar">
+                <CalendarMonthIcon fontSize="large"/>
+                <input
+                  type="date"
+                  value={datum}
+                  min="2020-01-25"
+                  max="2025-04-09"
+                  onChange={handleDateChange}
+                  style={{
+                    position: "absolute",
+                    opacity: 0,
+                    width: "100%",
+                    height: "100%",
+                    cursor: "pointer",
+                  }}
+                  />
+              </IconButton>
+            </Box>
           </Tooltip>
         </div>
   
