@@ -29,6 +29,7 @@ function MapDisplay({kanton, setKanton, thema, mapData, chData}) {
   const [featureLayer, setFeatureLayer] = useState(null);
   const [selectInteraction, setSelectInteraction] = useState(null);
   const [selectedFeatureId, setSelectedFeatureId] = useState(null);
+  const [tooltip, setTooltip] = useState ({visible:false, x:0, y:0, text: "",});
   const dataCh = chData?.[0]
   
   const themaAttribut = {
@@ -37,17 +38,70 @@ function MapDisplay({kanton, setKanton, thema, mapData, chData}) {
     Hospitalisierungen: "Hospitalisierungen", 
     Todesfaelle: "Todesfaelle",};
   
-  const Color = (value, min, max) => {
-    if (value == null || isNaN(value)) {
-      return "rgba(220, 220, 220, 0.6)";
-    }
-    const ratio = (value - min) / (max - min);
-    if (ratio > 0.8) return "rgba(128, 0, 38, 0.75)";
-    if (ratio > 0.6) return "rgba(189, 0, 38, 0.75)";
-    if (ratio > 0.4) return "rgba(240, 59, 32, 0.75)";
-    if (ratio > 0.2) return "rgba(253, 141, 60, 0.75)";
-  return "rgba(254, 224, 139, 0.75)";
-  };
+  const colorPalettes = {
+  Ansteckungen: [
+    "rgba(250, 245, 255, 0.85)",
+    "rgba(233, 213, 255, 0.85)",
+    "rgba(216, 180, 254, 0.85)",
+    "rgba(192, 132, 252, 0.85)",
+    "rgba(147, 51, 234, 0.85)",
+    "rgba(88, 28, 135, 0.85)",
+  ],
+  Taegliche_Neuansteckungen: [
+    "rgba(239, 246, 255, 0.85)",
+    "rgba(191, 219, 254, 0.85)",
+    "rgba(147, 197, 253, 0.85)",
+    "rgba(96, 165, 250, 0.85)",
+    "rgba(59, 130, 246, 0.85)",
+    "rgba(30, 64, 175, 0.85)",
+  ],
+  Hospitalisierungen: [
+    "rgba(255, 247, 237, 0.85)",
+    "rgba(254, 230, 206, 0.85)",
+    "rgba(253, 208, 162, 0.85)",
+    "rgba(253, 174, 107, 0.85)",
+    "rgba(241, 105, 19, 0.85)",
+    "rgba(140, 45, 4, 0.85)",
+  ],
+  Todesfaelle: [
+    "rgba(255, 245, 247, 0.85)",
+    "rgba(254, 224, 229, 0.85)",
+    "rgba(252, 197, 192, 0.85)",
+    "rgba(240, 128, 128, 0.85)",
+    "rgba(177, 24, 43, 0.85)",
+    "rgba(103, 0, 31, 0.85)",
+  ],
+};
+
+const getClassBreaks = (values, classCount = 6) => {
+  const cleanValues = values
+    .filter(v => v !== null && v !== undefined && !isNaN(v))
+    .map(Number);
+
+  const min = Math.min(...cleanValues);
+  const max = Math.max(...cleanValues);
+
+  const step = (max - min) / classCount;
+
+  return Array.from({ length: classCount }, (_, i) => ({
+    min: min + step * i,
+    max: i === classCount - 1 ? max : min + step * (i + 1),
+  }));
+};
+
+const Color = (value, classes, thema) => {
+  if (value === null || value === undefined || isNaN(value)) {
+    return "rgba(220, 220, 220, 0.6)";
+  }
+
+  const palette = colorPalettes[thema] || colorPalettes.Ansteckungen;
+
+  const classIndex = classes.findIndex(c =>
+    value >= c.min && value <= c.max
+  );
+
+  return palette[classIndex === -1 ? 0 : classIndex];
+};
 
   const kantonNameMapping = {
   AG: "Aargau",
@@ -116,9 +170,6 @@ const kantonCodeMapping = Object.fromEntries(
     const kantonLayer = new VectorLayer({
       source: kantonSource,
       style: new Style({
-        fill: new Fill({
-          color: "rgba(255, 255, 255, 0.01)",
-        }),
         stroke: new Stroke({
           color: "black",
           width: 1,
@@ -135,6 +186,30 @@ const kantonCodeMapping = Object.fromEntries(
         zoom: 8.5,
       }),
     });
+    
+  map.on("pointermove", (event) => {
+  const feature = map.forEachFeatureAtPixel(
+    event.pixel,
+    (feature) => feature);
+
+  map.getTargetElement().style.cursor = feature ? "pointer" : "";
+
+  if (feature) {
+    setTooltip({
+      visible: true,
+      x: event.originalEvent.clientX + 12,
+      y: event.originalEvent.clientY + 12,
+      text: feature.get("name"),
+    });
+  } else {
+    setTooltip({
+      visible: false,
+      x: 0,
+      y: 0,
+      text: "",
+    });
+  }
+});
 
     olMapRef.current = map;
     setFeatureLayer(kantonLayer);
@@ -142,16 +217,20 @@ const kantonCodeMapping = Object.fromEntries(
     const kantonSelectInteraction = new Select({
       condition: click,
       layers: [kantonLayer],
-      style: () =>
-        new Style({
+      style: (feature) => {
+        const currentStyle = kantonLayer.getStyle()(feature);
+        const currentFill = currentStyle.getFill().getColor();
+        return new Style({
           fill: new Fill({
-            color: "rgba(255, 255, 255, 0.01)",
+            color: currentFill,
           }),
           stroke: new Stroke({
             color: "#00f7ff",
             width: 3,
-          }),
         }),
+        zIndex: 999,
+      });
+      },
     });
 
   kantonSelectInteraction.on("select", (event) => {
@@ -243,8 +322,7 @@ useEffect(() => {
 
   if (values.length === 0) return;
 
-  const min = Math.min(...values);
-  const max = Math.max(...values);
+  const classes = getClassBreaks(values, 6)
 
   featureLayer.setStyle((feature) => {
     const geoName = feature.get("name");
@@ -255,7 +333,7 @@ useEffect(() => {
     });
 
     const wert = daten ? Number(daten[attribut]) : null;
-    const fillColor = Color(wert, min, max);
+    const fillColor = Color(wert, classes, thema);
 
     return new Style({
       fill: new Fill({ color: fillColor }),
@@ -297,7 +375,25 @@ useEffect(() => {
           ))}
         </Box>
       </div>
-      <div ref={mapRef} className="map-container"></div>
+      <div ref={mapRef} className="map-container"/>
+      {tooltip.visible && (
+        <div
+          style={{
+            position: "fixed",
+            left: tooltip.x,
+            top: tooltip.y,
+            background: "rgba(0, 0, 0, 0.75)",
+            color: "white",
+            padding: "6px 10px",
+            borderRadius: "6px",
+            fontSize: "13px",
+            pointerEvents: "none",
+            zIndex: 9999,
+          }}
+        >
+          {tooltip.text}
+        </div>
+      )}
     </div>
   );
 }
