@@ -16,31 +16,30 @@ h1 {
   margin-right: 20px;
 }
 
-h2 {
-  margin-top: 0px;
-  margin-bottom: 5px;
-  margin-left: 20px;
-}
-
-.Buttons {
+.buttons {
   margin-left:auto;
   margin-top: 20px;
   display: flex;
+  flex-direction: row;
   gap: 10px;
-}
-
-.thema{
-  display: flex;
   align-items: center;
 }
 
-.button-thema{
+.titel{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 150px;
+  align-items: center;
+}
+
+.thema{
   display: flex;
   margin-left: 10px;
   gap: 5px;
 }
 
-.button-thema .MuiButton-root {
+.thema .MuiButton-root {
   color: black;
   border: none;
   font-family: Arial;
@@ -49,7 +48,7 @@ h2 {
   text-transform: none;
 }
 
-.button-thema .MuiButton-root.active {
+.thema .MuiButton-root.active {
   background-color: rgb(128, 195, 65); /* Dunkel: rgb(99. 158, 49) , Mittel: rgb(128, 195, 65), hell: rgb(184, 237, 124)*/
   color:black;
 }

@@ -312,3 +312,34 @@ async def get_durchschnitt(kanton: str):
     finally:
         if conn:
             db_pool.putconn(conn)
+
+# -----------------------------
+# ENDPOINT Kantonsflächen in km^2 für die Sidebar
+# Datenbank: kantonsflaechen
+# -----------------------------
+@app.get("/flaeche")
+async def get_flaechen(kanton: str):
+    conn = None
+    try:
+        conn = db_pool.getconn()
+        cur = conn.cursor()
+
+        query = """
+            SELECT 
+            kantonskuerzel, 
+            flaeche_km2
+            FROM public.kantonsflaechen
+            WHERE kantonskuerzel = %s
+        """
+
+        cur.execute(query, (kanton,))
+        result = cur.fetchall()
+
+        return [{
+            "kanton": res[0],
+            "flaeche": res[1],
+        } for res in result]
+
+    finally:
+        if conn:
+            db_pool.putconn(conn)

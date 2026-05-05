@@ -84,7 +84,7 @@ const handleDateChange = (e) => {
               defaultValue={0}
               step={1}
               valueLabelDisplay="off"
-              marks={marks}
+              //marks={marks}
               color="balck"/>
           </Box>
         </div>

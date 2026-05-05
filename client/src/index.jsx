@@ -48,13 +48,13 @@ function CoronaDashboard(){
     .catch(() => setCoronadata([]));
   }, [kanton])
 
-  // Einwohnerzahlen der Kantone für Sidebar
-  const[einwohner, setEinwohner] = useState([]);
+  // Flächen der Kantone für Sidebar
+  const[flaeche, setflaeche] = useState([]);
   useEffect(() => {
-  fetch (`http://localhost:8000/einwohner?kanton=${kanton}`)
+  fetch (`http://localhost:8000/flaeche?kanton=${kanton}`)
     .then((res) => res.json())
-    .then((data) => setEinwohner(data))
-    .catch(() => setEinwohner([]));
+    .then((data) => setflaeche(data))
+    .catch(() => setflaeche([]));
   }, [kanton]);
 
   // Durchschnittliche Fälle pro Kanton für Sidebar
@@ -101,7 +101,8 @@ function CoronaDashboard(){
           setKanton={setKanton}
           thema={thema}
           mapData={mapData}
-          chData={chData}/> 
+          chData={chData}
+          datum={datum}/> 
         </div>
         <div className="sidebar">
           <Sidebar
@@ -111,8 +112,8 @@ function CoronaDashboard(){
           setKanton={setKanton}
           chData={chData}
           coronadata={coronadata}
-          einwohner={einwohner}
-          durchschnitt={durchschnitt}/>
+          durchschnitt={durchschnitt}
+          flaeche={flaeche}/>
         </div>
       </main>
       <Footer

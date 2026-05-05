@@ -19,12 +19,13 @@ import Hosp from "../Diagramm/Hosp.json"
 import "./Sidebar_display.css";
 import { None } from "vega";
 
-function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschnitt}) {
+function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschnitt, flaeche}) {
   const specs = {Ansteckungen: Faelle, Taegliche_Neuansteckungen: tagFaelle, Hospitalisierungen: Hosp, Todesfaelle: Tod};
   const aktuelleSpec = specs[thema] || Faelle;
   
   const [info, setInfo] = useState(null)
   const durchschnittData = durchschnitt?.[0];
+  const flaecheData = flaeche?.[0]
   const format = (num) => num ? num.toLocaleString('de-CH') : '-';
   
   const specMitDaten = {
@@ -99,7 +100,7 @@ function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschn
             </Tooltip>
           </div>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Kantonsfläche: 
+            Kantonsfläche: {format(flaecheData?.flaeche)} km^2
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
             Datenaufnahmetage: {format(durchschnittData?.aufzeichnungstage)}
@@ -116,13 +117,6 @@ function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschn
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
             Totale Todesfälle: 
           </Typography>
-          <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Totale Hospitalisierungen:
-          </Typography>
-          <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Massnahmen die der Kanton getroffen hat:
-          </Typography>
-
         </CardContent>
       </Card>
         

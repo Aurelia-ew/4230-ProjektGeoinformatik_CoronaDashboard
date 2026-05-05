@@ -66,12 +66,9 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
       <img src="public/virus.png" alt="Virus" width="70" height="70"
       /*style={{cursor: "pointer"}}*/
       onClick={() => setVirusOpen(true)}/>
-      <div className='Titel'>
+      <div className='titel'>
         <h1>Corona Dashboard</h1>
-        
         <div className="thema">
-          <h2> Thema:</h2>
-          <div className="button-thema">
               {buttons.map((btn) => (
                 <Button
                   key={btn.id}
@@ -81,10 +78,9 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
                 </Button>
               ))}
             </div>
-        </div>
       </div>
 
-      <Stack className="Buttons" direction="row" spacing={1}>
+      <Stack className="buttons" direction="row" spacing={1}>
         <Tooltip title="Zurück zum Statbildschirm" arrow>
           <IconButton aria-label='home' onClick={() => window.location.reload()}>
             <HomeIcon fontSize='large'/>

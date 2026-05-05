@@ -23,7 +23,7 @@ import { register } from "ol/proj/proj4.js";
 
 import "./Map_display.css";
 
-function MapDisplay({kanton, setKanton, thema, mapData, chData}) {
+function MapDisplay({kanton, setKanton, thema, mapData, chData, datum}) {
   const mapRef = useRef(null);
   const olMapRef = useRef(null);
   const [featureLayer, setFeatureLayer] = useState(null);
@@ -359,7 +359,7 @@ useEffect(() => {
   return (
     <div>
       <div className="info">
-        <h4>Informationen zur Schweiz:</h4>
+        <h4>Informationen zur Schweiz am {datum}:</h4>
         <Box className="info-box">
           {cards.map((card) => (
             <Card key={card.id} className="info-card">
