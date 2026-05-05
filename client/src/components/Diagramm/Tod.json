@@ -72,8 +72,7 @@
         "opacity": {
           "condition": [
             {
-              "empty": false,
-              "param": "param_5",
+              "test": "datum.__selected",
               "value": 1
             }
           ],
@@ -100,9 +99,8 @@
         "opacity": {
           "condition": [
             {
-              "empty": false,
-              "param": "param_5",
-              "value": 0.5
+              "test": "datum.__selected",
+              "value": 1
             }
           ],
           "value": 0

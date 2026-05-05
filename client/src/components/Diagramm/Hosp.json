@@ -9,7 +9,6 @@
   "data": {
     "name": "table"
   },
-  
   "height": 400,
   "layer": [
     {
@@ -66,15 +65,14 @@
         "opacity": 0,
         "type": "point"
       },
-      "name": "view_6"
+      "name": "view_1"
     },
     {
       "encoding": {
         "opacity": {
           "condition": [
             {
-              "empty": false,
-              "param": "param_6",
+              "test": "datum.__selected",
               "value": 1
             }
           ],
@@ -90,7 +88,7 @@
         }
       },
       "mark": {
-        "color": "grey",
+        "color": "gray",
         "filled": true,
         "size": 80,
         "type": "point"
@@ -101,9 +99,8 @@
         "opacity": {
           "condition": [
             {
-              "empty": false,
-              "param": "param_6",
-              "value": 0.5
+              "test": "datum.__selected",
+              "value": 1
             }
           ],
           "value": 0
@@ -121,7 +118,7 @@
   ],
   "params": [
     {
-      "name": "param_6",
+      "name": "param_1",
       "select": {
         "fields": [
           "date"
@@ -131,7 +128,7 @@
         "type": "point"
       },
       "views": [
-        "view_6"
+        "view_1"
       ]
     }
   ],

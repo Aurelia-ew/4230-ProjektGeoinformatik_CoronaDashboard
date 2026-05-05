@@ -65,7 +65,7 @@
         "opacity": 0,
         "type": "point"
       },
-      "name": "view_1"
+      "name": "view_13"
     },
     {
       "encoding": {
@@ -88,7 +88,7 @@
         }
       },
       "mark": {
-        "color": "grey",
+        "color": "gray",
         "filled": true,
         "size": 80,
         "type": "point"
@@ -114,6 +114,22 @@
         "color": "gray",
         "type": "rule"
       }
+    }
+  ],
+  "params": [
+    {
+      "name": "param_14",
+      "select": {
+        "fields": [
+          "date"
+        ],
+        "nearest": true,
+        "on": "pointerover",
+        "type": "point"
+      },
+      "views": [
+        "view_13"
+      ]
     }
   ],
   "width": "container"
