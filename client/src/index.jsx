@@ -113,7 +113,8 @@ function CoronaDashboard(){
           chData={chData}
           coronadata={coronadata}
           durchschnitt={durchschnitt}
-          flaeche={flaeche}/>
+          flaeche={flaeche}
+          datum={datum}/>
         </div>
       </main>
       <Footer

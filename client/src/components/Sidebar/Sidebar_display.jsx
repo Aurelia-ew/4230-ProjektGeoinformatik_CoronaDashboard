@@ -19,7 +19,7 @@ import Hosp from "../Diagramm/Hosp.json"
 import "./Sidebar_display.css";
 import { None } from "vega";
 
-function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschnitt, flaeche}) {
+function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschnitt, flaeche, datum}) {
   const specs = {Ansteckungen: Faelle, Taegliche_Neuansteckungen: tagFaelle, Hospitalisierungen: Hosp, Todesfaelle: Tod};
   const aktuelleSpec = specs[thema] || Faelle;
   
@@ -27,11 +27,16 @@ function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschn
   const durchschnittData = durchschnitt?.[0];
   const flaecheData = flaeche?.[0]
   const format = (num) => num ? num.toLocaleString('de-CH') : '-';
+
+  const chartData = coronadata.map((d) => ({
+  ...d,
+  __selected: String(d.date).slice(0, 10) === datum
+  }));
   
   const specMitDaten = {
     ...aktuelleSpec,
     data: {
-      values: coronadata,
+      values: chartData,
     },
   };
 

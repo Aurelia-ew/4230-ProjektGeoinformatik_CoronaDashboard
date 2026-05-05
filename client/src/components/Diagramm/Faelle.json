@@ -72,8 +72,7 @@
         "opacity": {
           "condition": [
             {
-              "empty": false,
-              "param": "param_1",
+              "test": "datum.__selected",
               "value": 1
             }
           ],
@@ -100,9 +99,8 @@
         "opacity": {
           "condition": [
             {
-              "empty": false,
-              "param": "param_1",
-              "value": 0.5
+              "test": "datum.__selected",
+              "value": 1
             }
           ],
           "value": 0
@@ -116,22 +114,6 @@
         "color": "gray",
         "type": "rule"
       }
-    }
-  ],
-  "params": [
-    {
-      "name": "param_1",
-      "select": {
-        "fields": [
-          "date"
-        ],
-        "nearest": true,
-        "on": "pointerover",
-        "type": "point"
-      },
-      "views": [
-        "view_1"
-      ]
     }
   ],
   "width": "container"
