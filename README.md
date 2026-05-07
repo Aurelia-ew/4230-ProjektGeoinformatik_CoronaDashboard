@@ -1,74 +1,96 @@
-# GDI_Project
-Server Client Projekt für eine Geodateninfrastruktur Webportal im Rahmen des Moduls 4230
+# Corona Dashboard
 
-- **Frontend:** React.js, OpenLayers und MUI
-- **Backend:** FastAPI, GeoServer
+Webbasierte Geodatenplattform zur Visualisierung und Analyse von Corona-Daten.
 
-GitHub Pages: https://314a.github.io/GDI_Project/
+## Technologien
 
-Getestet mit Node version 22.14.0, openlayers 9.1.0, maplibre 5.1.0, react 18.3.1
+### Frontend
 
-Vergleich von Mapping Libraries, siehe: [client/map_libraries_comparisons.md](client/map_libraries_comparisons.md)
+- React.js
+- OpenLayers
+- MUI
 
-## Requirements
+### Backend
 
-- [Git](https://git-scm.com/)
-- IDE wie [Visual Studio Code](https://code.visualstudio.com/) 
-- [Anaconda Distribution](https://www.anaconda.com/products/distribution) oder [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-- Node.js und npm ([https://docs.npmjs.com/downloading-and-installing-node-js-and-npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)) 
+- FastAPI
+- GeoServer
 
-## Repository lokal klonen
-Mit Git in einem Terminal das GitHub Repository *Geoharvester* in ein lokales Verzeichnis klonen.
+---
 
-``` shell
-cd /path/to/workspace
-# Clone Repository 
-git clone https://github.com/314a/GDI_Project.git
+# Installation
+
+## Voraussetzungen
+
+- Git
+- Node.js + npm
+- Anaconda oder Miniconda
+- Visual Studio Code (optional)
+
+---
+
+# Repository klonen
+
+```bash
+git clone <REPOSITORY_URL>
+cd <PROJECT_FOLDER>
 ```
 
-### Git Projekt mit Visual Studio Code lokal klonen
-Öffne ein neues Visual Studio Code Fenster und wähle unter Start *Clone Git Repository*. Alternativ öffne die Command Palette in VS Code `CTRL+Shift+P` (*View / Command Palette*) und wähle `Git: clone`. 
-Füge die Git web URL `https://github.com/314a/GDI_Project.git` ein und bestätige die Eingabe mit Enter. Wähle einen Ordner in welchen das Repository *geklont* werden soll.
+---
 
-## Frontend installieren
-Öffne ein Terminal (Command Prompt in VS Code) und wechsle in den *client* Ordner in diesem Projekt
+# Frontend starten
 
-``` shell
+```bash
 cd client
-# aktiviere node.js (falls nvm genutzt wird) 
-# nvm use 22.14.0
-# install all the node.js dependencies
 npm install
-# node Projekt ausführen
-# npm run dev ist in package.json definiert
 npm run dev
 ```
 
-## Backend installieren
-Öffne ein Terminal und wechsle in den *server* Ordner.
-1. Virtuelle Umgebung für Python mit allen Requirements in der `requirements.txt` Datei aufsetzen.
+Frontend erreichbar unter:
 
-```shell
-# Requirements
+```bash
+http://localhost:5173
+```
+
+---
+
+# Backend starten
+
+## Conda Environment erstellen
+
+```bash
 cd server
-# Füge conda-forge den als Channel in conda hinzu, da sonst nicht alle Pakete installiert werden können.
+
 conda config --add channels conda-forge
-# Erstelle ein neues Conda Environment und füge die Python Packges requirements.txt hinzu, requirements.txt befindet sich im Ordner server/app
-conda create --name gdiproject python=3.10.9 --file app/requirements.txt
+
+conda create --name coronadashboard python=3.10.9 --file app/requirements.txt
 ```
 
-2. Backend ausführen, virtuelle Umgebung starten und server *uvicorn* starten. Öffne http://localhost:8000/docs im Browser und verifiziere, ob das Backend läuft.
-``` shell
+## Backend ausführen
+
+```bash
 cd server
-# aktiviere die conda umgebung gdiproject
-conda activate gdiproject
-# start server auf localhost aus dem Ordner "server"
+conda activate coronadashboard
 uvicorn app.main:app --reload
-# Öffne die angegebene URL im Browser und verifiziere, ob das Backend läuft.
 ```
 
-## API Dokumentation
-Fast API kommt mit vorinstallierter Swagger UI. Wenn der Fast API Backen Server läuft, kann auf die Dokumentation der API über Swagger UI auf http://localhost:8000/docs verfügbar.
+Backend erreichbar unter:
 
+```bash
+http://localhost:8000
+```
 
-.
+Swagger API Dokumentation:
+
+```bash
+http://localhost:8000/docs
+```
+
+---
+
+# Verwendete Technologien
+
+- React 18
+- OpenLayers
+- FastAPI
+- GeoServer
+- Material UI
