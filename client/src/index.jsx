@@ -15,7 +15,7 @@ function CoronaDashboard(){
 
   const[value, setValue] = useState(0);
   const[playing, setPlaying] = useState(false);
-  const startDate = new Date("2020-02-25");
+  const startDate = new Date("2020-02-01");
 
   // Corondaten für die Karte nach Datum 
   const[mapData, setMapData] = useState([]);
@@ -122,7 +122,8 @@ function CoronaDashboard(){
       setValue={setValue}
       playing={playing}
       setPlaying={setPlaying}
-      datum={datum}/>  
+      datum={datum}
+      coronadata={coronadata}/>  
   </div>
   );
 }

@@ -18,12 +18,11 @@ footer {
 }
 
 h3 {
-  margin:0;
+  margin: 0px;
 }
 
 .slider-box{
-  margin-top: 10px; 
-  margin-bottom: 5px;
+  margin-top: 2px;
   display: flex;
   align-items: flex-start;
 }
@@ -34,7 +33,7 @@ h3 {
 }
 
 .slider {
-  width: 99%;
+  width: 96%;
   position: relative;
 }
 
@@ -50,3 +49,12 @@ h3 {
   align-items: center;
   gap: 1;
 }*/
+
+.slider .MuiSlider-mark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: grey;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

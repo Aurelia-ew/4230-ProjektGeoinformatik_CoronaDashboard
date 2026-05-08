@@ -183,7 +183,7 @@ const kantonCodeMapping = Object.fromEntries(
       view: new View({
         projection: "EPSG:2056",
         center: [2659632, 1191208],
-        zoom: 8.5,
+        zoom: 8.7,
       }),
     });
     
@@ -359,7 +359,9 @@ useEffect(() => {
   return (
     <div>
       <div className="info">
-        <h4>Informationen zur Schweiz am {datum}:</h4>
+        <h4> 
+          Informationen zur Schweiz am {new Date(datum).toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'})} :
+        </h4>
         <Box className="info-box">
           {cards.map((card) => (
             <Card key={card.id} className="info-card">
