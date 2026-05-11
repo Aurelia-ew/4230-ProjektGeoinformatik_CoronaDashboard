@@ -1,3 +1,16 @@
 theme: jekyll-theme-minimal
 title: Corona Dashboard
-description: Speichere diese Seite als Bookmark und verfolge unseren Projektstand!
+# description: Speichere diese Seite als Bookmark und verfolge unseren Projektstand!
+
+# your navbar links
+navbar:
+  - title: "Home"
+    url: "/Komponenten"
+  - title: "Bereiche_Funktionen"
+    url: "/Komponenten/Bereiche_Funktionen.html"
+  - title: "Aufbau_Geodateninfrastruktur"
+    url: "/Komponenten/Aufbau_Geodateninfrastruktur.html"
+  - title: "Erweiterungen"
+    url: "//Komponenten/Erweiterungen.html"
+  - title: "Schnittstellen"
+    url: "/Schnittstellen.html"

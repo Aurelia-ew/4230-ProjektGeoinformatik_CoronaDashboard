@@ -1,7 +1,6 @@
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from psycopg2 import pool
-from datetime import date, datetime
 
 app = FastAPI()
 
