@@ -1,23 +1,15 @@
 <aside class="sidebar">
-
   <a class="github-link" href="{{ site.github_url }}" target="_blank">
     View the Project on GitHub
   </a>
-
   <h1 class="site-title">{{ site.title }}</h1>
-
   <nav class="site-nav">
-
     {% for item in site.navbar %}
-
       {% if item.children %}
-
         <div class="nav-group">
-
           <div class="nav-group-title">
             {{ item.title }}
           </div>
-
           <div class="nav-submenu">
             {% for child in item.children %}
               <a class="site-nav-link"
@@ -26,19 +18,13 @@
               </a>
             {% endfor %}
           </div>
-
         </div>
-
       {% else %}
-
         <a class="site-nav-link"
            href="{{ item.url | relative_url }}">
            {{ item.title }}
         </a>
-
       {% endif %}
-
     {% endfor %}
-
   </nav>
 </aside>

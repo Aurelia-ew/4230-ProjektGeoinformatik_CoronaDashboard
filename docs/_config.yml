@@ -8,6 +8,7 @@ navbar:
   - title: "Home"
     url: "/"
   - title: "Bereiche und Funktionen"
+    url: /Bereiche_Funktionen
     children:
       - title: Header
         url: /Funktionen_Header
@@ -19,5 +20,14 @@ navbar:
         url: /Funktionen_Footer
   - title: "Aufbau der Geodateninfrastruktur"
     url: "/Aufbau_GDI"
+    children:
+      - title: Daten
+        url: /GDI_Daten
+      - title: Backend
+        url: /GDI_Backend
+      - title: Frontend
+        url: /GDI_Frontend
+      - title: Recherche
+        url: /GDI_Recherche
   - title: "Erweiterungen"
     url: "/Erweiterungen"
