@@ -3,7 +3,7 @@ layout: default
 title: Funktionen Header
 ---
 
-# Funktionen im Header
+## Funktionen im Header
 Im Header kann zwischen vier verschiedenen Themenbereichen gewählt werden:
 * **Ansteckungen:**  
     Dieser Bereich zeigt die gesamten bestätigten Ansteckungen über den Verlauf der gesamten Pandemie. Da es sich um kumulierte Werte handelt, steigen die Zahlen kontinuierlich an. Die Daten werden für die einzelnen Kantone in einem Liniendiagramm dargestellt und zusätzlich auf der Karte farblich (in Lilatönen) visualisiert.

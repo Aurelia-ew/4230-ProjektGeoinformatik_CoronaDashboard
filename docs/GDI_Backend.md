@@ -3,11 +3,11 @@ layout: default
 title: Aufbau GDI - Backend
 ---
 
-# Backend
+## Backend
 Das Backend des Corona-Dashboards besteht aus PostgreSQL-/PostGIS-Datenbanken sowie den Schnittstellen FastAPI und GeoServer.
 Die gesamte Backend-Infrastruktur wurde zunächst lokal auf einem Laptop entwickelt und anschliessend auf einen Raspberry Pi 5 übertragen.
 
-## Datenbank
+### Datenbank
 Die Daten werden in PostGIS-Datenbanken gespeichert und mit dem Programm pgAdmin 4 verwaltet. Sämtliche im Projekt verwendeten Daten sind in einzelnen Tabellen organisiert und bilden gemeinsam die Datenbank Corona_DB.
 Die wichtigsten Tabellen des Projekts sind:
 * corona_data: enthält die Coronadaten wie Ansteckungen, Todesfälle und Hospitalisierungen.
@@ -21,7 +21,7 @@ Die Beziehungen zwischen den Tabellen werden im folgenden Schema dargestellt:
 
 Zusätzlich werden in der Datenbank weitere Kennzahlen berechnet, darunter tägliche Neuansteckungen, durchschnittliche Ansteckungen pro Tag sowie schweizweite Gesamtwerte.
 
-### Berechnungen
+#### Berechnungen
 * Tägliche Ansteckungen:  
     Die täglichen Neuansteckungen werden aus dem Attribut ncumul_conf berechnet. Dazu wird die Anzahl der Fälle eines Tages mit jener des vorherigen Tages verglichen. Die Differenz ergibt die Anzahl neuer Fälle pro Tag.
 
@@ -31,7 +31,7 @@ Zusätzlich werden in der Datenbank weitere Kennzahlen berechnet, darunter tägl
 * Schweizweite Kennzahlen:  
     Die Werte für die gesamte Schweiz – darunter Ansteckungen, Todesfälle, Hospitalisierungen und tägliche Neuansteckungen – ergeben sich aus der Summe der entsprechenden Werte aller Kantone für ein bestimmtes Datum.
 
-## Schnittstellen (API / GeoServer)
+### Schnittstellen (API / GeoServer)
 Die Kommunikation zwischen Backend und Frontend erfolgt über FastAPI und GeoServer.
 Die Kantonsflächen werden über den GeoServer als WMS-Dienst publiziert und anschliessend mit OpenLayers im Frontend dargestellt.
 Alle weiteren Daten werden über FastAPI bereitgestellt. 

@@ -3,14 +3,14 @@ layout: default
 title: Erweiterungsmöglichkeiten / Ausblick
 ---
 
-# Erweiterungsmöglichkeiten / Ausblick
+## Erweiterungsmöglichkeiten / Ausblick
 Dieses Projekt bildet eine solide Grundlage und kann in Zukunft beliebig erweitert und verbessert werden.
 
-## Allgemein:
+### Allgemein:
 Das Dashboard kann künftig auch für andere Pandemien verwendet werden. Kennzahlen wie Ansteckungen, Hospitalisierungen und Todesfälle spielen bei nahezu jeder Pandemie eine zentrale Rolle. Neue Datensätze könnten mithilfe eines FME-Skripts oder ähnlicher Software automatisch in eine Datenbank mit derselben Struktur wie die bestehende Corona_DB importiert werden.
 Darüber hinaus könnte der Datenimport automatisiert werden, sodass die Daten während einer laufenden Pandemie kontinuierlich aktualisiert werden.
 
-## Frontend:
+### Frontend:
 Im Frontend bestehen zahlreiche Möglichkeiten zur Weiterentwicklung.
 Beispielsweise könnte ein direkter Vergleich zwischen zwei Kantonen implementiert werden. Aktuell kann jeweils nur ein Kanton ausgewählt und analysiert werden. Zukünftig könnten zwei Kantone gleichzeitig ausgewählt werden, sodass deren Kennzahlen direkt miteinander verglichen werden können.
 Ausserdem sollte die Webseite besser für unterschiedliche Bildschirmgrössen optimiert werden. Das aktuelle Layout passt sich bereits teilweise an verschiedene Geräte an, jedoch ist die Darstellung noch nicht in allen Fällen optimal.
@@ -21,7 +21,7 @@ Zusätzlich könnten die grössten Spitäler als Punkte auf der Karte dargestell
 Die Spitalpunkte könnten interaktiv gestaltet werden. Beim Anklicken eines Punktes könnten in einem Pop-up-Fenster zusätzliche Informationen angezeigt werden, beispielsweise die Anzahl Betten oder die maximale Kapazität des jeweiligen Spitals.
 Ausserdem könnten die Spitäler je nach Grösse unterschiedlich visualisiert werden, etwa durch Kreise mit variierendem Durchmesser. Dadurch wäre auf der Karte direkt erkennbar, welche Spitäler eine grössere Kapazität aufweisen.
 
-## Backend:
+### Backend:
 Auch im Backend bestehen verschiedene Optimierungsmöglichkeiten.
 Die aktuellen Schnittstellen werden über FastAPI bereitgestellt. Alternativ könnten bestimmte Abfragen künftig direkt über Datenbank-Views umgesetzt werden. Dies würde die Anzahl der Endpoints reduzieren und die Struktur übersichtlicher sowie einfacher wartbar machen. Performance-technisch wären dabei vermutlich nur geringe Unterschiede zu erwarten.
 Darüber hinaus könnten künftig nur noch die Daten geladen werden, die tatsächlich für das aktuell ausgewählte Thema benötigt werden. Derzeit werden unabhängig vom gewählten Themenbereich sämtliche Attribute übertragen. Aufgrund des Projektumfangs und des Zeitrahmens konnte diese Optimierung bisher noch nicht umgesetzt werden.

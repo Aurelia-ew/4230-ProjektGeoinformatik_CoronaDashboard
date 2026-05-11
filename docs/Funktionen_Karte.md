@@ -3,7 +3,7 @@ layout: default
 title: Funktionen in der Karte
 ---
 
-# Funktionen in der Karte
+## Funktionen in der Karte
 Die Karte zeigt alle Kantone der Schweiz sowie Liechtenstein. Je nach ausgewähltem Themenbereich werden die Kantone unterschiedlich eingefärbt.
 
 Bilder

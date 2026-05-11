@@ -3,7 +3,7 @@ layout: default
 title: Funktionen im Footer
 ---
 
-# Funktionen im Footer
+## Funktionen im Footer
 Im Footer wird das aktuell ausgewählte Datum angezeigt. Die dargestellten Werte in der Karte entsprechen jeweils den Daten dieses Tages, beispielsweise den gemeldeten Fallzahlen.
 
 Bild

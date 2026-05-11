@@ -5,6 +5,7 @@
   <title>{{ page.title }} | {{ site.title }}</title>
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
+
 <body>
   <div class="layout">
     {% include header.html %}
@@ -12,5 +13,25 @@
       {{ content }}
     </main>
   </div>
+
+  <div id="image-modal" class="image-modal">
+    <span class="image-modal-close">&times;</span>
+    <img class="image-modal-content" id="modal-image">
+  </div>
+
+  <script>
+    document.querySelectorAll('.content img').forEach(img => {
+      img.addEventListener('click', () => {
+        document.getElementById('image-modal').style.display = 'flex';
+        document.getElementById('modal-image').src = img.src;
+      });});
+
+    document.querySelector('.image-modal-close').addEventListener('click', () => {
+      document.getElementById('image-modal').style.display = 'none';});
+
+    document.getElementById('image-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'image-modal') {
+        document.getElementById('image-modal').style.display = 'none';}});
+  </script>
 </body>
 </html>

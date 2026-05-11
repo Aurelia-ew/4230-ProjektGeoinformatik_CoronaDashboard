@@ -3,7 +3,7 @@ layout: default
 title: Funktionen der Sidebar
 ---
 
-# Funktionen in der Sidebar
+## Funktionen in der Sidebar
 In der Sidebar werden verschiedene Informationen zum ausgewählten Kanton angezeigt. Dazu gehören unter anderem die Kantonsfläche, die Einwohnerzahl, die Anzahl der erfassten Tage, die gesamten Ansteckungen während der Pandemie, die durchschnittlichen täglichen Ansteckungen sowie die gesamten Todesfälle.
 
 Bild

@@ -3,7 +3,7 @@ layout: default
 title: Aufbau GDI - Frontend
 ---
 
-# Frontend
+## Frontend
 Das Frontend der Webseite besteht aus vier zentralen Komponenten:
 * Header
 * Karte
@@ -15,7 +15,7 @@ Die Funktionen der einzelnen Komponenten werden im Kapitel Funktionen genauer be
 Zusammengeführt werden alle Komponenten in der index-Datei. Dort werden zudem die FastAPI-Abfragen, die meisten React-Hooks sowie verschiedene Funktionen zur Interaktivität verwaltet. Dadurch können Daten, React-Komponenten und Interaktionslogiken zentral organisiert und anschliessend an die entsprechenden Komponenten weitergegeben werden.
 Ein weiterer Vorteil dieser Struktur ist die Wiederverwendbarkeit von Elementen. So können beispielsweise Funktionen oder Daten gleichzeitig in der Sidebar und im Footer verwendet werden, ohne mehrfach programmiert werden zu müssen.
 
-## Verwendete Technologien
+### Verwendete Technologien
 Das Frontend wurde mit folgenden Technologien umgesetzt:
 * HTML: 
     

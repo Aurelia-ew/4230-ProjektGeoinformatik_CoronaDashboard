@@ -3,8 +3,8 @@ layout: default
 title: Aufbau GDI - Daten
 ---
 
-# Daten
-## Corona - Daten:
+## Daten
+### Corona - Daten:
 Die Corona-Daten stammen aus einem GitHub-Repository, aus dem die Datensätze heruntergeladen werden können. Für jeden Kanton sowie für Liechtenstein liegt jeweils eine Datei im CSV-Format vor.
 * Link Daten: [OpenZH COVID Repository](https://github.com/openZH/covid_19)
 
@@ -18,16 +18,16 @@ Für dieses Projekt wurden insbesondere folgende Attribute verwendet:
 * ncumul_deceased: kumulierte Todesfälle
 * current_hosp: aktuelle Hospitalisierungen
 
-### Hinweis zu den Corona - Daten:
+#### Hinweis zu den Corona - Daten:
 Die Daten enthalten ausschliesslich gemeldete Fälle. Die tatsächliche Anzahl infizierter Personen dürfte daher höher liegen. Gründe dafür können unter anderem sein, dass infizierte Personen keine Symptome hatten und deshalb nicht getestet wurden oder dass Fälle den zuständigen Behörden nicht gemeldet wurden.
 Auch bei den Todesfällen kann nicht in jedem Fall eindeutig festgestellt werden, ob diese direkt auf eine Corona-Infektion zurückzuführen sind oder ob weitere Ursachen eine Rolle gespielt haben. Ähnliches gilt für die Hospitalisierungen, da nicht immer vollständig nachvollziehbar ist, nach welchen Kriterien die Daten erhoben wurden.
 Die dargestellten Zahlen und Angaben sollten deshalb stets kritisch betrachtet und im entsprechenden Kontext interpretiert werden.
 
-## Einwohnerzahlen:
+### Einwohnerzahlen:
 Die Einwohnerzahlen werden vom Bundesamt für Statistik bezogen und in einer Excel-Tabelle gespeichert.
 * Link Daten: [Einwohnerdaten BFS](https://dam-api.bfs.admin.ch/hub/api/dam/assets/36139705/master)
 
-## Kantonsflächen:
+### Kantonsflächen:
 Die Flächendaten der Kantone stammen von swisstopo, genauer aus dem Datensatz swissBOUNDARIES3D. Diese Geodaten liegen im Shapefile-Format vor.
 * Link Daten: [swissBOUNDARIES3D](https://www.swisstopo.admin.ch/de/landschaftsmodell-swissboundaries3d)
 
