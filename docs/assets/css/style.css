@@ -45,7 +45,7 @@ body {
 
 .nav-group-title {
   display: block;
-  font-weight: 700;
+  /*font-weight: 700;*/
   margin-bottom: 10px;
   color: #267cb9;
   text-decoration: none;
@@ -71,5 +71,9 @@ body {
 }
 
 .content li {
-  padding-left: 2px;
+  margin-bottom: 8px;
+}
+
+.content li p {
+  margin: 2px 0;
 }
