@@ -38,3 +38,20 @@ body {
   color: #267cb9;
   text-decoration: none;
 }
+
+.nav-group {
+  margin-bottom: 18px;
+}
+
+.nav-group-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.nav-submenu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 14px;
+}

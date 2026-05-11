@@ -6,7 +6,7 @@ title: Aufbau GDI
 # Aufbau Geodateninfrastruktur
 ## Architektur
 Die Geoinfrastruktur des Corona Dashboards besteht aus einem Backend und einem Frontend. Die folgende Visualisierung zeigt die Architektur des Corona Dashboard:
-![Architektur](Bilder/architektur.png)
+![Architektur](Bilder/Architektur.png)
 
 ## Daten
 ### Corona - Daten:
