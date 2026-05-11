@@ -7,9 +7,9 @@ github_url: https://github.com/Aurelia-ew/4230-ProjektGeoinformatik_CoronaDashbo
 navbar:
   - title: "Home"
     url: "/"
-  - title: "Bereiche_Funktionen"
+  - title: "Bereiche und Funktionen"
     url: "/Bereiche_Funktionen.html"
-  - title: "Aufbau_Geodateninfrastruktur"
+  - title: "Aufbau der Geodateninfrastruktur"
     url: "/Aufbau_GDI.html"
   - title: "Erweiterungen"
     url: "/Erweiterungen.html"
