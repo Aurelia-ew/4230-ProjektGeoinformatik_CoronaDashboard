@@ -4,9 +4,9 @@ title: Aufbau GDI
 ---
 
 # Aufbau Geodateninfrastruktur
-## Architektu
+## Architektur
 Die Geoinfrastruktur des Corona Dashboards besteht aus einem Backend und einem Frontend. Die folgende Visualisierung zeigt die Architektur des Corona Dashboard:
-![Architektur](docs/Bilder/Architektur.png)
+![Architektur](Bilder/architektur.png)
 
 ## Daten
 ### Corona - Daten:
@@ -15,8 +15,8 @@ Die Corona-Daten stammen aus einem GitHub-Repository, aus dem die Datensätze he
 
 Die Datensätze enthalten verschiedene Attribute, darunter beispielsweise aktuelle Ansteckungen, Todesfälle und Hospitalisierungen. Nicht alle Attribute sind jedoch vollständig oder durchgehend vorhanden.
 
-![Vollständigkeit Attribute](docs/Bilder/Vollstaendigkeit_Attribute.png)
-![Legende Vollständigkeit Attribute](docs/Bilder/Legende_Vollstaendigkeit_Attribute.png)
+![Vollständigkeit Attribute](Bilder/Vollstaendigkeit_Attribute.png)
+![Legende Vollständigkeit Attribute](Bilder/Legende_Vollstaendigkeit_Attribute.png)
 
 Für dieses Projekt wurden insbesondere folgende Attribute verwendet:
 * ncumul_conf – kumulierte Ansteckungen
@@ -54,7 +54,7 @@ Die wichtigsten Tabellen des Projekts sind:
 
 Die Beziehungen zwischen den Tabellen werden im folgenden Schema dargestellt:
 
-![Tabellen Schema](docs/Bilder/Tabellen_Schema.png)
+![Tabellen Schema](Bilder/Tabellen_Schema.png)
 
 Zusätzlich werden in der Datenbank weitere Kennzahlen berechnet, darunter tägliche Neuansteckungen, durchschnittliche Ansteckungen pro Tag sowie schweizweite Gesamtwerte.
 
@@ -100,7 +100,7 @@ Dieser Endpoint wird ebenfalls ausgelöst, sobald ein Kanton über die Karte ode
 
 Die Daten werden über GET-Anfragen vom Frontend abgerufen und anschliessend an die entsprechenden Komponenten der Benutzeroberfläche weitergegeben.
 
-### Frontend
+## Frontend
 Das Frontend der Webseite besteht aus vier zentralen Komponenten:
 * Header
 * Karte
@@ -112,7 +112,7 @@ Die Funktionen der einzelnen Komponenten werden im Kapitel Funktionen genauer be
 Zusammengeführt werden alle Komponenten in der index-Datei. Dort werden zudem die FastAPI-Abfragen, die meisten React-Hooks sowie verschiedene Funktionen zur Interaktivität verwaltet. Dadurch können Daten, React-Komponenten und Interaktionslogiken zentral organisiert und anschliessend an die entsprechenden Komponenten weitergegeben werden.
 Ein weiterer Vorteil dieser Struktur ist die Wiederverwendbarkeit von Elementen. So können beispielsweise Funktionen oder Daten gleichzeitig in der Sidebar und im Footer verwendet werden, ohne mehrfach programmiert werden zu müssen.
 
-#### Verwendete Technologien
+### Verwendete Technologien
 Das Frontend wurde mit folgenden Technologien umgesetzt:
 * HTML: Zuständig für die Struktur der Webseite und Elemente wie Buttons oder Eingabefelder.
 * JavaScript: Verantwortlich für die Funktionalität und Interaktivität der Webseite.
@@ -123,6 +123,6 @@ Das Frontend wurde mit folgenden Technologien umgesetzt:
 * Vega-Altair: Wird zur Erstellung der Diagramme verwendet.
 * OpenLayers: Wird für die Darstellung und Interaktion mit der Karte eingesetzt.
 
-### Recherche
+## Recherche
 Die Informationen zu den Massnahmen und Beschlüssen des Bundes wurden mithilfe von Internetrecherchen sowie mit Unterstützung von ChatGPT zusammengetragen.
 Die recherchierten Inhalte werden direkt im Frontend innerhalb der Footer-Komponente eingebunden und verwendet.

@@ -18,6 +18,8 @@ body {
 .content {
   max-width: 900px;
   padding: 40px 60px;
+  color: #666;
+  line-height: 1.6;
 }
 
 .site-title {
@@ -35,9 +37,4 @@ body {
 .github-link {
   color: #267cb9;
   text-decoration: none;
-}
-
-.content p {
-  line-height: 1.6;
-  color: #666;
 }
