@@ -10,6 +10,6 @@ navbar:
   - title: "Bereiche_Funktionen"
     url: "/Bereiche_Funktionen.html"
   - title: "Aufbau_Geodateninfrastruktur"
-    url: "/Aufbau_GID.html"
+    url: "/Aufbau_GDI.html"
   - title: "Erweiterungen"
     url: "/Erweiterungen.html"
