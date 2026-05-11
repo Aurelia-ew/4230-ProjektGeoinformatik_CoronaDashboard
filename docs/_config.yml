@@ -1,5 +1,6 @@
 theme: jekyll-theme-minimal
 title: Corona Dashboard
+github_url: https://github.com/Aurelia-ew/4230-ProjektGeoinformatik_CoronaDashboard/tree/main
 # description: Speichere diese Seite als Bookmark und verfolge unseren Projektstand!
 
 # your navbar links
@@ -9,8 +10,6 @@ navbar:
   - title: "Bereiche_Funktionen"
     url: "/Bereiche_Funktionen.html"
   - title: "Aufbau_Geodateninfrastruktur"
-    url: "/Aufbau_Geodateninfrastruktur.html"
+    url: "/Aufbau_GID.html"
   - title: "Erweiterungen"
     url: "/Erweiterungen.html"
-  - title: "Schnittstellen"
-    url: "/Schnittstellen.html"

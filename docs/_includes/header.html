@@ -1,15 +1,15 @@
-<header class="site-header">
-  <div class="wrapper">
-    <h1 class="site-title">
-      <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-    </h1>
+<aside class="sidebar">
+  <a class="github-link" href="{{ site.github_url }}" target="_blank">
+    View the Project on GitHub
+  </a>
 
-    <nav class="site-nav">
-      {% for item in site.navbar %}
-        <a class="site-nav-link" href="{{ item.url | relative_url }}">
-          {{ item.title }}
-        </a>
-      {% endfor %}
-    </nav>
-  </div>
-</header>
+  <h1 class="site-title">{{ site.title }}</h1>
+
+  <nav class="site-nav">
+    {% for item in site.navbar %}
+      <a class="site-nav-link" href="{{ item.url | relative_url }}">
+        {{ item.title }}
+      </a>
+    {% endfor %}
+  </nav>
+</aside>
