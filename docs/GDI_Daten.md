@@ -6,7 +6,7 @@ title: Aufbau GDI - Daten
 # Daten
 ## Corona - Daten:
 Die Corona-Daten stammen aus einem GitHub-Repository, aus dem die Datensätze heruntergeladen werden können. Für jeden Kanton sowie für Liechtenstein liegt jeweils eine Datei im CSV-Format vor.
-* Link Daten: https://github.com/openZH/covid_19
+* Link Daten: [OpenZH COVID Repository](https://github.com/openZH/covid_19)
 
 Die Datensätze enthalten verschiedene Attribute, darunter beispielsweise aktuelle Ansteckungen, Todesfälle und Hospitalisierungen. Nicht alle Attribute sind jedoch vollständig oder durchgehend vorhanden.
 
@@ -25,11 +25,11 @@ Die dargestellten Zahlen und Angaben sollten deshalb stets kritisch betrachtet u
 
 ## Einwohnerzahlen:
 Die Einwohnerzahlen werden vom Bundesamt für Statistik bezogen und in einer Excel-Tabelle gespeichert.
-* Link Daten:https://dam-api.bfs.admin.ch/hub/api/dam/assets/36139705/master
+* Link Daten: [Einwohnerdaten BFS](https://dam-api.bfs.admin.ch/hub/api/dam/assets/36139705/master)
 
 ## Kantonsflächen:
 Die Flächendaten der Kantone stammen von swisstopo, genauer aus dem Datensatz swissBOUNDARIES3D. Diese Geodaten liegen im Shapefile-Format vor.
-* Link Daten: https://www.swisstopo.admin.ch/de/landschaftsmodell-swissboundaries3d
+* Link Daten: [swissBOUNDARIES3D](https://www.swisstopo.admin.ch/de/landschaftsmodell-swissboundaries3d)
 
 Alle Daten werden anschliessend entweder mit dem Tool shp2pgsql von PostgreSQL/PostGIS oder über das Importwerkzeug von pgAdmin 4 in die Datenbank importiert. Nicht benötigte Attribute werden bereits vor dem Import entfernt.
 
