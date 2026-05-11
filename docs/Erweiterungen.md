@@ -1,3 +1,8 @@
+---
+layout: default
+title: Erweiterungsmöglichkeiten / Ausblick
+---
+
 # Erweiterungsmöglichkeiten / Ausblick
 Dieses Projekt bildet eine solide Grundlage und kann in Zukunft beliebig erweitert und verbessert werden.
 

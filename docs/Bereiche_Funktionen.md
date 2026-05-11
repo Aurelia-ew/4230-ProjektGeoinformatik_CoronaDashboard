@@ -1,3 +1,8 @@
+---
+layout: default
+title: Bereiche und deren Funktionen
+---
+
 # Bereiche und deren Funktionen
 
 ## Header:

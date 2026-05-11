@@ -1,3 +1,8 @@
+---
+layout: default
+title: Home
+---
+
 ## Home
 Willkommen auf der GitHub-Page des Corona-Dashboards.
 Das Corona-Dashboard ist eine interaktive Webanwendung zur Visualisierung und Analyse der Corona-Pandemie in der Schweiz. Es bietet einen umfassenden Überblick über den Verlauf der Pandemie sowohl auf nationaler Ebene als auch für einzelne Kantone.
