@@ -6,7 +6,7 @@ title: Aufbau GDI
 # Aufbau Geodateninfrastruktur
 ## Architektu
 Die Geoinfrastruktur des Corona Dashboards besteht aus einem Backend und einem Frontend. Die folgende Visualisierung zeigt die Architektur des Corona Dashboard:
-<img src="{{ '/Bilder/architektur.png' | relative_url }}" alt="Architektur">
+![Architektur](Bilder/architektur.png)
 
 ## Daten
 ### Corona - Daten:
@@ -15,8 +15,8 @@ Die Corona-Daten stammen aus einem GitHub-Repository, aus dem die Datensätze he
 
 Die Datensätze enthalten verschiedene Attribute, darunter beispielsweise aktuelle Ansteckungen, Todesfälle und Hospitalisierungen. Nicht alle Attribute sind jedoch vollständig oder durchgehend vorhanden.
 
-![Vollständigkeit Attribute](/docs/Bilder/Vollständigkeit_Attribute.png)
-![Legende Vollständigkeit Attribute](/docs/Bilder/Legende_Vollständigkeit_Attribute.png)
+![Vollständigkeit Attribute](Bilder/Vollständigkeit_Attribute.png)
+![Legende Vollständigkeit Attribute](Bilder/Legende_Vollständigkeit_Attribute.png)
 
 Für dieses Projekt wurden insbesondere folgende Attribute verwendet:
 * ncumul_conf – kumulierte Ansteckungen
@@ -54,7 +54,7 @@ Die wichtigsten Tabellen des Projekts sind:
 
 Die Beziehungen zwischen den Tabellen werden im folgenden Schema dargestellt:
 
-![Tabellen Schema](/docs/Bilder/Tabellen_Schema.png)
+![Tabellen Schema](Bilder/Tabellen_Schema.png)
 
 Zusätzlich werden in der Datenbank weitere Kennzahlen berechnet, darunter tägliche Neuansteckungen, durchschnittliche Ansteckungen pro Tag sowie schweizweite Gesamtwerte.
 
