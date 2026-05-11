@@ -14,9 +14,9 @@ Die Datensätze enthalten verschiedene Attribute, darunter beispielsweise aktuel
 ![Legende Vollständigkeit Attribute](Bilder/Legende_Vollstaendigkeit_Attribute.png)
 
 Für dieses Projekt wurden insbesondere folgende Attribute verwendet:
-* ncumul_conf – kumulierte Ansteckungen
-* ncumul_deceased – kumulierte Todesfälle
-* current_hosp – aktuelle Hospitalisierungen
+* ncumul_conf: kumulierte Ansteckungen
+* ncumul_deceased: kumulierte Todesfälle
+* current_hosp: aktuelle Hospitalisierungen
 
 ### Hinweis zu den Corona - Daten:
 Die Daten enthalten ausschliesslich gemeldete Fälle. Die tatsächliche Anzahl infizierter Personen dürfte daher höher liegen. Gründe dafür können unter anderem sein, dass infizierte Personen keine Symptome hatten und deshalb nicht getestet wurden oder dass Fälle den zuständigen Behörden nicht gemeldet wurden.

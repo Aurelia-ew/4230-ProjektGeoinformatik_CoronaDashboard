@@ -17,11 +17,34 @@ Ein weiterer Vorteil dieser Struktur ist die Wiederverwendbarkeit von Elementen.
 
 ## Verwendete Technologien
 Das Frontend wurde mit folgenden Technologien umgesetzt:
-* HTML: Zuständig für die Struktur der Webseite und Elemente wie Buttons oder Eingabefelder.
-* JavaScript: Verantwortlich für die Funktionalität und Interaktivität der Webseite.
-* CSS: Zuständig für das gesamte Styling und Layout.
-* MUI (Material UI): Liefert vorgefertigte Komponenten wie Buttons, Icons oder Textfelder.
-* Node Package Manager (NPM): Wird verwendet, um Softwarepakete zu installieren, zu aktualisieren und zu verwalten.
-* React: Ermöglicht die Erstellung interaktiver und komponentenbasierter Benutzeroberflächen.
-* Vega-Altair: Wird zur Erstellung der Diagramme verwendet.
-* OpenLayers: Wird für die Darstellung und Interaktion mit der Karte eingesetzt.
+* HTML: 
+    
+    Zuständig für die Struktur der Webseite und Elemente wie Buttons oder Eingabefelder.
+
+* JavaScript: 
+    
+    Verantwortlich für die Funktionalität und Interaktivität der Webseite.
+
+* CSS: 
+
+    Zuständig für das gesamte Styling und Layout.
+
+* MUI (Material UI): 
+
+    Liefert vorgefertigte Komponenten wie Buttons, Icons oder Textfelder.
+
+* Node Package Manager (NPM): 
+
+    Wird verwendet, um Softwarepakete zu installieren, zu aktualisieren und zu verwalten.
+
+* React: 
+
+    Ermöglicht die Erstellung interaktiver und komponentenbasierter Benutzeroberflächen.
+
+* Vega-Altair: 
+    
+    Wird zur Erstellung der Diagramme verwendet.
+
+* OpenLayers: 
+    
+    Wird für die Darstellung und Interaktion mit der Karte eingesetzt.
