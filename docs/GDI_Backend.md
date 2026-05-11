@@ -23,15 +23,12 @@ Zusätzlich werden in der Datenbank weitere Kennzahlen berechnet, darunter tägl
 
 ### Berechnungen
 * Tägliche Ansteckungen:
-
     Die täglichen Neuansteckungen werden aus dem Attribut ncumul_conf berechnet. Dazu wird die Anzahl der Fälle eines Tages mit jener des vorherigen Tages verglichen. Die Differenz ergibt die Anzahl neuer Fälle pro Tag.
 
 * Durchschnittliche Ansteckungen pro Tag:
-
     Dieser Wert wird berechnet, indem die maximale Anzahl kumulierter Fälle (ncumul_conf am letzten Erfassungstag) durch die Anzahl der Datenerfassungstage dividiert wird.
 
 * Schweizweite Kennzahlen:
-
     Die Werte für die gesamte Schweiz – darunter Ansteckungen, Todesfälle, Hospitalisierungen und tägliche Neuansteckungen – ergeben sich aus der Summe der entsprechenden Werte aller Kantone für ein bestimmtes Datum.
 
 ## Schnittstellen (API / GeoServer)
