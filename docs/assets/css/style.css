@@ -1,12 +1,7 @@
-* {
-  box-sizing: border-box;
-}
-
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
   color: #333;
-  background: #fff;
 }
 
 .layout {
@@ -17,22 +12,17 @@ body {
 
 .sidebar {
   padding: 40px;
-  border-right: 1px solid #e5e5e5;
+  border-right: 1px solid #ddd;
 }
 
-.github-link {
-  display: block;
-  color: #267cb9;
-  text-decoration: none;
-  font-size: 15px;
-  margin-bottom: 28px;
+.content {
+  max-width: 900px;
+  padding: 40px 60px;
 }
 
 .site-title {
-  font-size: 24px;
-  line-height: 1.1;
-  margin: 0 0 28px;
-  font-weight: 700;
+  font-size: 26px;
+  margin: 25px 0;
 }
 
 .site-nav {
@@ -41,53 +31,13 @@ body {
   gap: 8px;
 }
 
-.site-nav-link {
+.site-nav-link,
+.github-link {
   color: #267cb9;
   text-decoration: none;
-  font-size: 16px;
-}
-
-.site-nav-link:hover {
-  text-decoration: underline;
-}
-
-.content {
-  max-width: 900px;
-  padding: 36px 56px;
-}
-
-.content h1 {
-  font-size: 32px;
-  margin-top: 0;
-}
-
-.content h2 {
-  font-size: 20px;
-  margin-top: 28px;
 }
 
 .content p {
   line-height: 1.6;
   color: #666;
-}
-
-.content img,
-.content video {
-  max-width: 100%;
-  height: auto;
-}
-
-@media (max-width: 800px) {
-  .layout {
-    grid-template-columns: 1fr;
-  }
-
-  .sidebar {
-    border-right: none;
-    border-bottom: 1px solid #e5e5e5;
-  }
-
-  .content {
-    padding: 28px;
-  }
 }

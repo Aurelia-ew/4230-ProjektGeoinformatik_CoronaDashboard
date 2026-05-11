@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Aufbau Geodateninfrastruktur
+title: Aufbau GDI
 ---
 
 # Aufbau Geodateninfrastruktur
