@@ -44,9 +44,16 @@ body {
 }
 
 .nav-group-title {
+  display: block;
   font-weight: 700;
   margin-bottom: 8px;
   color: #333;
+  text-decoration: none;
+}
+
+.nav-group-title:hover {
+  color: #267cb9;
+  text-decoration: underline;
 }
 
 .nav-submenu {

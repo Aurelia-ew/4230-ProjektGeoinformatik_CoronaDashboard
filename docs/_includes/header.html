@@ -7,22 +7,20 @@
     {% for item in site.navbar %}
       {% if item.children %}
         <div class="nav-group">
-          <div class="nav-group-title">
+          <a class="nav-group-title" href="{{ item.url | relative_url }}">
             {{ item.title }}
-          </div>
+          </a>
           <div class="nav-submenu">
             {% for child in item.children %}
-              <a class="site-nav-link"
-                 href="{{ child.url | relative_url }}">
-                 {{ child.title }}
+              <a class="site-nav-link" href="{{ child.url | relative_url }}">
+                {{ child.title }}
               </a>
             {% endfor %}
           </div>
         </div>
       {% else %}
-        <a class="site-nav-link"
-           href="{{ item.url | relative_url }}">
-           {{ item.title }}
+        <a class="site-nav-link" href="{{ item.url | relative_url }}">
+          {{ item.title }}
         </a>
       {% endif %}
     {% endfor %}
