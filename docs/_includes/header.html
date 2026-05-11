@@ -1,8 +1,17 @@
 <aside class="sidebar">
   <a class="github-link" href="{{ site.github_url }}" target="_blank">
-    View the Project on GitHub
+    Hier gehts zum Projekt auf GitHub
   </a>
-  <h1 class="site-title">{{ site.title }}</h1>
+  <div class="site-branding">
+    <img
+      class="site-logo"
+      src="{{ '/Bilder/virus.png' | relative_url }}"
+      alt="Corona Dashboard Logo">
+
+    <h1 class="site-title">
+      {{ site.title }}
+    </h1>
+  </div>
   <nav class="site-nav">
     {% for item in site.navbar %}
       {% if item.children %}

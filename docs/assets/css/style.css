@@ -40,13 +40,12 @@ body {
 }
 
 .nav-group {
-  margin-bottom: 18px;
+  margin-bottom: 8px;
 }
 
 .nav-group-title {
   display: block;
-  /* font-weight: 700; */
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   color: #267cb9;
   text-decoration: none;
 }
@@ -76,4 +75,23 @@ body {
 
 .content li p {
   margin: 2px 0;
+}
+.site-branding {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 25px 0 35px;
+}
+
+.site-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.site-title {
+  font-size: 26px;
+  margin: 0;
+  line-height: 1.1;
 }
