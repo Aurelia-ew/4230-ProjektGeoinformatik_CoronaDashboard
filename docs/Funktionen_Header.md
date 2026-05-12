@@ -17,12 +17,12 @@ Im Header kann zwischen vier verschiedenen Themenbereichen gewählt werden:
 * **Hospitalisierungen:**  
     Hier werden die täglichen Hospitalisierungen pro Kanton dargestellt. Die Werte erscheinen in Form eines orangen Balkendiagramms.
 
-Video
+![Header_Themen](GIFs/Header_Themen.gif)
 
 Über das Haussymbol auf der rechten Seite können jederzeit die ursprünglichen Einstellungen wiederhergestellt werden. 
 
-Video
+![Header_Haus](GIFs/Header_Haussymbol.gif)
 
 Der Infobutton enthält zusätzliche Informationen zum Dashboard sowie zu den verwendeten Datenquellen. 
 
-Video
+![Header_Info](GIFs/Header_Info.gif)

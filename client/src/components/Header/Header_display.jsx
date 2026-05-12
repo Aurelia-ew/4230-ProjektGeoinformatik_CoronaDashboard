@@ -1,5 +1,6 @@
 import {useState} from "react";
 import IconButton from '@mui/material/IconButton';
+import CloseIcon from "@mui/icons-material/Close";
 import InfoIcon from "@mui/icons-material/Info";
 import HomeIcon from "@mui/icons-material/Home";
 import Stack from '@mui/material/Stack';
@@ -93,41 +94,71 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
           </IconButton>
         </Tooltip>
 
-        <Dialog open={info} onClose={() => setInfo(false)}>
+        <Dialog open={info}>
           <DialogTitle>
             <h3>Informationen zur Webseite</h3>
+            <IconButton
+              aria-label="close"
+              onClick={() => setInfo(false)}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: "grey",
+              }}>
+              <CloseIcon />
+            </IconButton>
           </DialogTitle>
           <DialogContent>
             <Typography>
               Autorinnen: Aurelia Weickgenannt und Pascal Schmid
               <br />
               <br />
-              Fokusfrage: 
+              Fokusfrage: Wie hat sich die Coronapandemie in der Schweiz ausgebreitet bzw. verlaufen?
               <br />
               <br />
-              Weitere Informationen siehe README.md file.
+              <a
+                href="https://github.com/Aurelia-ew/4230-ProjektGeoinformatik_CoronaDashboard/tree/main"
+                target="_blank"
+                rel="noopener noreferrer">
+                Hier gehts zum GitHub Repository
+              </a>
+              <br />
+              Die Instalationsanleitung für die Webseite und alle zugehörigen Tools ist im Readme im GitHub Repository zu finden.
               <br />
               <br />
-              Datenquelle Gesamtdatensatz: 
+              <a
+                href="https://aurelia-ew.github.io/4230-ProjektGeoinformatik_CoronaDashboard/"
+                target="_blank"
+                rel="noopener noreferrer">
+                Hier gehts zur GitHub Page
+              </a>
+              <br />
+              Auf der GitHub Page sind die Funktionen der einzelnen Komponenten nochmal beschrieben. 
+              Zusätzlich sind auch Informationen zu den Daten, dem Backend und den Schnittstellen zu finden.
+              <br />
             </Typography>
           </DialogContent>
-          <DialogActions>
-            <Button variant="contained" onClick={() => setInfo(false)}>
-              Schliessen
-            </Button>
-          </DialogActions>
         </Dialog>
 
-        <Dialog open={virusOpen} onClose={() => setVirusOpen(false)} maxWidth="md">
-          <DialogTitle> Easter Egg</DialogTitle>
+        <Dialog open={virusOpen}  maxWidth="md">
+          <DialogTitle> 
+            <h3>Cheers und bleibt gesunt :)</h3>
+            <IconButton
+              aria-label="close"
+              onClick={() => setVirusOpen(false)}
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: "grey",
+              }}>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
           <DialogContent>
             <img src="public/Scrat_Flasche.png" alt="Scrat mit Flasche" style={{ width:"100%", height: "auto"}}/>
           </DialogContent>
-          <DialogActions>
-            <Button variant="contained" onClick={() => setVirusOpen(false)}>
-              Schliessen
-            </Button>
-          </DialogActions>
         </Dialog>
       </Stack>
     </header>
