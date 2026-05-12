@@ -1,6 +1,6 @@
 # Corona Dashboard
 
-Webbasierte Geodatenplattform zur Visualisierung und Analyse von Corona-Daten.
+Webbasierte Geodatenplattform zur Visualisierung und Analyse von Corona-Daten. Für alle Kantone können Zahlen zu Ansteckungen, Hospitalisierungen und Todesfällen analysiert werden. Die Daten lassen sich nach verschiedenen Themen filtern und für bestimmte Zeiträume beziehungsweise Datumsangaben darstellen.
 
 ## Technologien
 
@@ -14,6 +14,7 @@ Webbasierte Geodatenplattform zur Visualisierung und Analyse von Corona-Daten.
 
 - FastAPI
 - GeoServer
+- pgAdmin4
 
 ---
 
@@ -31,7 +32,7 @@ Webbasierte Geodatenplattform zur Visualisierung und Analyse von Corona-Daten.
 # Repository klonen
 
 ```bash
-git clone <REPOSITORY_URL>
+git clone < https://github.com/Aurelia-ew/4230-ProjektGeoinformatik_CoronaDashboard >
 cd <PROJECT_FOLDER>
 ```
 
@@ -87,10 +88,6 @@ http://localhost:8000/docs
 
 ---
 
-# Verwendete Technologien
+# Datenbanken
 
-- React 18
-- OpenLayers
-- FastAPI
-- GeoServer
-- Material UI
+Die Daten werden in einer pgAdmin 4-Datenbank verwaltet. Dabei sind die Informationen in mehrere Tabellen gegliedert und nach Kantonskürzel sowie Datum strukturiert. Die einzelnen Tabellen sind über Primär- und Fremdschlüssel miteinander verbunden, wodurch eine relationale Datenstruktur entsteht. Dadurch können Daten effizient abgefragt, verknüpft und ausgewertet werden. Zusätzlich ermöglicht diese Struktur die laufende Berechnung neuer Kennwerte, beispielsweise Durchschnittswerte oder zeitliche Entwicklungen der Corona-Daten.
