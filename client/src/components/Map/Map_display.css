@@ -22,6 +22,8 @@ h4 {
 .info-card {
   flex: 0 1 250px;
   min-width: 250px;
+  box-shadow: none;
+  border: 1px solid lightgrey;
 }
 .info-text{
   min-height: 5px;

@@ -4,10 +4,10 @@ import Slider from '@mui/material/Slider';
 import IconButton from "@mui/material/IconButton";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PauseIcon from "@mui/icons-material/Pause";
-import Tooltip from '@mui/material/Tooltip';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import TextField from "@mui/material/TextField";
 import { Popover, Card, CardContent, Typography } from "@mui/material";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import "./Footer_display.css";
 
@@ -71,7 +71,6 @@ function Footer({value, setValue, playing, setPlaying, datum, coronadata}) {
             - Öffentliche Veranstaltungen verboten
             - Grenzkontrollen eingeführt `
   },
-
   78: {
     title: "19.04.2020: Verlängerung Lockdown",
     text: ` - Lockdown-Massnahmen verlängert
@@ -225,46 +224,42 @@ const handleMouseLeave = () => {
           <h3> 
             Datum: {new Date(datum).toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'})} 
           </h3>
-          <Tooltip title="Datum auswählen" arrow>
-            <Box className="kalender">
-              <IconButton aria-label="calendar">
-                <CalendarMonthIcon fontSize="large"/>
-                <input
-                  type="date"
-                  value={datum}
-                  min="2020-01-31"
-                  max="2024-05-05"
-                  onChange={handleDateChange}
-                  style={{
-                    position: "absolute",
-                    opacity: 0,
-                    width: "100%",
-                    height: "100%",
-                    cursor: "pointer",
-                  }}
-                  />
-              </IconButton>
-            </Box>
-          </Tooltip>
-        </div>
-  
-        <div className="slider-box">
-          <IconButton onClick={() => setPlaying(!playing)}>
-            {playing ? <PauseIcon fontSize="medium"/> : <PlayArrowIcon fontSize="medium"/>}
-          </IconButton>
-
-          <Box className="slider" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-            <Slider
-              aria-label="Custom marks"
-              min={0}
-              max={coronadata.length - 1}
-              value={value}
-              onChange={(e, newValue) => setValue(newValue)}
-              step={1}
-              valueLabelDisplay="off"
-              marks={marks}
-              color="black"/>
+          <Box className="kalender">
+            <DatePicker
+              selected={new Date(datum)}
+              onChange={(date) => {
+                const formatted = date.toISOString().split("T")[0];
+                handleDateChange({ target: { value: formatted } });
+              }}
+              minDate={new Date("2020-01-31")}
+              maxDate={new Date("2024-05-05")}
+              popperPlacement="top"
+              customInput={
+                <IconButton aria-label="calendar">
+                  <CalendarMonthIcon fontSize="large" />
+                </IconButton>
+              }
+            />
           </Box>
+        </div>
+
+      <div className="slider-box">
+        <IconButton onClick={() => setPlaying(!playing)}>
+          {playing ? <PauseIcon fontSize="medium"/> : <PlayArrowIcon fontSize="medium"/>}
+        </IconButton>
+
+        <Box className="slider" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+          <Slider
+            aria-label="Custom marks"
+            min={0}
+            max={coronadata.length - 1}
+            value={value}
+            onChange={(e, newValue) => setValue(newValue)}
+            step={1}
+            valueLabelDisplay="off"
+            marks={marks}
+            color="black"/>
+        </Box>
         </div>
        <Popover
           open={Boolean(activeMark)}

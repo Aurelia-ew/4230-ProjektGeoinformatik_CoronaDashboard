@@ -184,6 +184,8 @@ const kantonCodeMapping = Object.fromEntries(
         projection: "EPSG:2056",
         center: [2659632, 1191208],
         zoom: 8.7,
+        minZoom: 7,
+        maxZoom: 10
       }),
     });
     
@@ -364,7 +366,7 @@ useEffect(() => {
         </h4>
         <Box className="info-box">
           {cards.map((card) => (
-            <Card key={card.id} className="info-card">
+            <Card key={card.id} className="info-card" elevation={0}>
               <CardContent className="info-text">
                 <Typography variant="inherit" fontSize={16}>
                   {card.title}
@@ -391,8 +393,7 @@ useEffect(() => {
             fontSize: "13px",
             pointerEvents: "none",
             zIndex: 9999,
-          }}
-        >
+          }}>
           {tooltip.text}
         </div>
       )}

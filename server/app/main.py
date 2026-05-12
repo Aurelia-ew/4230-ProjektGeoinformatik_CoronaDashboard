@@ -247,35 +247,6 @@ async def get_schweiz_verlauf():
             db_pool.putconn(conn)
 
 # -----------------------------
-# ENDPOINT Einwohnerzahlen der Kantone für Sidebar
-# Datenbank: kantone_einwohner
-# -----------------------------
-@app.get("/einwohner")
-async def get_einwohner(kanton: str):
-    conn = None
-    try:
-        conn = db_pool.getconn()
-        cur = conn.cursor()
-
-        query = """
-            SELECT kantonskuerzel, einwohner
-            FROM public.kantone_einwohner
-            WHERE kantonskuerzel = %s
-        """
-
-        cur.execute(query, (kanton,))
-        result = cur.fetchall()
-
-        return [{
-            "kanton": res[0],
-            "einwohner": res[1]
-        }for res in result]
-
-    finally:
-        if conn:
-            db_pool.putconn(conn)
-
-# -----------------------------
 # ENDPOINT Durchschnittscoronazaheln der Kantone für Sidebar
 # Datenbank: durchschnitt_faelle_kanton
 # -----------------------------
@@ -292,7 +263,8 @@ async def get_durchschnitt(kanton: str):
             einwohner,
             total_faelle,
             anzahl_tage,
-            durchschnitt_faelle_pro_tag
+            durchschnitt_faelle_pro_tag,
+            totale_todesfaelle
             FROM public.durchschnitt_faelle_kanton
             WHERE kantonskuerzel = %s
         """
@@ -305,7 +277,8 @@ async def get_durchschnitt(kanton: str):
             "einwohner": res[1],
             "total_faelle": res[2],
             "aufzeichnungstage": res[3],
-            "durchschnitt": res[4]
+            "durchschnitt": res[4],
+            "total_todesfaelle": res[5]
         } for res in result]
 
     finally:

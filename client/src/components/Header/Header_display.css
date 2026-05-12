@@ -7,7 +7,7 @@ header {
   box-sizing: border-box;
   width: 100%;
   max-width: 1900px;
-  border: 1px solid grey;
+  border-bottom: 1px solid grey;
 }
 h1 {
   margin-top: 10px;

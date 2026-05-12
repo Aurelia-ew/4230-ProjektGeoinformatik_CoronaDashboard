@@ -94,18 +94,18 @@ function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschn
               <IconButton aria-label="filter" onClick={handelClick}>
                 <FilterAltOutlinedIcon fontSize="large"/>
               </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}>
-                {kantone.map((item) => (<MenuItem key={item.code} onClick={() => handleSelect(item.code)}>
-                {item.name}
-                </MenuItem>))}
-              </Menu>
             </Tooltip>
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}>
+              {kantone.map((item) => (<MenuItem key={item.code} onClick={() => handleSelect(item.code)}>
+              {item.name}
+              </MenuItem>))}
+            </Menu>
           </div>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Kantonsfläche: {format(flaecheData?.flaeche)} km^2
+            Kantonsfläche: {format(flaecheData?.flaeche)} km<sup>2</sup>
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
             Datenaufnahmetage: {format(durchschnittData?.aufzeichnungstage)}
@@ -120,7 +120,7 @@ function Sidebar({thema, value, kanton, setKanton, chData, coronadata, durchschn
             druchschnittliche Ansteckungen pro Tag: {format(durchschnittData?.durchschnitt)} Personen
           </Typography>
           <Typography sx={{ color: "text.primary", fontSize: 16 }}>
-            Totale Todesfälle: 
+            Totale Todesfälle: {format(durchschnittData?.total_todesfaelle)} Personen
           </Typography>
         </CardContent>
       </Card>

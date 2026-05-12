@@ -7,7 +7,7 @@ footer {
   box-sizing: border-box;
   width: 100%;
   max-width: 1900px;
-  border: 1px solid grey;
+  border-top: 1px solid grey;
 }
 
 .footer-content {
@@ -44,12 +44,6 @@ h3 {
     gap: 20px;
 }
 
-/*.kalender{
-  display: flex;
-  align-items: center;
-  gap: 1;
-}*/
-
 .slider .MuiSlider-mark {
   width: 10px;
   height: 10px;
@@ -57,4 +51,19 @@ h3 {
   background-color: grey;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.kalender {
+  position: relative;
+}
+
+.calendar-button {
+  position: relative;
+}
+
+.calendar-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
 }
