@@ -18,6 +18,8 @@ navbar:
         url: /Funktionen_Sidebar
       - title: Footer
         url: /Funktionen_Footer
+      - title: Anwendungsbeispiele
+        url: /Funktionen_Anwendungsbeispiele
   - title: "Aufbau der Geodateninfrastruktur"
     url: "/Aufbau_GDI"
     children:
