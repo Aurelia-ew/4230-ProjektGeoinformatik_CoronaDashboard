@@ -24,6 +24,7 @@ Zusätzlich werden in der Datenbank weitere Kennzahlen berechnet, darunter tägl
 #### Berechnungen
 * Tägliche Ansteckungen:  
     Die täglichen Neuansteckungen werden aus dem Attribut ncumul_conf berechnet. Dazu wird die Anzahl der Fälle eines Tages mit jener des vorherigen Tages verglichen. Die Differenz ergibt die Anzahl neuer Fälle pro Tag.
+    Falls für den vorherigen Tag kein Wert vorhanden ist, wird stattdessen der zuletzt verfügbare Datensatz mit einem gültigen Wert verwendet.
 
 * Durchschnittliche Ansteckungen pro Tag:  
     Dieser Wert wird berechnet, indem die maximale Anzahl kumulierter Fälle (ncumul_conf am letzten Erfassungstag) durch die Anzahl der Datenerfassungstage dividiert wird.

@@ -18,6 +18,8 @@ Für dieses Projekt wurden insbesondere folgende Attribute verwendet:
 * ncumul_deceased: kumulierte Todesfälle
 * current_hosp: aktuelle Hospitalisierungen
 
+Leider sind nicht immer alle Werte vollständig vorhanden. Besonders an Wochenenden kann es zu Lücken in der Datenerfassung kommen, da nicht an allen Tagen gleich zuverlässig oder regelmässig gemeldet wurde.
+
 #### Hinweis zu den Corona - Daten:
 Die Daten enthalten ausschliesslich gemeldete Fälle. Die tatsächliche Anzahl infizierter Personen dürfte daher höher liegen. Gründe dafür können unter anderem sein, dass infizierte Personen keine Symptome hatten und deshalb nicht getestet wurden oder dass Fälle den zuständigen Behörden nicht gemeldet wurden.
 Auch bei den Todesfällen kann nicht in jedem Fall eindeutig festgestellt werden, ob diese direkt auf eine Corona-Infektion zurückzuführen sind oder ob weitere Ursachen eine Rolle gespielt haben. Ähnliches gilt für die Hospitalisierungen, da nicht immer vollständig nachvollziehbar ist, nach welchen Kriterien die Daten erhoben wurden.

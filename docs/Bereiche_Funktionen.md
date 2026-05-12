@@ -13,3 +13,4 @@ Bereiche:
 - [Karte](./Funktionen_Karte)
 - [Sidebar](./Funktionen_Sidebar)
 - [Footer](./Funktionen_Footer)
+- [Anwendungsbeispiele](./Funktionen_Anwendungsbeispiele.md)

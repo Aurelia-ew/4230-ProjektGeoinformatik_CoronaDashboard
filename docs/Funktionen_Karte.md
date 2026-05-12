@@ -8,7 +8,7 @@ Die Karte zeigt alle Kantone der Schweiz sowie Liechtenstein. Je nach ausgewähl
 
 ![Header_Themen](GIFs/Header_Themen.gif)
 
-Die Farbintensität richtet sich nach der Höhe des jeweiligen Wertes. Dafür wird der gesamte Wertebereich – vom kleinsten bis zum grössten Wert – berechnet und anschliessend in sechs gleich grosse Klassen unterteilt.
+Die Farbintensität richtet sich nach der Höhe des jeweiligen Wertes. Dafür wird der gesamte Wertebereich – vom kleinsten bis zum grössten Wert – berechnet und anschliessend in sechs gleich grosse Klassen unterteilt. Falls für ein bestimmtes Datum keine Daten für einen Kanton vorhanden sind, wird der entsprechende Kanton auf der Karte grau dargestellt.
 
 Durch einen Klick auf einen Kanton kann dieser ausgewählt werden. Die Karte zoomt daraufhin auf den entsprechenden Bereich, und der ausgewählte Kanton wird hervorgehoben.
 
