@@ -1,109 +1,231 @@
 # Corona Dashboard Installationsanleitung
 
-Das Corona Dashboard ist eine webbasierte Geodatenplattform zur Visualisierung und Analyse von Corona-Daten.  
-Für alle Kantone können Zahlen zu Ansteckungen, Hospitalisierungen und Todesfällen analysiert werden. Die Daten lassen sich nach verschiedenen Themen filtern und für bestimmte Zeiträume beziehungsweise Datumsangaben darstellen.
+Das Corona Dashboard ist eine webbasierte Geodatenplattform zur Visualisierung und Analyse von COVID-19-Daten in der Schweiz. Für alle Kantone können Zahlen zu Ansteckungen, Hospitalisierungen und Todesfällen analysiert werden. Die Daten lassen sich nach verschiedenen Themen filtern und für bestimmte Zeiträume beziehungsweise Datumsangaben darstellen. Zusätzlich können die Daten mit nationalen Massnahmen verglichen werden, wodurch Entwicklungen und Zusammenhänge besser analysiert werden können.
 
-## Verwendete Technologien
-### Frontend
+---
+
+# Verwendete Technologien
+
+## Frontend
 
 - React
 - OpenLayers
 - MUI
-- npm
 - Vega Altair
 - HTML
-- Java Script
+- JavaScript
 - CSS
+- npm
 
-Eine detailiere Beschreibund der in Frontend verwendeten Bibliotheken ist auf der GitHub Page unter Frontend zu finden. 
+## Backend
 
-### Backend
 - FastAPI
 - GeoServer
 - PostgreSQL / PostGIS
 - pgAdmin4
+- GeoPandas
+- Pandas
+- Uvicorn
+- ORJSON
+- Psycopg2
+- Pydantic
 
-# Installationen
-Nachfolgend sind die Installationen der einzelnen Komponenten der Webaplikation genauer beschrieben
+---
 
-## Voraussetzungen
-Vorraussetzung damit das Projekt lokal installiert werden kann sind folgende Programme und Technologien;
-- GitHub
+# Unterstützte Versionen
+
+| Technologie | Version |
+| ----------- | ------- |
+| Python      | 3.10.9  |
+| FastAPI     | 0.136.0 |
+| GeoPandas   | 1.1.3   |
+| Pandas      | 3.0.2   |
+| Uvicorn     | 0.45.0  |
+| ORJSON      | 3.11.8  |
+| Psycopg2    | 2.9.10  |
+| Pydantic    | 2.13.3  |
+
+---
+
+# Voraussetzungen
+
+Für die lokale Ausführung werden folgende Programme benötigt:
+
+- Git
 - Node.js + npm
 - Anaconda oder Miniconda
-- Visual Studio Code (optional)
-- PosrgreSQL / Postgis bzw. pgAdmin 4
+- PostgreSQL + PostGIS
+- pgAdmin4
+- Java (für GeoServer)
 
-## Repository klonen
-Falls ein GitHub Account vorhanden ist, kann über folgenden Link das Repository geclont und lokal gespeichert werden: 
-https://github.com/Aurelia-ew/4230-ProjektGeoinformatik_CoronaDashboard
+Optional:
 
-Ansonsten kann das auch über ein Terminal gemacht werden:
+- Visual Studio Code
+
+Bemerkung: Visual Studio Code ist nicht zwingend notwendig. Alle Komponenten können direkt über eine Shell beziehungsweise ein Terminal gestartet werden.
+
+---
+
+# Repository klonen
+
 ```bash
-git clone < https://github.com/Aurelia-ew/4230-ProjektGeoinformatik_CoronaDashboard >
-cd <PROJECT_FOLDER>
-```
-## Database einrichten
-Im Ordner Preprocessing ist ein aktelles Backup der Corona Database zu finden. Diese kann mithilfe des Programms pgAdmin 4 in PortgreSQL implementiert werden.  
-Dazu wird zuerst eine neue Database erstellt. Anschliessend kann über Restore... (Rechtsklick auf die Database) die .backup Datei ausgewählt und importiert werden.
+git clone https://github.com/Aurelia-ew/4230-ProjektGeoinformatik_CoronaDashboard.git
 
-## Geoserver herunterladen
-Für einen Teil der Schnittstellen wird der Geoserver benötigt. 
-Dieser kann unter folgendem Link heruntergeladen werden: 
+cd 4230-ProjektGeoinformatik_CoronaDashboard
+```
+
+Ein GitHub-Account ist dafür nicht notwendig.
+
+---
+
+# Datenbank einrichten
+
+Im Ordner `preprocessing` befindet sich ein aktuelles Backup der Datenbank.
+
+Die Datenbank kann mit `pgAdmin4` importiert werden:
+
+1. Neue Datenbank erstellen
+2. Rechtsklick auf die Datenbank
+3. `Restore...` auswählen
+4. `.backup` Datei auswählen
+5. Import starten
+
+---
+
+# GeoServer einrichten
+
+GeoServer wird für die Bereitstellung der räumlichen Daten verwendet.
+
+Download:
 https://geoserver.org/release/stable/
 
-Der Geoserver kann für mehre Betriebssysteme heruntergeladen werden.
-Je nach dem für welches Betriebssystem der Geoserver heruntergeladen wurde, ist unter nachfolgendem Link eine Installationsanleitung zu finden.  
-https://docs-archive.geoserver.org/stable/en/user/installation/index.html#installation
+Für GeoServer wird Java benötigt.
 
-## WMS auf Geoserver erstellen
-Wenn der Geoserver erfolgreich installiert wurde, geht es nun an die Erstellung des WMS für das Corona Dashboard. 
-Das Dashboard nutzt einen eigens erstellten WMS der die Kantonsflächen als Polygone liefert. Dazu wird die DB kantonsflaechen benötigt.
-Unter folgendem Link ist die Erstellung eines WMS anschaulich beschrieben:  
+Empfohlene Java-Version:
+
+```text
+Java 17 oder höher
+```
+
+Nach der Installation ist GeoServer standardmässig erreichbar unter:
+
+```text
+http://localhost:8080/geoserver
+```
+
+Die Zahl hinter `localhost` beschreibt den verwendeten Port.
+
+---
+
+# WMS erstellen
+
+Im GeoServer muss eine Verbindung zur PostgreSQL/PostGIS-Datenbank erstellt werden.
+
+Dabei wird folgende Tabelle eingebunden:
+
+```text
+kantonsflaechen
+```
+
+Anschliessend wird daraus ein WMS-Layer erstellt, welcher im Frontend verwendet wird.
+
+Dokumentation:
 https://docs.geoserver.org/main/en/user/gettingstarted/postgis-quickstart/
 
-## Backend starten
-In den nachfolgenden Abschnitten wird das Starten des Backends aufgeführt.
+---
 
-### Conda Environment erstellen
-Zuerst wird ein neues Conda Envoronement erstellt, das alle benötigten Bibliotheken beinhaltet.
+# Backend starten
+
+## Conda Environment erstellen
+
 ```bash
 cd server
+
 conda config --add channels conda-forge
-conda create --name coronadashboard python=3.10.9 --file app/requirements.txt
+
+conda create --name coronadashboard python=3.10.9
+
+conda activate coronadashboard
+
+pip install -r app/requirements.txt
 ```
+
+## Datenbankverbindung anpassen
+
+In der Datei:
+
+```text
+server/app/main.py
+```
+
+müssen die eigenen PostgreSQL-Zugangsdaten angepasst werden.
+
 ## Backend ausführen
-Anschliessend kann das Backend mit folgenden Befehlen ausgeführt werden.  
-Bemerkung 1: Damit das Backend gestartet werden kann muss das Terminal im Ordner server geöffnet sein. Wenn das nicht der Fall ist, muss mit cd ... zum Ordner server navigiert werden.  
-Bemerkung 2: Damit das Backend korrekt startet müssen im File main.py unter Datenbankverbindung die eigenen Angaben wie Username und Passwort von PostgreSQL bzw. der Datenbank angegeben werden. 
+
 ```bash
 cd server
+
 conda activate coronadashboard
+
 uvicorn app.main:app --reload
 ```
 
-Das Backend ist jetzt erreichbar unter folgendem Link:
-```bash
+Backend:
+
+```text
 http://localhost:8000
 ```
 
-Hier sind die Endkonten bzw. die Dokumentaion der API zu finden:
-```bash
+API-Dokumentation:
+
+```text
 http://localhost:8000/docs
 ```
 
-## Frontend starten
-Das Frontend kann dann über ein Terminal mit folgenden Befehlen gestartet werden.  
-Bemerkung: Um das Frontend zu starten muss das Terminal beim Ordner client im Repository geöffnet sein.
-Eine andere Option ist im Terminal zu dem Ordner client zu navigieren mit dem Befehl cd [Pfad zum Ordner client]
+---
+
+# Frontend starten
+
 ```bash
 cd client
+
 npm install
+
 npm run dev
 ```
 
-Wenn das Frontend erfolgreich gestartet wurde, ist es unter folgendem Link zu finden:
-```bash
+Frontend:
+
+```text
 http://localhost:5173
 ```
-Bemerkung: die Zahl hinter localhost: ... kann variieren. 
+
+---
+
+# Datenaufbereitung und Analyse
+
+Für die Verarbeitung und Analyse der COVID-19-Daten werden verschiedene Python-Skripte sowie Jupyter-Notebooks verwendet. Dabei werden die Rohdaten bereinigt, analysiert und für die Visualisierung im Dashboard vorbereitet. Die Notebooks dienen zusätzlich zur Erstellung einzelner Diagramme und statistischer Auswertungen.
+
+---
+
+# KI-Unterstützung
+
+Für einzelne Entwicklungs- und Dokumentationsschritte wurde ChatGPT verwendet. Die KI wurde hauptsächlich für technische Erklärungen, Fehlersuche sowie kleinere Unterstützungen bei der Dokumentation eingesetzt. Ebenfalls wurden die Coronamasnahmen mit ChatGPT gesucht, da eine übersicht über alle Massnahmen in der Schweiz nicht verfügbar war
+
+---
+
+# Quellen
+
+## Datenquellen
+
+- Bundesamt für Gesundheit (BAG)
+- Open Data Schweiz
+
+## Technologien
+
+- React
+- FastAPI
+- PostgreSQL
+- PostGIS
+- GeoServer
+- OpenLayers
