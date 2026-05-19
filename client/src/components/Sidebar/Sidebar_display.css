@@ -8,7 +8,7 @@ aside {
 .chart {
     margin-top: 10px;
     width: 100%;
-    min-height: 350px;
+    min-height: 550px;
     flex: 1;
     overflow: hidden;
 }
