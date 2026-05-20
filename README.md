@@ -1,12 +1,16 @@
 # Corona Dashboard Installationsanleitung
 
-Das Corona Dashboard ist eine webbasierte Geodatenplattform zur Visualisierung und Analyse von COVID-19-Daten in der Schweiz. Für alle Kantone können Zahlen zu Ansteckungen, Hospitalisierungen und Todesfällen analysiert werden. Die Daten lassen sich nach verschiedenen Themen filtern und für bestimmte Zeiträume beziehungsweise Datumsangaben darstellen. Zusätzlich können die Daten mit nationalen Massnahmen verglichen werden, wodurch Entwicklungen und Zusammenhänge besser analysiert werden können.
+Das Corona Dashboard ist eine webbasierte Geodatenplattform zur zeitlichen und räumlichen Analyse von COVID-19-Daten in der Schweiz. Die Anwendung ermöglicht die interaktive Visualisierung kantonaler Infektions-, Hospitalisierungs- und Todesfallzahlen über frei definierbare Zeiträume.
+
+Durch die Kombination epidemiologischer Daten mit nationalen Coronamassnahmen können Entwicklungen, Trends und mögliche Zusammenhänge analysiert und verglichen werden. Ziel des Projekts ist die übersichtliche Aufbereitung zeitabhängiger Gesundheitsdaten mithilfe moderner Web- und Geodaten-Technologien.
 
 ---
 
 # Verwendete Technologien
 
 ## Frontend
+
+Das Frontend basiert auf React und dient zur interaktiven Visualisierung der COVID-19-Daten. Für die Darstellung räumlicher Daten und Karten wird OpenLayers verwendet. Diagramme und statistische Visualisierungen werden mit Vega Altair umgesetzt.
 
 - React
 - OpenLayers
@@ -18,6 +22,8 @@ Das Corona Dashboard ist eine webbasierte Geodatenplattform zur Visualisierung u
 - npm
 
 ## Backend
+
+Das Backend basiert auf FastAPI und stellt REST-Endpunkte für die Bereitstellung der COVID-19-Daten bereit. PostgreSQL/PostGIS wird zur Speicherung und räumlichen Verarbeitung der Daten verwendet, während GeoServer Geodaten als WMS-Dienste publiziert.
 
 - FastAPI
 - GeoServer
@@ -80,9 +86,9 @@ Ein GitHub-Account ist dafür nicht notwendig.
 
 # Datenbank einrichten
 
-Im Ordner `preprocessing` befindet sich ein aktuelles Backup der Datenbank.
+Im Ordner `preprocessing` befindet sich ein aktuelles PostgreSQL/PostGIS-Datenbankbackup mit den vorbereiteten COVID-19-Daten sowie den Kantonsgeometrien. Das Backup enthält die bereits vorprozessierten und für das Dashboard benötigten Tabellen.
 
-Die Datenbank kann mit `pgAdmin4` importiert werden:
+Die Datenbank kann entweder über `pgAdmin4` oder alternativ über die Shell mittels `pg_restore` importiert werden.
 
 1. Neue Datenbank erstellen
 2. Rechtsklick auf die Datenbank
@@ -204,13 +210,17 @@ http://localhost:5173
 
 # Datenaufbereitung und Analyse
 
-Für die Verarbeitung und Analyse der COVID-19-Daten werden verschiedene Python-Skripte sowie Jupyter-Notebooks verwendet. Dabei werden die Rohdaten bereinigt, analysiert und für die Visualisierung im Dashboard vorbereitet. Die Notebooks dienen zusätzlich zur Erstellung einzelner Diagramme und statistischer Auswertungen.
+# Datenaufbereitung und Analyse
 
----
+Für die Verarbeitung und Analyse der COVID-19-Daten werden verschiedene Python-Skripte sowie Jupyter-Notebooks verwendet. Dabei werden die Rohdaten bereinigt, analysiert und für die Visualisierung im Dashboard vorbereitet.
+
+Die Jupyter-Notebooks werden für explorative Datenanalysen, statistische Auswertungen sowie zur Erstellung und Überprüfung einzelner Diagramme verwendet. Zusätzlich dienen sie zur Validierung der aufbereiteten COVID-19-Daten vor der Integration in das Dashboard.
+
+## Ein Teil der Notebooks im Ordner `diagramm` wird zur Entwicklung und Analyse der Visualisierungen genutzt.
 
 # KI-Unterstützung
 
-Für einzelne Entwicklungs- und Dokumentationsschritte wurde ChatGPT verwendet. Die KI wurde hauptsächlich für technische Erklärungen, Fehlersuche sowie kleinere Unterstützungen bei der Dokumentation eingesetzt. Ebenfalls wurden die Coronamasnahmen mit ChatGPT gesucht, da eine übersicht über alle Massnahmen in der Schweiz nicht verfügbar war
+Für einzelne Entwicklungs- und Dokumentationsschritte wurde ChatGPT verwendet. Die KI wurde hauptsächlich für technische Erklärungen, Fehlersuche sowie kleinere Unterstützungen bei der Dokumentation eingesetzt. Ebenfalls wurden die Coronamasnahmen mit ChatGPT gesucht, da eine übersicht über alle Massnahmen in der Schweiz nicht verfügbar war.
 
 ---
 
