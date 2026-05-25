@@ -8,12 +8,17 @@ Das Backend des Corona-Dashboards besteht aus PostgreSQL-/PostGIS-Datenbanken so
 Die gesamte Backend-Infrastruktur wurde zunächst lokal auf einem Laptop entwickelt und anschliessend auf einen Raspberry Pi 5 übertragen.
 
 ### Datenbank
-Die Daten werden in PostGIS-Datenbanken gespeichert und mit dem Programm pgAdmin 4 verwaltet. Sämtliche im Projekt verwendeten Daten sind in einzelnen Tabellen organisiert und bilden gemeinsam die Datenbank Corona_DB.
+Die Daten werden in einer PostGIS-Datenbank gespeichert und mit pgAdmin 4 verwaltet. Sämtliche im Projekt verwendeten Daten sind in einzelnen Tabellen organisiert und bilden gemeinsam die Datenbank _Corona_DB_.  
+Zu Beginn bestehen lediglich die Tabellen _corona_data_, _einwohnerzahlen_ und _kantonsflaechen_. Anschliessend werden weitere Tabellen aus bestehenden Datensätzen berechnet und erstellt.  
+Die Tabelle _durchschnitt_faelle_kanton_ entsteht durch die Verknüpfung der Tabellen _corona_data_ und _einwohnerzahlen_. Sie enthält die durchschnittlichen Fallzahlen pro Kanton.  
+Eine weitere berechnete Tabelle ist _schweiz_. Die darin enthaltenen Attribute (siehe Abbildung Tabellenschema) werden aus den Daten der Tabelle _corona_data_ aggregiert und berechnet. Die Tabelle enthält die wichtigsten Kennzahlen für die gesamte Schweiz sowie für Liechtenstein.
 Die wichtigsten Tabellen des Projekts sind:
 * corona_data: enthält die Coronadaten wie Ansteckungen, Todesfälle und Hospitalisierungen.
 * durchschnitt_faelle_kanton: enthält die durchschnittlichen Fallzahlen pro Kanton.
 * kantonsflaechen: enthält die Kantonsgeometrien sowie deren Flächen in km².
-* schweiz: enthält die Kennzahlen für die gesamte Schweiz sowie Liechtenstein.
+* schweiz: enthält aggregierte Kennzahlen für die gesamte Schweiz sowie Liechtenstein.
+
+Die Tabelle _einwohnerzahlen_ wird nach der Verarbeitung nicht mehr benötigt und deshalb am Schluss gelöscht.
 
 Die Beziehungen zwischen den Tabellen werden im folgenden Schema dargestellt:
 

@@ -50,7 +50,7 @@ function Footer({value, setValue, playing, setPlaying, datum, coronadata}) {
   },
   24: {
     title: "25.02.2020: Erster Fall",
-    text: ` - Erster bestätigter COVID-19-Fall in der Schweiz (Kanton Tessin) `
+    text: ` Erster bestätigter COVID-19-Fall in der Schweiz (Kanton Tessin) `
   },
   27: {
     title: "28.02.2020: Erste Massnahmen",
@@ -146,7 +146,7 @@ function Footer({value, setValue, playing, setPlaying, datum, coronadata}) {
   },
   1555: {
     title: "05.05.2024",
-    text: ` Ende der lezten Datenaufzeichung (Kanton Genf, alle anderen haben schon fürher aufgehört alles zur Pandemie zu dokumentieren) `
+    text: ` Ende der letzten Datenaufzeichung (Kanton Genf, alle anderen haben schon fürher aufgehört alles zur Pandemie zu dokumentieren) `
   },
 };
 

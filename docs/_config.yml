@@ -25,11 +25,11 @@ navbar:
     children:
       - title: Daten
         url: /GDI_Daten
+      - title: Recherche und Preprocessing
+        url: /GDI_Recherche_Preprocessing
       - title: Backend
         url: /GDI_Backend
       - title: Frontend
         url: /GDI_Frontend
-      - title: Recherche
-        url: /GDI_Recherche
   - title: "Erweiterungen"
     url: "/Erweiterungen"
