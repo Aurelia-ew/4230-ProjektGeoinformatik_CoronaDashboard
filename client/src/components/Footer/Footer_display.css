@@ -3,7 +3,7 @@ footer {
   align-items: center;
   justify-content: space-between;
   padding: 10px 10px;
-  background: lightcyan;
+  background: rgba(184, 237, 124, 0.7);
   box-sizing: border-box;
   width: 100%;
   max-width: 10000px;

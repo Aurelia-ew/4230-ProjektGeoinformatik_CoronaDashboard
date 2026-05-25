@@ -56,7 +56,7 @@
         }
       },
       "mark": {
-        "color": "purple",
+        "color": "rgb(84, 39, 143)",
         "strokeWidth": 2,
         "type": "line"
       }

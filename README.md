@@ -76,7 +76,6 @@ Bemerkung: Visual Studio Code ist nicht zwingend notwendig. Alle Komponenten kö
 
 ```bash
 git clone https://github.com/Aurelia-ew/4230-ProjektGeoinformatik_CoronaDashboard.git
-
 cd 4230-ProjektGeoinformatik_CoronaDashboard
 ```
 
@@ -90,6 +89,7 @@ Im Ordner `preprocessing` befindet sich ein aktuelles PostgreSQL/PostGIS-Datenba
 
 Die Datenbank kann entweder über `pgAdmin4` oder alternativ über die Shell mittels `pg_restore` importiert werden.
 
+Datenbank einlesen im `pgAdmin4`:
 1. Neue Datenbank erstellen
 2. Rechtsklick auf die Datenbank
 3. `Restore...` auswählen
@@ -100,12 +100,13 @@ Die Datenbank kann entweder über `pgAdmin4` oder alternativ über die Shell mit
 
 # GeoServer einrichten
 
-GeoServer wird für die Bereitstellung der räumlichen Daten verwendet.
-
+GeoServer wird für die Bereitstellung der räumlichen Daten verwendet.  
 Download:
 https://geoserver.org/release/stable/
 
-Für GeoServer wird Java benötigt.
+Für GeoServer wird Java benötigt.  
+Falls kein Java istalliert ist, kann die neuste Version unter folgendem Link heruntergeladen werden:  
+https://adoptium.net/de/temurin/releases
 
 Empfohlene Java-Version:
 
@@ -113,7 +114,14 @@ Empfohlene Java-Version:
 Java 17 oder höher
 ```
 
-Nach der Installation ist GeoServer standardmässig erreichbar unter:
+Gestartet werden kann der geoserver über das File startup.sh. Diese ist im Ordner `bin` zu finden.  
+Mit dem Befehl 
+```bash
+sh startup.sh
+```
+kann der Geoserver gestartet werden.
+
+Nach dem Start ist GeoServer standardmässig erreichbar unter:
 
 ```text
 http://localhost:8080/geoserver
@@ -133,8 +141,8 @@ Dabei wird folgende Tabelle eingebunden:
 kantonsflaechen
 ```
 
-Anschliessend wird daraus ein WMS-Layer erstellt, welcher im Frontend verwendet wird.
-
+Anschliessend wird daraus ein WMS-Layer erstellt, welcher im Frontend verwendet wird.  
+Der Layer kann hanhand der folgenden Dokumentation erstellt werden.  
 Dokumentation:
 https://docs.geoserver.org/main/en/user/gettingstarted/postgis-quickstart/
 
@@ -146,13 +154,9 @@ https://docs.geoserver.org/main/en/user/gettingstarted/postgis-quickstart/
 
 ```bash
 cd server
-
 conda config --add channels conda-forge
-
 conda create --name coronadashboard python=3.10.9
-
 conda activate coronadashboard
-
 pip install -r app/requirements.txt
 ```
 
@@ -170,9 +174,7 @@ müssen die eigenen PostgreSQL-Zugangsdaten angepasst werden.
 
 ```bash
 cd server
-
 conda activate coronadashboard
-
 uvicorn app.main:app --reload
 ```
 
@@ -188,19 +190,28 @@ API-Dokumentation:
 http://localhost:8000/docs
 ```
 
----
+Bemerkung: Damit das Backend gestartet werden kann, muss der PostgreSQL Server laufen. Dieser kann über ein Terminal gestartet werden. 
+Dies kann mit folgemdem Befehl gemacht werden:
+```bash
+sudo launchctl bootstrap system /Library/LaunchDaemons/postgresql-18.plist
+```
+Der Name des Files kann sich je nach PostgreSQL Version ändern. Um den Namen der Datei herauszufinden kann der Befehl
+```bash
+ls -l /Library/LaunchDaemons | grep -i postgres
+```
+ausgeführt werden (getestet nur auf einem MacBook).
 
+---
 # Frontend starten
 
+Um das Frontend zu starten, müssen folgende Befehle ausgeführt werden:
 ```bash
 cd client
-
-npm install
-
+npm install oder npm i
 npm run dev
 ```
 
-Frontend:
+Das Frontend ist dann unter folgendem Link erreichbar:
 
 ```text
 http://localhost:5173
@@ -210,17 +221,15 @@ http://localhost:5173
 
 # Datenaufbereitung und Analyse
 
-# Datenaufbereitung und Analyse
-
 Für die Verarbeitung und Analyse der COVID-19-Daten werden verschiedene Python-Skripte sowie Jupyter-Notebooks verwendet. Dabei werden die Rohdaten bereinigt, analysiert und für die Visualisierung im Dashboard vorbereitet.
 
 Die Jupyter-Notebooks werden für explorative Datenanalysen, statistische Auswertungen sowie zur Erstellung und Überprüfung einzelner Diagramme verwendet. Zusätzlich dienen sie zur Validierung der aufbereiteten COVID-19-Daten vor der Integration in das Dashboard.
 
-## Ein Teil der Notebooks im Ordner `diagramm` wird zur Entwicklung und Analyse der Visualisierungen genutzt.
+Die Jupyternotebooks im Ordner `preprocessing` werden zur Entwicklung der Visualisierungen genutzt.
 
 # KI-Unterstützung
 
-Für einzelne Entwicklungs- und Dokumentationsschritte wurde ChatGPT verwendet. Die KI wurde hauptsächlich für technische Erklärungen, Fehlersuche sowie kleinere Unterstützungen bei der Dokumentation eingesetzt. Ebenfalls wurden die Coronamasnahmen mit ChatGPT gesucht, da eine übersicht über alle Massnahmen in der Schweiz nicht verfügbar war.
+Für einzelne Entwicklungs- und Dokumentationsschritte wurde ChatGPT verwendet. Die KI wurde hauptsächlich für technische Erklärungen, Fehlersuche sowie kleinere Unterstützungen bei der Dokumentation eingesetzt. Ebenfalls wurden die Coronamasnahmen mit ChatGPT gesucht, da eine Übersicht über alle Massnahmen in der Schweiz nicht verfügbar war.
 
 ---
 

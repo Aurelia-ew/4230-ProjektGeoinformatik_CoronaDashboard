@@ -56,7 +56,7 @@
         }
       },
       "mark": {
-        "color": "darkorange",
+        "color": "rgb(166, 54, 3)",
         "strokeWidth": 2,
         "type": "bar"
       }
