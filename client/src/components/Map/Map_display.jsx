@@ -24,6 +24,7 @@ import { register } from "ol/proj/proj4.js";
 import "./Map_display.css";
 
 function MapDisplay({kanton, setKanton, thema, mapData, chData, datum}) {
+  
   const mapRef = useRef(null);
   const olMapRef = useRef(null);
   const [featureLayer, setFeatureLayer] = useState(null);
@@ -32,12 +33,14 @@ function MapDisplay({kanton, setKanton, thema, mapData, chData, datum}) {
   const [tooltip, setTooltip] = useState ({visible:false, x:0, y:0, text: "",});
   const dataCh = chData?.[0]
   
+  // Das Thema vom Header wird auf das entsprechende Attribut aus den Daten gemappt
   const themaAttribut = {
     Ansteckungen: "Ansteckungen", 
     Taegliche_Neuansteckungen: "Taegliche_Neuansteckungen", 
     Hospitalisierungen: "Hospitalisierungen", 
     Todesfaelle: "Todesfaelle",};
   
+  // Definition der Farbskalen für die Klassen pro Thema eine Farbskala
   const colorPalettes = {
   Ansteckungen: [
     "rgb(242, 240, 247)",
@@ -73,6 +76,7 @@ function MapDisplay({kanton, setKanton, thema, mapData, chData, datum}) {
   ],
 };
 
+// Berechnung der Klassengrössen -> (grösster Wert - kleinster Wert) / 6
 const getClassBreaks = (values, classCount = 6) => {
   const cleanValues = values
     .filter(v => v !== null && v !== undefined && !isNaN(v))
@@ -89,6 +93,7 @@ const getClassBreaks = (values, classCount = 6) => {
   }));
 };
 
+// Wenn ein wert vorhanden ist, wird der Kanton in der entsprechenden Farbe eingefärbt (je nach wert und Thema), wenn kein Wert vorhanden ist der Kanton grau
 const Color = (value, classes, thema) => {
   if (value === null || value === undefined || isNaN(value)) {
     return "rgba(220, 220, 220, 0.6)";
@@ -103,48 +108,53 @@ const Color = (value, classes, thema) => {
   return palette[classIndex === -1 ? 0 : classIndex];
 };
 
+  // Kantone und Kantonskürzel verknüpfen
   const kantonNameMapping = {
-  AG: "Aargau",
-  AI: "Appenzell Innerrhoden",
-  AR: "Appenzell Ausserrhoden",
-  BE: "Bern",
-  BL: "Basel-Landschaft",
-  BS: "Basel-Stadt",
-  FR: "Fribourg",
-  GE: "Genève",
-  GL: "Glarus",
-  GR: "Graubünden",
-  JU: "Jura",
-  LU: "Luzern",
-  NE: "Neuchâtel",
-  NW: "Nidwalden",
-  OW: "Obwalden",
-  SG: "St. Gallen",
-  SH: "Schaffhausen",
-  SO: "Solothurn",
-  SZ: "Schwyz",
-  TG: "Thurgau",
-  TI: "Ticino",
-  UR: "Uri",
-  VD: "Vaud",
-  VS: "Valais",
-  ZG: "Zug",
-  ZH: "Zürich",
-  FL: "Liechtenstein"
-};
-const kantonCodeMapping = Object.fromEntries(
-  Object.entries(kantonNameMapping).map(([code, name]) => [name, code])
-);
+    AG: "Aargau",
+    AI: "Appenzell Innerrhoden",
+    AR: "Appenzell Ausserrhoden",
+    BE: "Bern",
+    BL: "Basel-Landschaft",
+    BS: "Basel-Stadt",
+    FR: "Fribourg",
+    GE: "Genève",
+    GL: "Glarus",
+    GR: "Graubünden",
+    JU: "Jura",
+    LU: "Luzern",
+    NE: "Neuchâtel",
+    NW: "Nidwalden",
+    OW: "Obwalden",
+    SG: "St. Gallen",
+    SH: "Schaffhausen",
+    SO: "Solothurn",
+    SZ: "Schwyz",
+    TG: "Thurgau",
+    TI: "Ticino",
+    UR: "Uri",
+    VD: "Vaud",
+    VS: "Valais",
+    ZG: "Zug",
+    ZH: "Zürich",
+    FL: "Liechtenstein"
+  };
+  
+  const kantonCodeMapping = Object.fromEntries(
+    Object.entries(kantonNameMapping).map(([code, name]) => [name, code])
+  );
 
+  // Karte erstellen
   useEffect(() => {
     if (olMapRef.current) return;
 
+    // Projektion definieren
     proj4.defs(
       "EPSG:2056",
       "+proj=somerc +lat_0=46.95240555555556 +lon_0=7.439583333333333 +k_0=1 +x_0=2600000 +y_0=1200000 +ellps=bessel +towgs84=674.374,15.056,405.346,0,0,0,0 +units=m +no_defs"
     );
     register(proj4);
 
+    // TileWMS laden vom Geoserver
     const wmsSource = new TileWMS({
       url: "http://localhost:8080/geoserver/CoronaDashboard/wms",
       params: {
@@ -155,10 +165,12 @@ const kantonCodeMapping = Object.fromEntries(
       crossOrigin: "anonymous",
     });
 
+    // Layer definieren
     const wmsLayer = new TileLayer({
       source: wmsSource,
     });
 
+    // Die Kantone als GeoJSON laden
     const kantonSource = new VectorSource({
       format: new GeoJSON(),
       url:
@@ -167,6 +179,7 @@ const kantonCodeMapping = Object.fromEntries(
         "&outputFormat=application/json&srsname=EPSG:2056",
     });
 
+    // Kantonsflächen mit einem scharzen Rand darstellen
     const kantonLayer = new VectorLayer({
       source: kantonSource,
       style: new Style({
@@ -177,18 +190,20 @@ const kantonCodeMapping = Object.fromEntries(
       }),
     });
 
+    // Karte erstellen, mit der Projektion, der Ausdehnung, der Maximalen und minimalen Ausdehnung (beim Zoomen)
     const map = new Map({
       target: mapRef.current,
       layers: [wmsLayer, kantonLayer],
       view: new View({
         projection: "EPSG:2056",
         center: [2659632, 1191208],
-        zoom:9,
+        zoom:9.4,
         minZoom: 7,
         maxZoom: 10
       }),
     });
-    
+  
+  // Wenn man über die Karte hovert, wird der Name des Kantons neben dem Zeiger dargestellt
   map.on("pointermove", (event) => {
   const feature = map.forEachFeatureAtPixel(
     event.pixel,

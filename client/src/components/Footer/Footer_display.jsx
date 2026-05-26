@@ -12,10 +12,12 @@ import "react-datepicker/dist/react-datepicker.css";
 import "./Footer_display.css";
 
 function Footer({value, setValue, playing, setPlaying, datum, coronadata}) {
-
+  
+  // Reactfunktion für die Popups auf dem Slider, damit dieser sich richtig öffnet
   const [popoverPosition, setPopoverPosition] = useState(null);
   const [activeMark, setActiveMark] = useState(null);
   
+  // Liste mit Marks für die Markierungen auf dem Slider
   const marks = [
   { value: 1, label: 'Start' },     // 01.02.2020
   { value: 24, label: '' },    // 25.02.2020
@@ -43,7 +45,8 @@ function Footer({value, setValue, playing, setPlaying, datum, coronadata}) {
   { value: 1555, label: 'Ende' },  // 05.05.2024
  ];
 
-  const markContent = {
+// Text für die Popups der Marker, wird angezeigt wenn man mit der Maus drüber howert
+const markContent = {
   1: {
     title: "01.02.2020",
     text: ` - Start der Datenaufzeichung im Kanton Genf, Jura, Basel-Landschaft und Tessin `
@@ -152,6 +155,7 @@ function Footer({value, setValue, playing, setPlaying, datum, coronadata}) {
 
 const startDate = new Date("2020-02-01");
 
+// Wandelt das Datum in den Value für den Slider um
 const dateToValue = (dateString) => {
   const selectedDate = new Date(dateString);
   const diffTime = selectedDate - startDate;
@@ -159,14 +163,17 @@ const dateToValue = (dateString) => {
   return diffDays + 1;
 };
 
+// Wird ausgelöst wenn sich das Datum ändert, der neue Wert wird wieder in einen Value umgewandelt und die laufende Animation wird gestopt
 const handleDateChange = (e) => {
   const selectedDate = e.target.value;
   setValue(dateToValue(selectedDate));
   setPlaying(false);
 };
 
+// Speichert das Timeout
 const closeTimerRef = useRef(null);
 
+// schliesst das Pop-Up mit Verzögerung
 const closePopoverDelayed = () => {
   closeTimerRef.current = setTimeout(() => {
     setActiveMark(null);
@@ -174,12 +181,14 @@ const closePopoverDelayed = () => {
   }, 150);
 };
 
+// Verhindert das automatische schliessen des Pop-Up
 const keepPopoverOpen = () => {
   if (closeTimerRef.current) {
     clearTimeout(closeTimerRef.current);
   }
 };
 
+// Definiert wann das Pop-Up geöffnet wird, dass sich der Mauszeiger ändert und wie gross das PopUp ist
 const handleMouseMove = (event) => {
   keepPopoverOpen();
 
@@ -212,7 +221,8 @@ const handleMouseMove = (event) => {
     });
   }
 };
-  
+
+// Wenn die Maus sich weg begegt wird die Funktion, die das Verzögerte Schliessen des Pop-Up's auslöst, ausgeführt
 const handleMouseLeave = () => {
   closePopoverDelayed();
 };
@@ -220,6 +230,7 @@ const handleMouseLeave = () => {
   return (
     <footer >
       <div className="footer-content">
+        {/* Hier wird das Textfeld mit dem Datum und der Kalenderbutton erstellt */}
         <div className="datum">
           <h3> 
             Datum: {new Date(datum).toLocaleDateString('de-DE', {day: '2-digit', month: '2-digit', year: 'numeric'})} 
@@ -242,26 +253,28 @@ const handleMouseLeave = () => {
             />
           </Box>
         </div>
+        {/* Slider erstellen und Marker mit Pop-Up definieren*/}
+        <div className="slider-box">
+          <IconButton onClick={() => setPlaying(!playing)}>
+            {playing ? <PauseIcon fontSize="medium"/> : <PlayArrowIcon fontSize="medium"/>}
+          </IconButton>
 
-      <div className="slider-box">
-        <IconButton onClick={() => setPlaying(!playing)}>
-          {playing ? <PauseIcon fontSize="medium"/> : <PlayArrowIcon fontSize="medium"/>}
-        </IconButton>
-
-        <Box className="slider" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-          <Slider
-            aria-label="Custom marks"
-            min={0}
-            max={coronadata.length - 1}
-            value={value}
-            onChange={(e, newValue) => setValue(newValue)}
-            step={1}
-            valueLabelDisplay="off"
-            marks={marks}
-            color="black"/>
-        </Box>
+          <Box className="slider" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+            <Slider
+              aria-label="Custom marks"
+              min={0}
+              max = {1555} /* -> Fester Wert für den Slider, der sich nicht an die Kantone anpasst*/
+              /*max={coronadata.length - 1} -> so wird der Slider dynamisch an jeden Kanton angepasst. */
+              value={value}
+              onChange={(e, newValue) => setValue(newValue)}
+              step={1}
+              valueLabelDisplay="off"
+              marks={marks}
+              color="black"/>
+          </Box>
         </div>
-       <Popover
+        {/* Definition wann das Pop-Up geöffnet wird und an welcher Position */}
+        <Popover
           open={Boolean(activeMark)}
           anchorReference="anchorPosition"
           anchorPosition={popoverPosition}
@@ -283,8 +296,8 @@ const handleMouseLeave = () => {
             sx: {
               pointerEvents: "auto",
             },
-          }}
-        >
+          }}>
+          {/* definitieren des Pop-Up: Grösse, Schrift, etc. */}
           {activeMark && (
             <Card sx={{ maxWidth: 500 }}>
               <CardContent>

@@ -3,15 +3,15 @@ layout: default
 title: Aufbau GDI - Recherche und Preprocessing
 ---
 
-## Recherche Coronamassnahmen:
+## Recherche Coronamassnahmen
 Die Informationen zu den Massnahmen und Beschlüssen des Bundes wurden mithilfe von Internetrecherchen sowie mit Unterstützung von ChatGPT (Version 5.4) zusammengetragen.  
 Nachfolgend sind die Hauptquellen aufgeführt:
--	Wichtige Entscheidungen Bundesrat:
-[UVEK](https://www.uvek.admin.ch/de/coronavirus-wichtige-entscheide-des-bundesrats)
--	BAG: 
-[Covid-19 Informationen und Massnahmen](https://www.admin.ch/de/nsb?id=78437)
--	Wikipedia:
-[Coronapandemie in der Schweiz](https://de.wikipedia.org/wiki/COVID-19-Pandemie_in_der_Schweiz)
+-	UVEK:
+[Wichtige Entscheidungen Bundesrat](https://www.uvek.admin.ch/de/coronavirus-wichtige-entscheide-des-bundesrats)
+-	Covid-19 Informationen und Massnahmen: 
+[BAG](https://www.admin.ch/de/nsb?id=78437)
+-	Coronapandemie in der Schweiz:
+[Wikipedia](https://de.wikipedia.org/wiki/COVID-19-Pandemie_in_der_Schweiz)
 
 ## Preprocessing
 Die Daten wurden von den im Abschnitt [Daten](./GDI_Daten) beschriebenen Quellen heruntergeladen und anschliessend für die weitere Verarbeitung vorbereitet.

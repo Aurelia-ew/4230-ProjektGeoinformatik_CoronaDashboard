@@ -22,6 +22,7 @@ import "./Header_display.css";
 
 function Header({thema, setThema, info, setInfo, kanton, setKanton}) { 
 
+  // Mappt die Kantonskürzel auf die Namen der Kantone, damit der Zoom auf den ausgewählten Kanton in der Karte funktioniert
   const kantone = [
   { code: "AG", name: "Aargau" },
   { code: "AI", name: "Appenzell Innerrhoden" },
@@ -51,8 +52,11 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
   { code: "ZH", name: "Zürich" },
   { code: "FL", name: "Liechtenstein" }
 ];
+
+  // Reactfunktion für das Öffnen des Easter Eggs
   const [virusOpen, setVirusOpen] = useState(false);
 
+  // Liste mit allen Themen für die Buttons später
   const buttons = [
     {id: "Ansteckungen", label:"Ansteckungen"},
     {id: "Taegliche_Neuansteckungen", label:"Tägliche Neuansteckungen"},
@@ -60,17 +64,21 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
     {id: "Hospitalisierungen", label:"Hospitalisierungen"}
   ]
 
+  // Beim Starten der Webseite oder beim Zurücksetzen auf den Anfang ist das Thema Ansteckungen ausgewählt
   const [activeButton, setActiveButton] = useState("Ansteckungen");
 
   return (
     <header>
+      {/* Bild vom Virus im Header anzeigen. Beim Draufcklicken kommt das Easteregg (weiter unten definiert)*/}
       <img src="public/virus.png" alt="Virus" width="70" height="70"
-      /*style={{cursor: "pointer"}}*/
+      style={{cursor: "pointer"}}
       onClick={() => setVirusOpen(true)}/>
+
+      {/*  Erstellen des Titels und der Buttons zur Themenauswahl*/}
       <div className='titel'>
         <h1>Corona Dashboard</h1>
         <div className="thema">
-              {buttons.map((btn) => (
+              {buttons.map((btn) => ( /* Mapfunktion die über die Liste buttons iterriert und diese erstellt */
                 <Button
                   key={btn.id}
                   onClick={() => {setActiveButton(btn.id); setThema(btn.id);}}
@@ -81,6 +89,7 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
             </div>
       </div>
 
+      {/* Die zwei Buttons auf der Rechten Seite vom Header*/}
       <Stack className="buttons" direction="row" spacing={1}>
         <Tooltip title="Zurück zum Statbildschirm" arrow>
           <IconButton aria-label='home' onClick={() => window.location.reload()}>
@@ -94,6 +103,7 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
           </IconButton>
         </Tooltip>
 
+        {/* Fenster mit den Infos zur Webseite, öffnet sich wenn auf das Infoicon geklickt wird */}
         <Dialog open={info}>
           <DialogTitle>
             <h3>Informationen zur Webseite</h3>
@@ -141,9 +151,10 @@ function Header({thema, setThema, info, setInfo, kanton, setKanton}) {
           </DialogContent>
         </Dialog>
 
+        {/* Fenster öffnet sich wenn man auf das Virusicon glickt */}
         <Dialog open={virusOpen}  maxWidth="md">
           <DialogTitle> 
-            <h3>Cheers und bleibt gesunt :)</h3>
+            <h3>Cheers und bleibt gesund :)</h3>
             <IconButton
               aria-label="close"
               onClick={() => setVirusOpen(false)}
