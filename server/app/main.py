@@ -9,7 +9,7 @@ app = FastAPI()
 # -----------------------------
 origins = [
     "http://localhost",
-    "http://localhost:8080",
+    "http://10.175.27.52:8080",
     "http://localhost:3000",
     "http://localhost:5173",
 ]

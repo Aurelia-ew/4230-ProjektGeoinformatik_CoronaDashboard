@@ -3,8 +3,8 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 5px 5px;
-  background: lightcyan;
-  /*background: rgba(184, 237, 124, 0.7);*/
+  /*background: lightcyan;*/
+  background: rgba(184, 237, 124, 0.7);
   box-sizing: border-box;
   width: 100%;
   max-width: 10000px;

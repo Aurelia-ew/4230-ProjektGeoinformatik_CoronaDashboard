@@ -156,7 +156,7 @@ const Color = (value, classes, thema) => {
 
     // TileWMS laden vom Geoserver
     const wmsSource = new TileWMS({
-      url: "http://localhost:8080/geoserver/CoronaDashboard/wms",
+      url: "http://10.175.27.52:8080/geoserver/CoronaDashboard/wms", // URL fürt zum Geoserver auf dem Raspberry Pi, IP Adresse vom Raspberry kann sich ändern
       params: {
         LAYERS: "CoronaDashboard:kantonsflaechen",
         TILED: true,
@@ -174,7 +174,7 @@ const Color = (value, classes, thema) => {
     const kantonSource = new VectorSource({
       format: new GeoJSON(),
       url:
-        "http://localhost:8080/geoserver/CoronaDashboard/ows?" +
+        "http://10.175.27.52:8080/geoserver/CoronaDashboard/ows?" + // 10.175.27.52: IP Adresse vom Raspberry Pi, kann sich ändern!!!
         "service=WFS&version=1.0.0&request=GetFeature&typeName=CoronaDashboard:kantonsflaechen" +
         "&outputFormat=application/json&srsname=EPSG:2056",
     });
